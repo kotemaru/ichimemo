@@ -1,0 +1,124 @@
+html,body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+body>div {
+	max-width: 320px;
+}
+
+/**
+ * ヘッダー
+ */
+.ui-header {
+    height: 40px!important;
+}
+.ui-header h3.ui-title {
+   margin-top: 3px!important;
+   margin-bottom: 0px!important;
+}
+
+/**
+ * フッター
+ */
+.Navbar .ui-btn .ui-btn-inner {
+	padding-top: 32px !important;
+	padding-bottom: 0px !important;
+}
+.Navbar .ui-btn .ui-icon {
+	width: 32px!important;
+	height: 32px!important;
+	margin-left: -15px !important;
+	box-shadow: none!important;
+	-moz-box-shadow: none!important;
+	-webkit-box-shadow: none!important;
+	-webkit-border-radius: none !important;
+	border-radius: none !important;
+}
+.Navbar .ui-btn .ui-btn-inner .ui-btn-text{
+	font-size: 10px !important;
+}
+
+.tab-map .ui-icon {background: url(/images/location_pin.png) 50% 0 no-repeat; background-size: 32px 32px;}
+.tab-timeline .ui-icon {background: url(/images/clock_time.png) 50% 0 no-repeat; background-size: 32px 32px;}
+.tab-list .ui-icon {background: url(/images/list.png) 50% 0 no-repeat; background-size: 32px 32px;}
+.tab-memo .ui-icon {background: url(/images/edit.png) 50% 0 no-repeat; background-size: 32px 32px;}
+.tab-user .ui-icon {background: url(/images/user.png) 50% 0 no-repeat; background-size: 32px 32px;}
+
+
+/**
+ * input要素画面幅に調整
+ */
+.FullSizeInput {
+	margin-left: 5px;
+	margin-right: 20px;
+}
+.FullSizeInput input, select, textarea, .ui-select {
+	width: 100%!important;
+}
+.ui-input-search {
+	width: 70%!important;
+}
+
+/**
+ * on/offスイッチ右寄せ
+ */
+.FullSizeInput .ui-slider-switch {
+	float:right;
+}
+
+/**
+ * data-icon="submit"のカスタム定義
+ */
+.ui-icon-submit {
+	background: url("/images/icon-submit-w.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0.4);
+}
+
+/**
+ * ユーザ写真のサイズ
+ */
+.UserPhoto {
+	width: 48px;
+	height: 48px;
+}
+
+.Template {
+	display: none;
+}
+/**
+ * リストの左側の写真と顔マーク調整。
+ */
+.ReviewList .ui-link-inherit {
+	min-height: 10px!important;
+	padding-left: 65px!important;	
+	padding-right: 40px!important;	
+}
+.ReviewList .UserPhoto {
+	padding-top: 6px!important;	
+	padding-left: 6px!important;	
+}
+.ReviewList .FaceMark{
+	position: absolute;
+	top:3px;
+	left:3px;
+}
+
+.SpotList .ui-link-inherit {
+	min-height: 10px!important;
+	padding-left: 65px!important;	
+	padding-right: 40px!important;	
+	padding-top: 8px!important;	
+	padding-bottom: 4px!important;	
+}
+.SpotList .UserPhoto {
+	padding-top: 6px!important;	
+	padding-left: 6px!important;	
+}
+.SpotList .FaceMark{
+	position: absolute;
+	top:3px;
+	left:3px;
+}
+
+/*EOF*/

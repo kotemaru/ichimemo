@@ -1,0 +1,93 @@
+<!DOCTYPE html> 
+<html> 
+	<head> 
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta id="viewport" name="viewport"
+		content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+	<title>ここらへん</title> 
+	<!-- This apps Server -->
+	<script src="/app/js/PCookie.js"></script>
+	<script src="/app/js/Jsrpc.js?v=1" ></script>
+	<script src="/stub/org/kotemaru/kokorahen/jsrpc/Kokorahen.js?v=2" ></script>
+	
+	<script>
+console.log(document.cookie);
+PCookie.load();
+var __Login_user = Kokorahen.getLoginUser();
+PCookie.setMaxAge("JSESSIONID",1000000);
+PCookie.save();
+
+if (__Login_user == null) {
+	location.href = "/login.html";
+}
+
+if (location.hash != "" && location.hash != null) {
+	location.href = "/";
+}
+	</script>
+
+
+	<!-- JQuery -->
+	<link rel="stylesheet" href="/jq/jqm/jquery.mobile-1.0b2.css" />
+	<script src="/jq/jquery-1.6.2.min.js"></script>
+	<script src="/jq/jqm/jquery.mobile-1.0b2.js"></script>
+
+	<!-- google map -->
+	<script src="http://maps.google.com/maps/api/js?libraries=geometry&amp;sensor=true"></script>
+
+
+	<!-- This apps -->
+	<link rel="stylesheet" href="/app/css/common.css" />
+	
+	<script src="/app/js/InfoBox.js" ></script>
+	<script src="/app/js/Picasa.js" ></script>
+	<script src="/app/js/Module.js"></script>
+	<script src="/app/js/Page.js"></script>
+
+	<script src="/app/js/Selector.js"></script>
+	<script src="/app/js/Spot.js"></script>
+	<script src="/app/js/Util.js"></script>
+	<script src="/app/js/Login.js"></script>
+	<script src="/app/js/SpotBrief.js"></script>
+
+	<script src="/app/js/page/Map.js"></script>
+	<script src="/app/js/page/SpotInfo.js"></script>
+	<script src="/app/js/page/SpotTags.js"></script>
+	<script src="/app/js/page/ClosedDays.js"></script>
+	<script src="/app/js/page/PicasaAlbum.js"></script>
+	<script src="/app/js/page/Review.js"></script>
+	<script src="/app/js/page/User.js"></script>
+	<script src="/app/js/page/UserConf.js"></script>
+	<script src="/app/js/page/SpotTL.js"></script>
+	<script src="/app/js/page/List.js"></script>
+	<script src="/app/js/page/Timeline.js"></script>
+	<script src="/app/js/page/UserTL.js"></script>
+	<script src="/app/js/page/ReviewInput.js"></script>
+	<script src="/app/js/page/TwitInput.js"></script>
+	<script src="/app/js/page/MemoInput.js"></script>
+
+	<script>
+		$(function(){
+			Module.onload();
+			Page.onload();
+		})
+function updateOrientation() {
+	Map.updateOrientation();
+}
+// Dummys
+Map.updateOrientation = function(){};
+User.setDefaultPhoto = function(){};
+SpotInfo.setDefaultPhoto = function(){};
+
+
+	</script>
+
+
+</head>
+<body
+	onorientationchange="updateOrientation();"
+	onresize="updateOrientation();"
+>
+
+

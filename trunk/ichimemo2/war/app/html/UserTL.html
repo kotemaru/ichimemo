@@ -1,0 +1,48 @@
+<div id="UserTL" data-role="page">
+	<div data-role="header" data-position="fixed">
+		<h1>UserTL</h1>
+		<a data-icon="back" href="javascript:Util.backPage()" data-iconpos="notext"></a>
+	</div>
+	<div data-role="content">
+		<div class="UserBrief">
+			<span class="Thumbnail" ><div><div>
+				<img src="/images/user.png" onerror='User.setDefaultPhoto(this)' />
+			</div></div></span>
+			<div class="Title">NickName</div>
+			<div class="SubTitle">user ID</div>
+			<br clear="all" />
+		</div>
+
+		<div class="FullSizeInput">
+			<textarea class="Comment" readonly=readonly rows=1></textarea>
+		</div>
+
+		<a class="AddFollow" data-role="button" data-iconpos="right" data-icon="plus" 
+			href="javascript:UserTL.addFollow()">
+				このユーザをフォローする
+		</a>
+		<a class="DelFollow" data-role="button" data-iconpos="right" data-icon="delete" 
+			href="javascript:UserTL.delFollow()" >
+				このユーザのフォローを止める
+		</a>
+		
+		<br/>
+		<label>このユーザのレビュー:</label>
+		<div align="center">
+			<input Class="Search" type="search" name="search" value="" style="width:100%;"/>
+		</div>
+
+		<div class="ReviewList" >
+		</div>
+
+	</div>
+	<div data-role="footer"  data-position="fixed" >
+	</div>
+</div>
+
+<style>
+#UserTL .ui-btn-inner {
+	padding-left:4px!important;
+}
+</style>
+

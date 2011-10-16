@@ -1,0 +1,67 @@
+<div id="PicasaAlbum" data-role="dialog" >
+	<div data-role="header" data-position="fixed" data-theme="a">
+		<h3>画像選択</h3>
+		<a class="PicasaAlbumBack" data-icon="back" href="javascript:PicasaAlbum.showAlbums()" data-iconpos="notext"></a>
+	</div>
+	<div data-role="content">
+		<div class="PicasaAlbumDiv">
+			<h4><a href="https://picasaweb.google.com">Picasa</a>アルバム<br/><font size=1>※画像の登録は<a href="https://picasaweb.google.com">Picasa</a>から行ってください。</font></h4>
+			<div></div>
+		</div>
+		<div class="PicasaPhotoDiv">
+			<h4><a href="https://picasaweb.google.com">Picasa</a>写真</h4>
+			<div></div>
+		</div>
+		<div class="PicasaAreatDiv">
+			<h4>Picasa</h4>
+			<div>
+			画像は<a href="https://picasaweb.google.com">Picasa</a>に登録済のものを参照します。
+			Googleユーザを設定してください。
+			<a href="#UserConf">ユーザ設定</a>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<style>
+/**
+ * アルバムのサムネイルは正方形なのでこんなもん。
+ */
+.PicasaAlbumDiv img {
+	width:   96px;
+	height:  96px;
+	padding: 0px;
+	margin:  8px 16px;
+	background: transparent;
+}
+
+
+/**
+ * 写真のサムネイルは幅、高さどちらかが 72px の長方形。
+ * - table-cell で中央寄せ＆余りはhidden。
+ * - base-lineのせいか数px下に余白ができるので line-height で無理矢理補正。
+ */
+.PicasaPhotoDiv > div{
+	background: white;
+}
+.PicasaPhotoDiv > div> span{
+	width:72px;
+	height:72px;
+	display: inline-block;
+	margin: 6px;
+	overflow: hidden;
+}
+.PicasaPhotoDiv > div> span > p {
+	width: 72px;
+	height: 72px!important;
+	line-height: 70%;
+	display: table-cell;
+	padding: 0px;
+	margin: 0px;
+	background: black;
+	text-align: center;
+    vertical-align: middle;
+}
+/*EOF*/
+</style>

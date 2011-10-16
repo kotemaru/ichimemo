@@ -1,0 +1,19 @@
+
+#set ($packagePath = "${packageName.replace('.','/')}")
+#set ($className = "${masterClassDecl.simpleName}")
+
+var ${className} = {};
+
+${className}.__URL = "/classes/${packagePath}/${className}";
+
+#foreach( $method in $masterClassDecl.methods )
+#set ($methodName = "${method.simpleName}")
+#if (${helper.isPublic($method)})
+${className}.${methodName} = function(${helper.getArguments($method)}){
+	return JSRPC.call(${className}.__URL, "${methodName}", arguments);
+}
+${className}.${methodName}Async = function(_callback ${helper.getArgumentsAfter($method)}){
+	return JSRPC.callAsync(${className}.__URL, "${methodName}", arguments);
+}
+#end
+#end

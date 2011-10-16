@@ -1,0 +1,75 @@
+<div id="Review"  data-role="page">
+	<div data-role="header" data-position="fixed">
+		<h1>Review</h1>
+		<a data-icon="back" href="javascript:Util.backPage()" data-iconpos="notext"></a>
+	</div>
+	<div data-role="content">
+		<div class="SpotBrief" onclick="SpotInfo.go()"></div>
+		
+		<p/>
+		評価：<img class="FaceMark" src='/images/face-${appraise}.png' />
+		<span class="FaceMarkText"></span>
+
+		<div class="Comment">コメント</div>
+		<br/>
+		
+		<div class="ui-grid-a">
+			<div class="ui-block-a" >
+				<a data-role="button"	href="javascript:Review.moreUser()" >このレビュアの情報</a>
+			</div>
+			<div class="ui-block-b">
+				<a data-role="button"	href="javascript:Review.moreSpot()" >このスポットの情報</a>
+			</div>
+		</div>
+		<p/>
+	
+		<img class="ThumbnailL" src="/images/noimage.gif" onerror="Util.setNoImage()"/>
+	</div>
+
+	<div data-role="footer" data-position="fixed" ></div>
+</div>
+
+<div class="Template">
+	<ul id="reviewListItem" >
+		<li class="ReviewListItem">
+			<a href='javascript:Review.go(${id})'>
+				<span class="Thumbnail" ><div><div>
+					<img src="${photo}" onerror='SpotInfo.setDefaultPhoto(this)' />
+				</div></div></span>
+				<img class='FaceMark' src='/images/face-${appraise}.png' />
+				<span style='font-size:50%;'>${nickname}@${spotname}</span>
+				<br/><span>${comment}</span>
+			</a>
+		</li>
+	</ul>
+
+</div>
+
+
+
+<style>
+
+/* 横並びボタンの余白削除 */
+#Review .ui-grid-a .ui-btn-inner {
+	padding-left: 0!important;
+	padding-right: 0!important;
+	font-size: 10px;
+}
+
+.ReviewListItem .Thumbnail {
+	margin-left: -56px;
+}
+
+.ThumbnailM {
+	width: 144px;
+	/*height: 144px;*/
+}
+
+.ThumbnailL {
+	width: 288px;
+	/*height: 288px;*/
+}
+
+
+</style>
+

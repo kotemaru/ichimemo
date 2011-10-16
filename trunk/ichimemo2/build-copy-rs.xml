@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+
+<project default="copy-resource" basedir=".">
+
+	<property name="target.jar" value="${basedir}/apt-helper-1.0.jar"/>
+	<property name="source" value="${basedir}/src"/>
+	<property name="classes" value="${basedir}/war/WEB-INF/classes"/>
+	<property name="lib" value="${basedir}/war/WEB-INF/lib"/>
+	<property name="apt_gen" value="${basedir}/.apt_generated"/>
+	
+	<property name="pre" value="${basedir}/pre"/>
+	<property name="pre.source" value="${source}"/>
+	<property name="pre.classes" value="${pre}/classes"/>
+	<property name="pre.apt_gen" value="${pre}/.apt_generated"/>
+
+	<taskdef name="yuicompress"
+		classname="org.kotemaru.yui.YuiCompressTask"
+		classpath="lib/yuicompress-ant-task.jar;lib/yuicompressor-2.4.6.jar" />
+
+
+	<target name="copy-resource">
+		<copy todir="${classes}">
+			<fileset dir="${apt_gen}">
+				<exclude name="**/*.java"/>
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="compress" depends="comp.css,comp.js,comp.beforejs">
+	</target>
+
+	<target name="comp.css">
+		<concat destfile="war/kokorahen/all.css" >
+			<fileset file="war/jq/jqm/jquery.mobile-1.0b2.min.css" />
+			<fileset file="war/css/common.css" />
+			<fileset dir="war/css/modules" />
+		</concat>
+		
+		<yuicompress
+			file="war/kokorahen/all-min.css"
+			verbose="true"
+			type="css"
+			charset="utf-8"
+			column="40"
+		>
+			<fileset file="war/kokorahen/all.css" />
+		</yuicompress>
+		<!--
+		<gzip src="war/kokorahen/all-min.css" zipfile="war/kokorahen/all-min.css.gz"/>
+		-->
+	</target>
+	
+	<target name="comp.js">
+		<concat destfile="war/kokorahen/all.js" >
+			<fileset file="war/jq/jq.raty/js/jquery.raty.min.js" />
+			<fileset file="war/jq/jqm/jquery.mobile-1.0b2.js"/>
+			<fileset file="war/js/InfoBox.js" />
+			<fileset file="war/js/Picasa.js" />
+			<fileset dir="war/js/modules" />
+			<fileset file="war/js/Loader.js" />
+			<fileset file="war/js/onload.js" />
+		</concat>
+			
+		<yuicompress
+			file="war/kokorahen/all-min.js"
+			verbose="true"
+			type="js"
+			charset="utf-8"
+			column="40"
+		>
+			<fileset file="war/kokorahen/all.js" />
+		</yuicompress>
+		<!--
+		<gzip src="war/kokorahen/all-min.js" zipfile="war/kokorahen/all-min.js.gz"/>
+		-->
+	</target>
+	<target name="comp.beforejs">
+		<concat destfile="war/kokorahen/before.js" >
+			<fileset file="war/js/before/PCookie.js" />
+			<fileset file="war/js/before/Jsrpc.js" />
+			<fileset file="war/WEB-INF/classes/org/kotemaru/kokorahen/jsrpc/Kokorahen.js" />
+		</concat>
+			
+		<yuicompress
+			file="war/kokorahen/before-min.js"
+			verbose="true"
+			type="js"
+			charset="utf-8"
+			column="40"
+		>
+			<fileset file="war/kokorahen/before.js" />
+		</yuicompress>
+		<!--
+		<gzip src="war/kokorahen/before-min.js" zipfile="war/kokorahen/before-min.js.gz"/>
+		-->
+	</target>
+
+</project>

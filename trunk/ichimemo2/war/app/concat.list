@@ -1,0 +1,20 @@
+@Content-type: text/html; charset=utf-8
+
+app/html/index-h.html
+app/html/Map.html
+app/html/ClosedDays.html
+app/html/PicasaAlbum.html
+app/html/Review.html
+app/html/SpotInfo.html
+app/html/SpotTL.html
+app/html/SpotTags.html
+app/html/User.html
+app/html/UserConf.html
+app/html/List.html
+app/html/Timeline.html
+app/html/UserTL.html
+app/html/ReviewInput.html
+app/html/TwitInput.html
+app/html/MemoInput.html
+app/html/SpotBrief.html
+app/html/index-f.html

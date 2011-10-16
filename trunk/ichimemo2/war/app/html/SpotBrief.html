@@ -1,0 +1,76 @@
+<div class="Template">
+	
+	<div id="spotBrief" class="SpotBrief" onclick="SpotInfo.go()">
+		<a data-role="button"	data-icon="arrow-r" data-iconpos="notext"></a>
+		<span class="Thumbnail" ><div><div>
+			<img src="/images/Home.png" onerror='SpotInfo.setDefaultPhoto(this)' />
+		</div></div></span>
+		<div class="Title">Title</div>
+		<div class="SubTitle">SubTitle</div>
+		<div class="Distance">999m</div>
+		<br clear="all" />
+	</div>
+
+</div>
+
+<style>
+
+.SpotBrief > a {
+	float: right;
+}
+
+img.Thumbnail {
+	width: 48px;
+	height: 48px;
+	float: left;
+	border: 1px solid black;
+	margin-right: 8px;
+}
+
+.Title {
+	padding-top: 4px;
+}
+.SubTitle {
+	font-size: 70%;
+}
+.Distance {
+	font-size: 70%;
+}
+
+
+span.Thumbnail{
+	left:0;
+
+	width:48px;
+	height:48px;
+	border: 1px solid black;
+	display: inline-block;
+	overflow: hidden;
+	float: left;
+	margin-right: 4px;
+	background-color: black;
+}
+span.Thumbnail > div{
+	width:144px;
+	height:144px;
+	margin-top: -48px;
+	margin-left: -48px;
+	display: block;
+}
+span.Thumbnail > div > div{
+	width:144px;
+	height:144px;
+	display: table-cell;
+	text-align: center;
+   	vertical-align: middle;
+}
+
+span.Thumbnail  img{
+	width: 48px;
+	/*height: 48px*/
+	display: block;
+	margin: auto auto;
+}
+
+</style>
+

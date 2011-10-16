@@ -1,0 +1,51 @@
+<div id="SpotTL" data-role="page"  >
+	<div data-role="header" data-position="fixed" data-theme="a">
+		<h1>SpotTL</h1>
+		<a data-icon="back" href="javascript:Util.backPage()" data-iconpos="notext"></a>
+	</div>
+	<div data-role="content" >
+		<div class="SpotBrief" onclick="SpotInfo.go()"></div>
+
+		<div class="ui-grid-b">
+			<div class="ui-block-a" >
+				<a data-role="button"	href="javascript:SpotTL.newReview()" >レビュー</a>
+			</div>
+			<div class="ui-block-b">
+				<a data-role="button"	href="javascript:SpotTL.newTwit()" >つぶやく</a>
+			</div>
+			<div class="ui-block-c">
+				<a data-role="button"	href="javascript:SpotTL.goMemo()" >メモ</a>
+			</div>
+		</div>
+		<br/>
+		<label>このスポットへのレビュー:</label>
+		<div  data-role="fieldcontain" align="center"> 
+			<fieldset data-type="horizontal" data-role="controlgroup" align="center"> 
+		  		<input type="radio" name="SpotTL-only" value="follow" id="SpotTL-onlyFollow" class="custom" /> 
+				<label for="SpotTL-onlyFollow">フォロー</label> 
+				<input type="radio" name="SpotTL-only" value="all" id="SpotTL-onlyAll" class="custom" checked="checked"/> 
+				<label for="SpotTL-onlyAll">　全体　</label> 
+			</fieldset> 
+		</div>
+		<div align="center">
+			<input class="Search" type="search"  value="" style="width:100%;"/>
+		</div>
+	
+		<div class="ReviewList" >
+		</div>
+	</div>
+
+	<div data-role="footer" data-position="fixed" ></div>
+
+</div>
+
+<style>
+
+/* 横並びボタンの余白削除 */
+#SpotTL .ui-grid-b .ui-btn-inner {
+	padding-left: 0!important;
+	padding-right: 0!important;
+}
+
+</style>
+
