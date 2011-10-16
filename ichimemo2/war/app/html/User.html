@@ -1,0 +1,31 @@
+<div id="User" data-role="page">
+	<div data-role="header" data-position="fixed">
+		<h1>User</h1>
+		<a data-icon="delete" href="javascript:Login.logout()" data-iconpos="notext"></a>
+	</div>
+	<div data-role="content">
+		<div class="UserBrief" onclick="UserConf.go()">
+			<a data-role="button"	data-icon="gear" data-iconpos="notext" href="javascript:UserConf.go()"></a>
+			<span class="Thumbnail" ><div><div>
+				<img src="/images/user.png" onerror='User.setDefaultPhoto(this)' />
+			</div></div></span>
+			<div class="Title">NickName</div>
+			<div class="SubTitle">user ID</div>
+			<br clear="all" />
+		</div>
+
+		<label>あなたのレビューとつぶやき:</label>
+		<div class="ReviewList" >
+		</div>
+
+	</div>
+	<div data-role="footer"  data-position="fixed" >
+	</div>
+</div>
+
+<style>
+
+.UserBrief > a {
+	float: right;
+}
+</style>

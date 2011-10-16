@@ -1,0 +1,28 @@
+<div id="Timeline" data-role="page" >
+	<div data-role="header" data-position="fixed" >
+		<h3>
+			<a href="#" data-role="button" 
+				onclick="SpotTags.open(this,'ジャンル','search')" 
+			>ジャンル</a>
+		</h3>
+	</div>
+	<div data-role="content"  >	
+		<label>最近のレビュー:</label>
+		
+		<div  data-role="fieldcontain" align="center"> 
+			<fieldset data-type="horizontal" data-role="controlgroup"> 
+		  		<input Class="Only" type="radio" name="only" value="follow" id="tlFollowOnly" class="custom" /> 
+				<label for="tlFollowOnly">フォロー</label> 
+				<input Class="Only" type="radio" name="only" value="near" id="tlNearOnly" class="custom" checked="checked"/> 
+				<label for="tlNearOnly">　周辺　</label> 
+			</fieldset> 
+		</div> 
+		<div align="center">
+			<input Class="Search" type="search" name="search" value="" style="width:100%;"/>
+		</div>
+		<div class="ReviewList">
+		</div>
+	</div>
+	<div data-role="footer"  data-position="fixed" >
+	</div>
+</div>

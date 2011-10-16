@@ -1,0 +1,9 @@
+<factorypath>
+    <factorypathentry kind="WKSPJAR" id="/ichimemo2/lib/slim3-gen-1.0.12.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="WKSPJAR" id="/ichimemo2/lib/apt-helper-1.0.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="WKSPJAR" id="/ichimemo2/lib/commons-collections-3.2.1.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="WKSPJAR" id="/ichimemo2/lib/commons-lang-2.4.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="WKSPJAR" id="/ichimemo2/lib/velocity-1.7.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="PLUGIN" id="org.eclipse.jst.ws.annotations.core" enabled="false" runInBatchMode="false"/>
+    <factorypathentry kind="WKSPJAR" id="/ichimemo2/pre/apt-jsrpc.jar" enabled="true" runInBatchMode="false"/>
+</factorypath>

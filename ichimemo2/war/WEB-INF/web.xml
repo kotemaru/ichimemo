@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5"
+>
+
+	<filter>
+		<filter-name>SessionFilter</filter-name>
+		<filter-class>org.kotemaru.kokorahen.servlet.SessionFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>SessionFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<servlet>
+		<servlet-name>Calljava</servlet-name>
+		<servlet-class>org.kotemaru.jsrpc.CalljavaServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Calljava</servlet-name>
+		<url-pattern>/classes/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>Stub</servlet-name>
+		<servlet-class>org.kotemaru.jsrpc.ResourceServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Stub</servlet-name>
+		<url-pattern>/stub/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>Concat</servlet-name>
+		<servlet-class>org.kotemaru.kokorahen.servlet.ConcatServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Concat</servlet-name>
+		<url-pattern>/concat/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>Image</servlet-name>
+		<servlet-class>org.kotemaru.kokorahen.servlet.ImageServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Image</servlet-name>
+		<url-pattern>/image</url-pattern>
+	</servlet-mapping>
+
+	<session-config>
+		<session-timeout>43200</session-timeout>
+	</session-config>
+
+
+	<welcome-file-list>
+		<welcome-file>concat.html</welcome-file>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+
+
+	<security-constraint>
+       <web-resource-collection>
+           <url-pattern>/_ah/*</url-pattern>
+       </web-resource-collection>
+       <auth-constraint>
+           <role-name>admin</role-name>
+       </auth-constraint>
+    </security-constraint>
+
+
+
+</web-app>

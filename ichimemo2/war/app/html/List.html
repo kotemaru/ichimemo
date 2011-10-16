@@ -1,0 +1,68 @@
+<div id="List" data-role="page">
+	<div data-role="header" data-position="fixed">
+		<h3>
+			<a href="#" data-role="button" 
+				onclick="SpotTags.open(this,'ジャンル','search')" 
+			>ジャンル</a>
+		</h3>
+	</div>
+	<div data-role="content">
+		<label>周辺のスポット:</label>
+		
+		<div Class="Radius" data-role="fieldcontain" align="center"> 
+			<fieldset data-type="horizontal" data-role="controlgroup"> 
+		  		<input type="radio" name="radius" value="1" id="listRadius01" /> 
+				<label for="listRadius01">1Km</label> 
+		  		<input type="radio" name="radius" value="3" id="listRadius03" /> 
+				<label for="listRadius03">3Km</label> 
+		  		<input type="radio" name="radius" value="5" id="listRadius05" checked /> 
+				<label for="listRadius05">5Km</label> 
+		  		<input type="radio" name="radius" value="10" id="listRadius10" /> 
+				<label for="listRadius10">10Km</label> 
+		  		<input type="radio" name="radius" value="30" id="listRadius30" /> 
+				<label for="listRadius30">30Km</label> 
+			</fieldset> 
+		</div> 
+		
+		<div align="center">
+			<input class="Search" type="search"  value="" style="width:100%;"/>
+		</div>
+
+		<div class="SpotList">
+			<ul class="Template">
+				<li>
+					<a href='javascript:List.onItemClick(${id})'>
+						<span class="Thumbnail" ><div><div>
+							<img src="${photo}" onerror='SpotInfo.setDefaultPhoto(this)' />
+						</div></div></span>
+						<img class='FaceMark' src='/images/face-${appraise}.png' />
+						<div class="Title">${name}</div>
+						<div class="SubTitle">${address}</div>
+						<div class="Distance">${distance}m</div>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div data-role="footer"  data-position="fixed" >
+	</div>
+</div>
+
+
+<style>
+
+#List .Title {
+	padding-top: 0px;
+}
+
+#List .Radius span.ui-btn-inner {
+	padding: 4px 0px;
+	min-width: 48px;
+	text-align: center;
+}
+
+.SpotList .Thumbnail {
+	margin-left: -56px;
+}
+
+</style>

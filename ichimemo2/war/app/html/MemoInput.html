@@ -1,0 +1,32 @@
+<div id="MemoInput"  data-role="page">
+	<div data-role="header" data-position="fixed">
+		<h1>自分メモ</h1>
+		<a data-icon="back" href="javascript:Util.backPage()" data-iconpos="notext"></a>
+		<a data-icon="submit" href="javascript:MemoInput.write()" data-iconpos="notext"></a>
+	</div>
+	<div data-role="content">
+	<form action="" name="memo">
+		<input name="id" type="hidden"/>
+		<input name="spotId" type="hidden"/>
+		<input name="appraise" type="hidden"/>
+
+		<div class="SpotBrief" onclick="SpotInfo.go()"></div>
+		
+		<div class="FullSizeInput">
+			<textarea name="comment"  cols="100%" rows="10" placeholder="コメント" ></textarea>
+		</div>
+
+		<a data-role="button" data-icon="submit" data-iconpos="right"
+				href="javascript:MemoInput.write()">保存</a>
+		<br/>
+		<div class="ReviewList">
+		</div>
+
+	</form>
+	</div>
+	<div data-role="footer"  data-position="fixed" >
+	</div>
+</div>
+
+
+
