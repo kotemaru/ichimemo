@@ -1,27 +1,986 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<!-- The HTML 4.01 Transitional DOCTYPE declaration-->
-<!-- above set at the top of the file will set     -->
-<!-- the browser's rendering engine into           -->
-<!-- "Quirks Mode". Replacing this declaration     -->
-<!-- with a "Standards Mode" doctype is supported, -->
-<!-- but may lead to some differences in layout.   -->
-
-<html>
-  <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <title>Hello App Engine</title>
-  </head>
-
-  <body>
-    <h1>Hello App Engine!</h1>
+<!DOCTYPE html> 
+<html> 
+	<head> 
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta id="viewport" name="viewport"
+		content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+	<title>ここらへん</title> 
+	<!-- This apps Server -->
+	<script src="/app/js/PCookie.js"></script>
+	<script src="/app/js/Jsrpc.js?v=1" ></script>
+	<script src="/stub/org/kotemaru/kokorahen/jsrpc/Kokorahen.js?v=2" ></script>
 	
-    <table>
-      <tr>
-        <td colspan="2" style="font-weight:bold;">Available Servlets:</td>        
-      </tr>
-      <tr>
-        <td><a href="ichimemo2">Ichimemo2</a></td>
-      </tr>
-    </table>
-  </body>
+	<script>
+console.log(document.cookie);
+PCookie.load();
+var __Login_user = Kokorahen.getLoginUser();
+PCookie.setMaxAge("JSESSIONID",1000000);
+PCookie.save();
+
+if (__Login_user == null) {
+	location.href = "/login.html";
+}
+
+if (location.hash != "" && location.hash != null) {
+	location.href = "/";
+}
+	</script>
+
+
+	<!-- JQuery -->
+	<link rel="stylesheet" href="/jq/jqm/jquery.mobile-1.0b2.css" />
+	<script src="/jq/jquery-1.6.2.min.js"></script>
+	<script src="/jq/jqm/jquery.mobile-1.0b2.js"></script>
+
+	<!-- google map -->
+	<script src="http://maps.google.com/maps/api/js?libraries=geometry&amp;sensor=true"></script>
+
+
+	<!-- This apps -->
+	<link rel="stylesheet" href="/app/css/common.css" />
+	
+	<script src="/app/js/InfoBox.js" ></script>
+	<script src="/app/js/Picasa.js" ></script>
+	<script src="/app/js/Module.js"></script>
+	<script src="/app/js/Page.js"></script>
+
+	<script src="/app/js/Selector.js"></script>
+	<script src="/app/js/Spot.js"></script>
+	<script src="/app/js/Util.js"></script>
+	<script src="/app/js/Login.js"></script>
+
+	<script src="/app/js/page/Map.js"></script>
+	<script src="/app/js/page/SpotInfo.js"></script>
+	<script src="/app/js/page/SpotTags.js"></script>
+	<script src="/app/js/page/ClosedDays.js"></script>
+	<script src="/app/js/page/PicasaAlbum.js"></script>
+	<script src="/app/js/page/Review.js"></script>
+	<script src="/app/js/page/User.js"></script>
+	<script src="/app/js/page/UserConf.js"></script>
+	<script src="/app/js/page/SpotTL.js"></script>
+	<script src="/app/js/page/List.js"></script>
+	<script src="/app/js/page/Timeline.js"></script>
+	<script src="/app/js/page/UserTL.js"></script>
+	<script src="/app/js/page/ReviewInput.js"></script>
+	<script src="/app/js/page/TwitInput.js"></script>
+	<script src="/app/js/page/MemoInput.js"></script>
+	
+	<script src="/app/js/SpotBrief.js"></script>
+
+	<script>
+		$(function(){
+			Module.onload();
+			Page.onload();
+		})
+function updateOrientation() {
+	Map.updateOrientation();
+}
+// Dummys
+Map.updateOrientation = function(){};
+User.setDefaultPhoto = function(){};
+SpotInfo.setDefaultPhoto = function(){};
+
+
+	</script>
+
+
+</head>
+<body
+	onorientationchange="updateOrientation();"
+	onresize="updateOrientation();"
+>
+
+
+
+<div id="Map" data-role="page" >
+	<div data-role="header" data-position="fixed" data-theme="a">
+		<h3>
+			Map
+		</h3>
+		<a href="javascript:Map.setCenterFromGPS()" data-role="button" data-icon="home" data-iconpos="left">今ここ</a>
+<!--
+		<a href="javascript:Map.onMarkerClick()" data-role="button" data-icon="plus" data-iconpos="notext"></a>
+-->
+			<a href="#" data-role="button" class="TagSelectBtn"
+				onclick="SpotTags.open(this,'ジャンル','search')" 
+			>ジャンル</a>
+	</div>
+	<div data-role="content" id="mapCanvas">
+	</div>
+	<div data-role="footer" data-position="fixed" >
+		<div id="navbar" data-role="navbar" data-grid="c" class="Navbar" >
+			<ul>
+				<li><a href="#Map" class="tab-map ui-btn-active" myid="tab-map" data-icon="custom" data-transition="none">Map</a></li>
+				<li><a href="#Timeline" class="tab-timeline" myid="tab-timeline" data-icon="custom" data-transition="none" >TimeLine</a></li>
+				<li><a href="#List" class="tab-list" myid="tab-list" data-icon="custom" data-transition="none" >List</a></li>
+<!--
+				<li><a href="#Memo" class="tab-memo" myid="tab-memo" data-icon="custom" data-transition="none" >Memo</a></li>
+-->
+				<li><a href="#User" class="tab-user" myid="tab-user" data-icon="custom" data-transition="none" >User</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+
+<style>
+
+
+/**
+ * Spotポップアップの１行目(Spot名)
+ */
+.BalloonLine1 {
+	font-size: 16px;
+	font-weight: bold;
+	line-height: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis; /*…の設定*/
+}
+
+/**
+ * Spotポップアップの２行目(住所)
+ */
+.BalloonLine2 {
+	font-size: 10px;
+}
+</style>
+
+<!-- EOF --><div id="ClosedDays" data-role="dialog"   >
+	<div data-role="header" data-position="fixed"  data-theme="a">
+		<h1>定休日</h1>
+	</div>
+	
+	<div data-role="content" >
+	<br/>
+		<ul data-role="listview" id="spotDaysList" >
+		</ul>
+	<br/>
+	</div>
+</div>
+<style>
+/**
+ * 使って無い？
+ */
+.SpotDaysBtn {
+	clear:both;
+	float:right;
+	margin-top:-5px;
+}
+.SpotDaysBtn div,fieldset {
+	margin: 0!important;
+	padding: 0!important;
+}
+.SpotDaysBtn .ui-btn-inner {
+	padding: 3px 1.5em;
+}
+
+</style><div id="List" data-role="page">
+	<div data-role="header" data-position="fixed">
+		<h3>
+			<a href="#" data-role="button" 
+				onclick="SpotTags.open(this,'ジャンル','search')" 
+			>ジャンル</a>
+		</h3>
+	</div>
+	<div data-role="content">
+		<label>周辺のスポット:</label>
+		
+		<div Class="Radius" data-role="fieldcontain" align="center"> 
+			<fieldset data-type="horizontal" data-role="controlgroup"> 
+		  		<input type="radio" name="radius" value="1" id="listRadius01" /> 
+				<label for="listRadius01">1Km</label> 
+		  		<input type="radio" name="radius" value="3" id="listRadius03" /> 
+				<label for="listRadius03">3Km</label> 
+		  		<input type="radio" name="radius" value="5" id="listRadius05" checked /> 
+				<label for="listRadius05">5Km</label> 
+		  		<input type="radio" name="radius" value="10" id="listRadius10" /> 
+				<label for="listRadius10">10Km</label> 
+		  		<input type="radio" name="radius" value="30" id="listRadius30" /> 
+				<label for="listRadius30">30Km</label> 
+			</fieldset> 
+		</div> 
+		
+		<div align="center">
+			<input class="Search" type="search"  value="" style="width:100%;"/>
+		</div>
+
+		<div class="SpotList">
+			<ul class="Template">
+				<li>
+					<a href='javascript:List.onItemClick(${id})'>
+						<span class="Thumbnail" ><div><div>
+							<img src="${photo}" onerror='SpotInfo.setDefaultPhoto(this)' />
+						</div></div></span>
+						<img class='FaceMark' src='/images/face-${appraise}.png' />
+						<div class="Title">${name}</div>
+						<div class="SubTitle">${address}</div>
+						<div class="Distance">${distance}m</div>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div data-role="footer"  data-position="fixed" >
+	</div>
+</div>
+
+
+<style>
+
+#List .Title {
+	padding-top: 0px;
+}
+
+#List .Radius span.ui-btn-inner {
+	padding: 4px 0px;
+	min-width: 48px;
+	text-align: center;
+}
+
+.SpotList .Thumbnail {
+	margin-left: -56px;
+}
+
+</style>
+<div id="MemoInput"  data-role="page">
+	<div data-role="header" data-position="fixed">
+		<h1>自分メモ</h1>
+		<a data-icon="back" href="javascript:Util.backPage()" data-iconpos="notext"></a>
+		<a data-icon="submit" href="javascript:MemoInput.write()" data-iconpos="notext"></a>
+	</div>
+	<div data-role="content">
+	<form action="" name="memo">
+		<input name="id" type="hidden"/>
+		<input name="spotId" type="hidden"/>
+		<input name="appraise" type="hidden"/>
+
+		<div class="SpotBrief" onclick="SpotInfo.go()"></div>
+		
+		<div class="FullSizeInput">
+			<textarea name="comment"  cols="100%" rows="10" placeholder="コメント" ></textarea>
+		</div>
+
+		<a data-role="button" data-icon="submit" data-iconpos="right"
+				href="javascript:MemoInput.write()">保存</a>
+		<br/>
+		<div class="ReviewList">
+		</div>
+
+	</form>
+	</div>
+	<div data-role="footer"  data-position="fixed" >
+	</div>
+</div>
+
+
+
+<div id="PicasaAlbum" data-role="dialog" >
+	<div data-role="header" data-position="fixed" data-theme="a">
+		<h3>画像選択</h3>
+		<a class="PicasaAlbumBack" data-icon="back" href="javascript:PicasaAlbum.showAlbums()" data-iconpos="notext"></a>
+	</div>
+	<div data-role="content">
+		<div class="PicasaAlbumDiv">
+			<h4><a href="https://picasaweb.google.com">Picasa</a>アルバム<br/><font size=1>※画像の登録は<a href="https://picasaweb.google.com">Picasa</a>から行ってください。</font></h4>
+			<div></div>
+		</div>
+		<div class="PicasaPhotoDiv">
+			<h4><a href="https://picasaweb.google.com">Picasa</a>写真</h4>
+			<div></div>
+		</div>
+		<div class="PicasaAreatDiv">
+			<h4>Picasa</h4>
+			<div>
+			画像は<a href="https://picasaweb.google.com">Picasa</a>に登録済のものを参照します。
+			Googleユーザを設定してください。
+			<a href="#UserConf">ユーザ設定</a>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<style>
+/**
+ * アルバムのサムネイルは正方形なのでこんなもん。
+ */
+.PicasaAlbumDiv img {
+	width:   96px;
+	height:  96px;
+	padding: 0px;
+	margin:  8px 16px;
+	background: transparent;
+}
+
+
+/**
+ * 写真のサムネイルは幅、高さどちらかが 72px の長方形。
+ * - table-cell で中央寄せ＆余りはhidden。
+ * - base-lineのせいか数px下に余白ができるので line-height で無理矢理補正。
+ */
+.PicasaPhotoDiv > div{
+	background: white;
+}
+.PicasaPhotoDiv > div> span{
+	width:72px;
+	height:72px;
+	display: inline-block;
+	margin: 6px;
+	overflow: hidden;
+}
+.PicasaPhotoDiv > div> span > p {
+	width: 72px;
+	height: 72px!important;
+	line-height: 70%;
+	display: table-cell;
+	padding: 0px;
+	margin: 0px;
+	background: black;
+	text-align: center;
+    vertical-align: middle;
+}
+/*EOF*/
+</style>
+<div id="Review"  data-role="page">
+	<div data-role="header" data-position="fixed">
+		<h1>Review</h1>
+		<a data-icon="back" href="javascript:Util.backPage()" data-iconpos="notext"></a>
+	</div>
+	<div data-role="content">
+		<div class="SpotBrief" onclick="SpotInfo.go()"></div>
+		
+		<p/>
+		評価：<img class="FaceMark" src='/images/face-${appraise}.png' />
+		<span class="FaceMarkText"></span>
+
+		<div class="Comment">コメント</div>
+		<br/>
+		
+		<div class="ui-grid-a">
+			<div class="ui-block-a" >
+				<a data-role="button"	href="javascript:Review.moreUser()" >このレビュアの情報</a>
+			</div>
+			<div class="ui-block-b">
+				<a data-role="button"	href="javascript:Review.moreSpot()" >このスポットの情報</a>
+			</div>
+		</div>
+		<p/>
+	
+		<img class="ThumbnailL" src="/images/noimage.gif" onerror="Util.setNoImage()"/>
+	</div>
+
+	<div data-role="footer" data-position="fixed" ></div>
+</div>
+
+<div class="Template">
+	<ul id="reviewListItem" >
+		<li class="ReviewListItem">
+			<a href='javascript:Review.go(${id})'>
+				<span class="Thumbnail" ><div><div>
+					<img src="${photo}" onerror='SpotInfo.setDefaultPhoto(this)' />
+				</div></div></span>
+				<img class='FaceMark' src='/images/face-${appraise}.png' />
+				<span style='font-size:50%;'>${nickname}@${spotname}</span>
+				<br/><span>${comment}</span>
+			</a>
+		</li>
+	</ul>
+
+</div>
+
+
+
+<style>
+
+/* 横並びボタンの余白削除 */
+#Review .ui-grid-a .ui-btn-inner {
+	padding-left: 0!important;
+	padding-right: 0!important;
+	font-size: 10px;
+}
+
+.ReviewListItem .Thumbnail {
+	margin-left: -56px;
+}
+
+.ThumbnailM {
+	width: 144px;
+	/*height: 144px;*/
+}
+
+.ThumbnailL {
+	width: 288px;
+	/*height: 288px;*/
+}
+
+
+</style>
+
+<div id="ReviewInput"  data-role="page">
+	<div data-role="header" data-position="fixed">
+		<h1>Review</h1>
+		<a data-icon="back" href="javascript:Util.backPage()" data-iconpos="notext"></a>
+		<a data-icon="submit" href="javascript:ReviewInput.write()" data-iconpos="notext"></a>
+	</div>
+	<div data-role="content">
+	<form action="" name="review">
+		<input name="id" type="hidden"/>
+		<input name="spotId" type="hidden"/>
+		<input name="appraise" type="hidden"/>
+
+		<div class="SpotBrief" onclick="SpotInfo.go()"></div>
+		
+<!--		
+		<div  data-role="fieldcontain" align="center"> 
+			<fieldset data-type="horizontal" data-role="controlgroup" align="center"> 
+		  		<input type="radio" name="only" value="follow" id="ReviewIn-checked" class="custom" checked="checked"/> 
+				<label for="ReviewIn-checked">&nbsp;行った&nbsp;</label> 
+				<input type="radio" name="only" value="near" id="ReviewIn-todo" class="custom"/> 
+				<label for="ReviewIn-todo">行きたい</label> 
+			</fieldset> 
+		</div>
+-->
+		
+		<div class="FullSizeInput">
+			<textarea name="comment"  cols="100%" rows="10" placeholder="コメント" ></textarea>
+		</div>
+
+		<div class="Faces" align="center">
+			<span><img class="FaceMark" src="/images/face-1.png" onclick="ReviewInput.onFaceClick(1)"/></span>
+			<span><img class="FaceMark" src="/images/face-2.png" onclick="ReviewInput.onFaceClick(2)"/></span>
+			<span><img class="FaceMark" src="/images/face-3.png" onclick="ReviewInput.onFaceClick(3)"/></span>
+			<span><img class="FaceMark" src="/images/face-4.png" onclick="ReviewInput.onFaceClick(4)"/></span>
+			<span><img class="FaceMark" src="/images/face-5.png" onclick="ReviewInput.onFaceClick(5)"/></span>
+			<div class="FaceMarkText"></div>
+		</div>
+
+		<div align="center">
+			<img class="ReviewPhoto" border=1 src="/images/noimage.gif" width="144" onclick="PicasaAlbum.go(this)" />
+		</div>
+
+		
+	</form>
+		<a data-role="button" data-icon="submit" data-iconpos="right"
+				href="javascript:ReviewInput.write()">登録</a>
+	</div>
+	<div data-role="footer"  data-position="fixed" >
+	</div>
+</div>
+
+<style>
+#ReviewInput .Faces {
+	margin: 8px;
+	min-height: 32px;
+}
+#ReviewInput .Faces > span {
+	display: inline-block;
+	min-width: 40px;
+	vertical-align: middle;
+	margin: 0px;
+}
+
+</style>
+
+
+
+<div id="SpotInfo" data-role="page" >
+	<div data-role="header" data-position="fixed" data-theme="a" data-add-back-btn="true">
+		<h1>Spot情報</h1>
+		<a data-icon="back" href="javascript:Util.backPage()" data-iconpos="notext"></a>
+		<a data-icon="submit" href="javascript:SpotInfo.write()" data-iconpos="notext"></a>
+	</div>
+	<div data-role="content">
+	<form action="" name="spot">
+		<input name="id" type="hidden"/>
+		<input name="lat" type="hidden"/>
+		<input name="lng" type="hidden"/>
+
+			<table class="PhotoTable">
+				<tr width="1%">
+					<td valign="top">
+						<span class="Thumbnail" ><div><div>
+							<img src="/images/Home.png"
+								onerror='SpotInfo.setDefaultPhoto(this)' 
+								onclick="PicasaAlbum.go(this)" />
+						</div></div></span>
+					</td>
+					<td>
+						<input class="Text" type="text" name="name" placeholder="名前" />
+						<input class="Text" type="text" name="furikana" placeholder="ふりかな" />
+					</td>
+				</tr>
+			</table>
+		
+
+		</div>
+		<div data-role=“fieldcontain”>
+			<label for="tags">タグ:</label>
+				<a id="spotTags" data-role="button"
+					data-iconpos="right" 
+					data-icon="arrow-d"
+					href="#"
+					onclick="SpotTags.open(this,'ジャンル選択(複数可)','form')" 
+				>ジャンル選択(複数可)</a>
+		</div>
+
+		<br/>
+		<div data-role=“fieldcontain”>
+			<label>住所:</label>
+			<div class="FullSizeInput">
+				<input type="text" name="address" placeholder="住所" readonly="readonly"/>
+			</div>
+			<div id="mapCanvas2"><div id="mapCanvas2Mask">タップして補正</div></div>
+			<br/>
+		</div>
+
+
+		<div data-role=“fieldcontain”>
+			<label>営業時間:</label>
+			<table width="100%" cellspacing="0">
+				<tr>
+					<td width="1%">昼</td>
+					<td><select name="timeLunchMin" class="TimeSelector" ></select></td>
+					<td width="1%">〜</td>
+					<td><select name="timeLunchMax" class="TimeSelector" ></select></td>
+				</tr>
+				<tr>
+					<td width="1%">夜</td>
+					<td><select name="timeDinnerMin" class="TimeSelector" ></select></td>
+					<td width="1%">〜</td>
+					<td><select name="timeDinnerMax" class="TimeSelector" ></select></td>
+				</tr>
+				<tr>
+					<td width="1%">休</td>
+					<td colspan="3">
+						<a id="closedDays" data-role="button"
+							data-iconpos="right" 
+							data-icon="arrow-d"
+							href="#"
+							onclick="ClosedDays.open()" >無休</a>
+
+					</td>
+				</tr>
+			</table>
+			<div class="FullSizeInput">
+				<input type="text" name="openHours" placeholder="営業時間注記"/>
+			</div>
+		</div>
+		<div data-role=“fieldcontain”>
+			<label>Email:</label>
+			<div class="FullSizeInput">
+				<input type="email" name="email" placeholder="E-Mail"/>
+			</div>
+		</div>
+		<div data-role=“fieldcontain”>
+			<label>URL:</label>
+			<div class="FullSizeInput">
+				<input type="url" name="url" placeholder="URL"/>
+			</div>
+		</div>
+		<div data-role=“fieldcontain”>
+			<label>備考:</label>
+			<div class="FullSizeInput">
+				<input type="text" name="comment" placeholder="備考"/>
+			</div>
+		</div>
+		
+		<hr/>
+		<a data-role="button" data-icon="submit" data-iconpos="right"
+				href="javascript:SpotInfo.write()">登録</a>
+		<a data-role="button" data-icon="delete" data-iconpos="right"
+				href="javascript:">削除依頼</a>
+	</form>
+	</div>
+
+	<div data-role="footer"  data-position="fixed" >
+	</div>
+
+</div>
+
+
+<style>
+/**
+ * Spot情報内のミニマップ。
+ */
+#mapCanvas2 {
+	width: 270px;
+	height: 200px;
+	margin: 4px auto 4px auto;
+	border: 1px solid black;
+}
+
+/**
+ * マップがイベントを拾わないためのマスク。
+ */
+#mapCanvas2Mask {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 10;
+}
+
+/**
+ * スポット名が幅いっぱいになるように。
+ */
+#SpotInfo  .PhotoTable {
+	width: 100%;
+	padding-right: 20px;
+}
+#SpotInfo  .PhotoTable td {
+	padding:0;
+}
+#SpotInfo  .PhotoTable input.Text {
+	width: 100%!important;
+}
+
+
+
+</style>
+
+
+<div id="SpotTL" data-role="page"  >
+	<div data-role="header" data-position="fixed" data-theme="a">
+		<h1>SpotTL</h1>
+		<a data-icon="back" href="javascript:Util.backPage()" data-iconpos="notext"></a>
+	</div>
+	<div data-role="content" >
+		<div class="SpotBrief" onclick="SpotInfo.go()"></div>
+
+		<div class="ui-grid-b">
+			<div class="ui-block-a" >
+				<a data-role="button"	href="javascript:SpotTL.newReview()" >レビュー</a>
+			</div>
+			<div class="ui-block-b">
+				<a data-role="button"	href="javascript:SpotTL.newTwit()" >つぶやく</a>
+			</div>
+			<div class="ui-block-c">
+				<a data-role="button"	href="javascript:SpotTL.goMemo()" >メモ</a>
+			</div>
+		</div>
+		<br/>
+		<label>このスポットへのレビュー:</label>
+		<div  data-role="fieldcontain" align="center"> 
+			<fieldset data-type="horizontal" data-role="controlgroup" align="center"> 
+		  		<input type="radio" name="SpotTL-only" value="follow" id="SpotTL-onlyFollow" class="custom" /> 
+				<label for="SpotTL-onlyFollow">フォロー</label> 
+				<input type="radio" name="SpotTL-only" value="all" id="SpotTL-onlyAll" class="custom" checked="checked"/> 
+				<label for="SpotTL-onlyAll">　全体　</label> 
+			</fieldset> 
+		</div>
+		<div align="center">
+			<input class="Search" type="search"  value="" style="width:100%;"/>
+		</div>
+	
+		<div class="ReviewList" >
+		</div>
+	</div>
+
+	<div data-role="footer" data-position="fixed" ></div>
+
+</div>
+
+<style>
+
+/* 横並びボタンの余白削除 */
+#SpotTL .ui-grid-b .ui-btn-inner {
+	padding-left: 0!important;
+	padding-right: 0!important;
+}
+
+</style>
+
+<div id="SpotTags" data-role="dialog"  >
+	<div data-role="header"  data-position="fixed"  data-theme="a">
+		<h1>ジャンル</h1>
+	</div>
+	
+	<div data-role="content">
+		<br/>
+		<ul data-role="listview" id="spotTagsList" >
+			<li data-icon="checkbox-on"><a>aaaa</a></li>
+		</ul>
+	<br/>
+	</div>
+</div>
+<div id="Timeline" data-role="page" >
+	<div data-role="header" data-position="fixed" >
+		<h3>
+			<a href="#" data-role="button" 
+				onclick="SpotTags.open(this,'ジャンル','search')" 
+			>ジャンル</a>
+		</h3>
+	</div>
+	<div data-role="content"  >	
+		<label>最近のレビュー:</label>
+		
+		<div  data-role="fieldcontain" align="center"> 
+			<fieldset data-type="horizontal" data-role="controlgroup"> 
+		  		<input Class="Only" type="radio" name="only" value="follow" id="tlFollowOnly" class="custom" /> 
+				<label for="tlFollowOnly">フォロー</label> 
+				<input Class="Only" type="radio" name="only" value="near" id="tlNearOnly" class="custom" checked="checked"/> 
+				<label for="tlNearOnly">　周辺　</label> 
+			</fieldset> 
+		</div> 
+		<div align="center">
+			<input Class="Search" type="search" name="search" value="" style="width:100%;"/>
+		</div>
+		<div class="ReviewList">
+		</div>
+	</div>
+	<div data-role="footer"  data-position="fixed" >
+	</div>
+</div>
+<div id="TwitInput"  data-role="page">
+	<div data-role="header" data-position="fixed">
+		<h1>つぶやく</h1>
+		<a data-icon="back" href="javascript:Util.backPage()" data-iconpos="notext"></a>
+		<a data-icon="submit" href="javascript:TwitInput.write()" data-iconpos="notext"></a>
+	</div>
+	<div data-role="content">
+	<form action="" name="twit">
+		<input name="id" type="hidden"/>
+		<input name="spotId" type="hidden"/>
+		<input name="appraise" type="hidden"/>
+
+		<div class="SpotBrief" onclick="SpotInfo.go()"></div>
+		
+		<div class="FullSizeInput">
+			<textarea name="comment"  cols="100%" rows="10" placeholder="コメント" ></textarea>
+		</div>
+
+		
+	</form>
+		<a data-role="button" data-icon="submit" data-iconpos="right"
+				href="javascript:TwitInput.write()">つぶやく</a>
+	</div>
+
+	<div data-role="footer"  data-position="fixed" >
+	</div>
+
+</div>
+
+<style>
+
+</style>
+
+
+<div id="User" data-role="page">
+	<div data-role="header" data-position="fixed">
+		<h1>User</h1>
+		<a data-icon="delete" href="javascript:Login.logout()" data-iconpos="notext"></a>
+	</div>
+	<div data-role="content">
+		<div class="UserBrief" onclick="UserConf.go()">
+			<a data-role="button"	data-icon="gear" data-iconpos="notext" href="javascript:UserConf.go()"></a>
+			<span class="Thumbnail" ><div><div>
+				<img src="/images/user.png" onerror='User.setDefaultPhoto(this)' />
+			</div></div></span>
+			<div class="Title">NickName</div>
+			<div class="SubTitle">user ID</div>
+			<br clear="all" />
+		</div>
+
+		<label>あなたのレビューとつぶやき:</label>
+		<div class="ReviewList" >
+		</div>
+
+	</div>
+	<div data-role="footer"  data-position="fixed" >
+	</div>
+</div>
+
+<style>
+
+.UserBrief > a {
+	float: right;
+}
+</style>	<div id="UserConf" data-role="page">
+		<div data-role="header" data-position="fixed">
+			<h1>User設定</h1>
+			<a data-icon="back" href="javascript:Util.backPage()" data-iconpos="notext"></a>
+			<a data-icon="submit" href="javascript:UserConf.write()" data-iconpos="notext"></a>
+		</div>
+		<div data-role="content">
+				<form action="" name="userConf">
+					<input  name="userId" type="hidden" readonly="true"/>
+					<span class="Thumbnail" ><div><div>
+						<img src="/images/user.png" 
+							onerror='User.setDefaultPhoto(this)'
+							onclick="PicasaAlbum.go(this)"/>
+					</div></div></span>
+					<br clear="both"/>
+
+					<label ><nobr>Twitterアカウント:</nobr></label><br/>
+					<div class="FullSizeInput">
+						<input  name="twitterUser" type="text" />
+					</div>
+
+					<label ><nobr>Googleアカウント:</nobr></label><br/>
+					<div class="FullSizeInput">
+						<input  name="googleUser" type="text" />
+					</div>
+
+					<label ><nobr>ニックネーム:</nobr></label><br/>
+					<div class="FullSizeInput">
+						<input name="nickname" type="text" />
+					</div>
+
+					<label ><nobr>自己紹介:</nobr></label><br/>
+					<div class="FullSizeInput">
+						<textarea name="comment"  cols="100%" rows="10" placeholder="自己紹介"  ></textarea>
+					</div>
+
+					<label><nobr style="vertical-align:top;">自動でつぶやく:</nobr></label>
+					<div class="FullSizeInput">
+						<select  name="autoTwit" data-role="slider">
+							<option value="false">Off</option>
+							<option value="true">On</option>
+						</select>
+						<br clear="all"/>
+					</div>
+					<br clear="all"/>
+					
+					
+					<label ><nobr>フォローユーザ:</nobr></label><br/>
+					<div id="userFollowList" >
+					</div>
+
+					<hr clear="all"/>
+					<a data-role="button" data-icon="submit" data-iconpos="right"
+						href="javascript:UserConf.write()">登録</a>
+				</form>
+		</div>
+		<div data-role="footer"  data-position="fixed" >
+		</div>
+	</div>
+<div id="UserTL" data-role="page">
+	<div data-role="header" data-position="fixed">
+		<h1>UserTL</h1>
+		<a data-icon="back" href="javascript:Util.backPage()" data-iconpos="notext"></a>
+	</div>
+	<div data-role="content">
+		<div class="UserBrief">
+			<span class="Thumbnail" ><div><div>
+				<img src="/images/user.png" onerror='User.setDefaultPhoto(this)' />
+			</div></div></span>
+			<div class="Title">NickName</div>
+			<div class="SubTitle">user ID</div>
+			<br clear="all" />
+		</div>
+
+		<div class="FullSizeInput">
+			<textarea class="Comment" readonly=readonly rows=1></textarea>
+		</div>
+
+		<a class="AddFollow" data-role="button" data-iconpos="right" data-icon="plus" 
+			href="javascript:UserTL.addFollow()">
+				このユーザをフォローする
+		</a>
+		<a class="DelFollow" data-role="button" data-iconpos="right" data-icon="delete" 
+			href="javascript:UserTL.delFollow()" >
+				このユーザのフォローを止める
+		</a>
+		
+		<br/>
+		<label>このユーザのレビュー:</label>
+		<div align="center">
+			<input Class="Search" type="search" name="search" value="" style="width:100%;"/>
+		</div>
+
+		<div class="ReviewList" >
+		</div>
+
+	</div>
+	<div data-role="footer"  data-position="fixed" >
+	</div>
+</div>
+
+<style>
+#UserTL .ui-btn-inner {
+	padding-left:4px!important;
+}
+</style>
+
+<div class="Template">
+	
+	<div id="spotBrief" class="SpotBrief" onclick="SpotInfo.go()">
+		<a data-role="button"	data-icon="arrow-r" data-iconpos="notext"></a>
+		<span class="Thumbnail" ><div><div>
+			<img src="/images/Home.png" onerror='SpotInfo.setDefaultPhoto(this)' />
+		</div></div></span>
+		<div class="Title">Title</div>
+		<div class="SubTitle">SubTitle</div>
+		<div class="Distance">999m</div>
+		<br clear="all" />
+	</div>
+
+</div>
+
+<style>
+
+.SpotBrief > a {
+	float: right;
+}
+
+img.Thumbnail {
+	width: 48px;
+	height: 48px;
+	float: left;
+	border: 1px solid black;
+	margin-right: 8px;
+}
+
+.Title {
+	padding-top: 4px;
+}
+.SubTitle {
+	font-size: 70%;
+}
+.Distance {
+	font-size: 70%;
+}
+
+
+span.Thumbnail{
+	left:0;
+
+	width:48px;
+	height:48px;
+	border: 1px solid black;
+	display: inline-block;
+	overflow: hidden;
+	float: left;
+	margin-right: 4px;
+	background-color: black;
+}
+span.Thumbnail > div{
+	width:144px;
+	height:144px;
+	margin-top: -48px;
+	margin-left: -48px;
+	display: block;
+}
+span.Thumbnail > div > div{
+	width:144px;
+	height:144px;
+	display: table-cell;
+	text-align: center;
+   	vertical-align: middle;
+}
+
+span.Thumbnail  img{
+	width: 48px;
+	/*height: 48px*/
+	display: block;
+	margin: auto auto;
+}
+
+</style>
+
+
+</body>
 </html>
