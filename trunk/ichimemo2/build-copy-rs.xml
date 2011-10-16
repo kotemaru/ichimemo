@@ -94,5 +94,14 @@
 		<gzip src="war/kokorahen/before-min.js" zipfile="war/kokorahen/before-min.js.gz"/>
 		-->
 	</target>
+	
+	<target name="index.html">
+		<concat destfile="war/index.html" >
+			<fileset file="war/app/html/index-h.html" />
+			<fileset dir="war/app/html/page" includes="*.html" />
+			<fileset file="war/app/html/SpotBrief.html" />
+			<fileset file="war/app/html/index-f.html" />
+		</concat>
+	</target>
 
 </project>
