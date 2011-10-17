@@ -19,7 +19,7 @@ PCookie.setMaxAge("JSESSIONID",1000000);
 PCookie.save();
 
 if (__Login_user == null) {
-	location = "login.html";
+	window.location = "login.html";
 }
 
 if (location.hash != "" && location.hash != null) {
