@@ -15,8 +15,13 @@ body>div {
     height: 40px!important;
 }
 .ui-header h3.ui-title {
+/*
    margin-top: 3px!important;
    margin-bottom: 0px!important;
+*/
+}
+.ui-header .ui-btn-text {
+   font-size: 10px!important;
 }
 
 /**
