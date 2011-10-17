@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
 
-<project default="copy-resource" basedir=".">
+<project default="default" basedir=".">
 
 	<property name="target.jar" value="${basedir}/apt-helper-1.0.jar"/>
 	<property name="source" value="${basedir}/src"/>
@@ -17,12 +17,16 @@
 		classname="org.kotemaru.yui.YuiCompressTask"
 		classpath="lib/yuicompress-ant-task.jar;lib/yuicompressor-2.4.6.jar" />
 
+	<target name="default" depends="copy-resource, index.html" />
 
 	<target name="copy-resource">
 		<copy todir="${classes}">
 			<fileset dir="${apt_gen}">
 				<exclude name="**/*.java"/>
 			</fileset>
+		</copy>
+		<copy todir="${basedir}/war/app/js">
+			<fileset file="${apt_gen}/org/kotemaru/kokorahen/jsrpc/Kokorahen.js" />
 		</copy>
 	</target>
 
@@ -96,7 +100,7 @@
 	</target>
 	
 	<target name="index.html">
-		<concat destfile="war/index.html" >
+		<concat destfile="war/index.html" encoding="utf-8">
 			<fileset file="war/app/html/index-h.html" />
 			<fileset dir="war/app/html/page" includes="*.html" />
 			<fileset file="war/app/html/SpotBrief.html" />

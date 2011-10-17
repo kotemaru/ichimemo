@@ -3,6 +3,7 @@ var List = Page.def(function List(){}, function(Class){
 Class.LIST_DIV = null;
 Class.LIST_ITEM = null;
 Class.RADIUS = "input[name='radius']";
+Class.SORT = "input[name='sort']";
 
 Class.init = function()  {
 	var $page = $(Class.PAGE)
@@ -16,13 +17,20 @@ Class.init = function()  {
 	$(Class.PAGE).find(Class.RADIUS).change(function(ev) {
 		Class.load();
 	});
+	$(Class.PAGE).find(Class.SORT).change(function(ev) {
+		Class.load();
+	});
 
 }
 
 Class.load = function() {
 	var curPos = Map.marker.getPosition();
-	var range = $(Class.PAGE).find(Class.RADIUS).filter(':checked').val()/100;
-	var params =  {
+	var sort = $(Class.PAGE).find(Class.SORT).filter(':checked').val();
+
+	if (sort == "appraise") {
+		$(Class.PAGE).find(".Radius").show();
+		var range = $(Class.PAGE).find(Class.RADIUS).filter(':checked').val()/100;
+		var params =  {
 			tag: SpotTags.getSearchTag(), 
 			limit: Spot.LIMIT,
 			latMin : curPos.lat()-range,
@@ -30,9 +38,14 @@ Class.load = function() {
 			latMax : curPos.lat()+range,
 			lngMax : curPos.lng()+range,
 			search : $(Class.PAGE).find(".Search").val()
-	};
-	params.areas = Class.getAreas(params);
-	Kokorahen.getSpotsAsync(Class.onloadGetSpots, params);
+		};
+		params.areas = Class.getAreas(params);
+		Kokorahen.getSpotsAsync(Class.onloadGetSpots, params);
+	} else { // near
+		$(Class.PAGE).find(".Radius").hide();
+		Kokorahen.listNearSpotAsync(Class.onloadGetSpots,
+			curPos.lat(),curPos.lng(),Spot.LIMIT);
+	}
 }
 
 Class.onloadGetSpots = {
@@ -46,10 +59,10 @@ Class.onloadGetSpots = {
 			spots.push(Spot.getSpot(list[i]));
 		}
 		
-		spots.sort(function(a,b){
-			if (a._distance == b._distance) return 0;
-			return (a._distance > b._distance) ? 1 : -1;
-		});
+		//spots.sort(function(a,b){
+		//	if (a._distance == b._distance) return 0;
+		//	return (a._distance > b._distance) ? 1 : -1;
+		//});
 		Class.listview(spots);
 	}
 }

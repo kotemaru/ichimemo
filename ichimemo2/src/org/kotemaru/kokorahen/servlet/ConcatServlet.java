@@ -24,7 +24,7 @@ public class ConcatServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		try {
-		String path = req.getPathInfo().replaceFirst("^/", "");
+		String path = req.getPathInfo().replaceFirst("^/", "app/");
 
 		if (!path.endsWith(".list")) {
 			resp.setStatus(404);
