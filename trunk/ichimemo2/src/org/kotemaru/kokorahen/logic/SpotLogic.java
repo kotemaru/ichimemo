@@ -111,12 +111,15 @@ public class SpotLogic  {
 	}
 
 	public static String toArea(double lat, double lng) {
+		return toArea1k(lat, lng);
+	}
+	public static String toArea1k(double lat, double lng) {
 		// 1K
 		double lat2 = Math.floor(lat*100)/100;
 		double lng2 = Math.floor(lng*100)/100;
 		return String.format("%06.2f,%06.2f", lat2, lng2);
 	}
-	
+
 	public static String toArea10m(double lat, double lng) {
 		double lat4 = Math.floor(lat*10000)/10000;
 		double lng4 = Math.floor(lng*10000)/10000;
@@ -335,61 +338,94 @@ public class SpotLogic  {
 		}
 	}
 
-	/*
+	
 	public List<SpotModel> listNearSpot(double lat, double lng, int limit){
-		SpotModelMeta e = SpotModelMeta.get();
-		ModelQuery q = Datastore.query(e);
-		return q.asList();
+		return listNear100mSpot(lat, lng, limit);
 	}
-	private List<SpotModel> listNear100Spot(double lat, double lng, int limit){
-		// 100m area NW point.
-		double lat3 = Math.floor(lat*1000)/1000;
-		double lng3 = Math.floor(lng*1000)/1000;
-
-		// 100m area center point
-		double latCenter = lat3+0.005;
-		double lngCenter = lng3+0.005;
-
-		// 策的半径決定。
-		double yrange = (lat>latCenter)
-			? (lat - latCenter +0.005)
-			: (latCenter - lat +0.005);
-
-		double xrange = (lng>lngCenter)
-			? (lng - lngCenter +0.005)
-			: (lngCenter - lng +0.005);
-
-		double range = Math.min(xrange, yrange);
-
-		// 現在値を中心とする策的半径内の４ブロック。
-		double yr =  (lat>latCenter)? 0.005 : -0.005;
-		double xr =  (lng>lngCenter)? 0.005 : -0.005;
+	private static class DistComparator implements Comparator<SpotModel> {
+		public int compare(SpotModel a, SpotModel b) {
+			return a.getDistance()>b.getDistance()?1:-1;
+		}
+	};
+	
+	private List<SpotModel> listNear100mSpot(double lat, double lng, int limit){
+	
+		// 現在値を中心とする策的半径内の3x3ブロック。
+		final double r100m = 0.001;
 		String[] areas = new String[]{
-		 	toArea100m(lat,    lng),
-		 	toArea100m(lat+yr, lng),
-		 	toArea100m(lat,    lng+xr),
-		 	toArea100m(lat+yr, lng+xr)
+			toArea100m(lat, lng),
+			
+		 	toArea100m(lat-r100m, lng-r100m),
+		 	toArea100m(lat-r100m, lng+r100m),
+		 	toArea100m(lat+r100m, lng-r100m),
+		 	toArea100m(lat+r100m, lng+r100m),
+		 	
+		 	toArea100m(lat-r100m, lng),
+		 	toArea100m(lat      , lng+r100m),
+		 	toArea100m(lat+r100m, lng),
+		 	toArea100m(lat      , lng+r100m),
+		 	toArea100m(lat, lng),
 		};
 
-		int remian = limit;
+		List<SpotModel> list = new ArrayList<SpotModel>(32);
 		for (int i=0; i<areas.length; i++) {
-			remain = takeSpots(list, areas[0], lat, lng, range, remain);
-
+			takeSpots(list, areas[i], lat, lng);
 		}
+		if (list.size() < limit) {
+			return listNear1kSpot(lat, lng, limit, list);
+		}
+		
+		Collections.sort(list, new DistComparator());
+		if (list.size()>limit) {
+			return list.subList(0, limit);
+		}
+		return list;
+	}
+	private List<SpotModel> listNear1kSpot(double lat, double lng, int limit,
+			List<SpotModel> list) {
+		
+		// 現在値を中心とする策的半径内の2x2ブロック。
+		final double r500m = 0.005;
+		String[] areas = new String[]{
+		 	toArea1k(lat-r500m, lng-r500m),
+		 	toArea1k(lat-r500m, lng+r500m),
+		 	toArea1k(lat+r500m, lng-r500m),
+		 	toArea1k(lat+r500m, lng+r500m),
+		};
 
-		int n = takeSpots(areas[0], limit);
-		n = takeSpots(areas[1], n);
-		n = takeSpots(areas[2], n);
-		n = takeSpots(areas[3], n);
+		for (int i=0; i<areas.length; i++) {
+			takeSpots(list, areas[i], lat, lng);
+		}
+		
+		Comparator comp = new Comparator<SpotModel>() {
+			public int compare(SpotModel a, SpotModel b) {
+				return a.getDistance()>b.getDistance()?-1:1;
+			}
+		};
+		Collections.sort(list, new DistComparator());
+		if (list.size()>limit) {
+			return list.subList(0, limit);
+		}
+		return list;
+	}
 
+	public void takeSpots(List<SpotModel> list, String area,
+			double lat, double lng){
 		SpotModelMeta e = SpotModelMeta.get();
 		ModelQuery q = Datastore.query(e);
-	
-		return q.asList();
+		q.filter(e.areas.equal(area));
+		q.limit(999);
+		Iterator<SpotModel> ite = q.asIterator();
+		while (ite.hasNext()) {
+			SpotModel model = ite.next();
+			double latR = lat-model.getLat();
+			double lngR = lng-model.getLng();
+			double dist = Math.sqrt(latR*latR + lngR*lngR);
+			model.setDistance(dist);
+			list.add(model);
+		}
 	}
-*/
-	
-	
+
 	
 	
 	// for debug

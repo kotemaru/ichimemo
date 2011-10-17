@@ -39,7 +39,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Concat</servlet-name>
-		<url-pattern>/concat/*</url-pattern>
+		<url-pattern>/*</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
@@ -57,8 +57,8 @@
 
 
 	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
 		<welcome-file>concat.html</welcome-file>
+		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
 
 

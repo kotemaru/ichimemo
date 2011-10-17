@@ -12,7 +12,11 @@ JSRPC.toParams = function(args, offset) {
 
 JSRPC.error = function(callback, msg) {
 	if (callback == null || callback.fail == null) {
-		alert(msg.stack);
+		if (msg.stack) {
+			alert(msg.stack);
+		} else {
+			alert(msg);
+		}
 	} else {
 		callback.fail(msg);
 	}

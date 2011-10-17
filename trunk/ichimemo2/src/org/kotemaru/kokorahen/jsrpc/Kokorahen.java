@@ -215,6 +215,9 @@ System.out.println("checkLogin:"+curId+":"+id);
 	public List<SpotModel> getSpots(Map map){
 		return spotLogic.listSpot(map);
 	}
+	public List<SpotModel> listNearSpot(Double lat, Double lng, Long limit){
+		return spotLogic.listNearSpot(lat, lng, limit.intValue());
+	}
 	public List<SpotModel> listFollowSpot(Map map){
 		return spotLogic.listFollowSpot2(map);
 	}

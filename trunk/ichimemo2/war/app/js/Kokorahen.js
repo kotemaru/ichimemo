@@ -88,6 +88,12 @@ Kokorahen.listFollowSpot = function(map){
 Kokorahen.listFollowSpotAsync = function(_callback ,map){
 	return JSRPC.callAsync(Kokorahen.__URL, "listFollowSpot", arguments);
 }
+Kokorahen.listNearSpot = function(lat,lng,limit){
+	return JSRPC.call(Kokorahen.__URL, "listNearSpot", arguments);
+}
+Kokorahen.listNearSpotAsync = function(_callback ,lat,lng,limit){
+	return JSRPC.callAsync(Kokorahen.__URL, "listNearSpot", arguments);
+}
 Kokorahen.listReview = function(spotId,follows){
 	return JSRPC.call(Kokorahen.__URL, "listReview", arguments);
 }
