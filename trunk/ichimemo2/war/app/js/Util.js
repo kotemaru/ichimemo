@@ -23,10 +23,13 @@ Class.setNavbar = function(id) {
 }
 
 Class.changePage = function(id) {
+	var title = $.mobile.activePage.find("h1").text();
+
 	$.mobile.showPageLoadingMsg();
 	setTimeout(function(){
 		//jqt.goTo(Spot.ID, "slideleft");
 		$.mobile.changePage(id, "slide");
+		$.mobile.activePage.find("a[data-icon='back'] .ui-btn-text").text(title);
 	},100);
 }
 Class.backPage = function() {

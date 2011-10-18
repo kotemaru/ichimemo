@@ -12,10 +12,7 @@ Page.onload = function() {
 }
 
 Page.go = function(m) {
-	$.mobile.showPageLoadingMsg();
-	setTimeout(function(){
-		$.mobile.changePage(m.ID, "slide");
-	},100);
+	Util.changePage(m.ID);
 }
 
 Page.init = function(m) {

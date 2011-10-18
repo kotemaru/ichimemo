@@ -1,7 +1,7 @@
 <div id="UserTL" data-role="page">
 	<div data-role="header" data-position="fixed">
-		<h1>UserTL</h1>
-		<a data-icon="back" href="javascript:Util.backPage()" data-iconpos="notext"></a>
+		<h1>レビュア</h1>
+		<a data-icon="back" href="javascript:Util.backPage()" data-iconpos="left"></a>
 	</div>
 	<div data-role="content">
 		<div class="UserBrief">
@@ -19,15 +19,15 @@
 
 		<a class="AddFollow" data-role="button" data-iconpos="right" data-icon="plus" 
 			href="javascript:UserTL.addFollow()">
-				このユーザをフォローする
+				このレビュアをフォローする
 		</a>
 		<a class="DelFollow" data-role="button" data-iconpos="right" data-icon="delete" 
 			href="javascript:UserTL.delFollow()" >
-				このユーザのフォローを止める
+				このレビュアのフォローを止める
 		</a>
 		
 		<br/>
-		<label>このユーザのレビュー:</label>
+		<label>このレビュアのレビュー:</label>
 		<div align="center">
 			<input Class="Search" type="search" name="search" value="" style="width:100%;"/>
 		</div>
@@ -41,8 +41,5 @@
 </div>
 
 <style>
-#UserTL .ui-btn-inner {
-	padding-left:4px!important;
-}
 </style>
 

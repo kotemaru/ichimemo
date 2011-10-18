@@ -79,6 +79,9 @@ body>div {
 .ui-icon-submit {
 	background: url("/images/icon-submit-w.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0.4);
 }
+.ui-icon-filter {
+	background: url("/images/icon-filter-w.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0.4);
+}
 
 /**
  * ユーザ写真のサイズ

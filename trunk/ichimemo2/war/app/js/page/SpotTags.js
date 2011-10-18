@@ -76,8 +76,14 @@ Class.setFormTags = function(list) {
 Class.setLabel = function(btn, list, placeMsg) {
 	var label = list.join(",");
 	if (label == "") label = placeMsg;
-	var span = $(".ui-btn-text",$(btn));
-	span.text(label);
+	$(btn).each(function(){
+		var span = $(this).find(".ui-btn-text");
+		if (span.length > 0) {
+			span.text(label);
+		} else {
+			$(this).text(label);
+		}
+	});
 }
 
 Class.getSearchTag = function() {
