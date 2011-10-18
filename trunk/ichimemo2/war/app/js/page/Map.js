@@ -89,6 +89,10 @@ Class.updateOrientation = function(ev) {
 }
 
 Class.onBeforeShow = function(ev) {
+	if (Login.user == null) {
+		Util.changePage("#Login");
+	}
+	
 	Class.onTagChange();
 	//Spot.visible(Class.LIMIT);
 	Util.setNavbar(Class.PAGE);

@@ -12,19 +12,21 @@
 	<script src="app/js/Kokorahen.js?v=2" ></script>
 	
 	<script>
+
 console.log(document.cookie);
 PCookie.load();
 var __Login_user = Kokorahen.getLoginUser();
 PCookie.setMaxAge("JSESSIONID",1000000);
 PCookie.save();
-
+/*
 if (__Login_user == null) {
 	window.location = "login.html";
 }
-
+*/
 if (location.hash != "" && location.hash != null) {
 	location.href = "/";
 }
+
 	</script>
 
 
@@ -50,6 +52,7 @@ if (location.hash != "" && location.hash != null) {
 	<script src="app/js/Util.js"></script>
 	<script src="app/js/Login.js"></script>
 
+	<script src="app/js/page/Top.js"></script>
 	<script src="app/js/page/Map.js"></script>
 	<script src="app/js/page/SpotInfo.js"></script>
 	<script src="app/js/page/SpotTags.js"></script>
