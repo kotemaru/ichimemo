@@ -369,7 +369,7 @@ public class SpotLogic  {
 
 		List<SpotModel> list = new ArrayList<SpotModel>(32);
 		for (int i=0; i<areas.length; i++) {
-			takeSpots(list, areas[i], lat, lng);
+			takeSpots(list, areas[i], lat, lng, null);
 		}
 		if (list.size() < limit) {
 			return listNear1kSpot(lat, lng, limit, list);
@@ -383,6 +383,12 @@ public class SpotLogic  {
 	}
 	private List<SpotModel> listNear1kSpot(double lat, double lng, int limit,
 			List<SpotModel> list) {
+
+		HashSet<Long> exists = new HashSet<Long>(list.size());
+		for (SpotModel model : list) {
+			exists.add(model.getId());
+		}
+	
 		
 		// 現在値を中心とする策的半径内の2x2ブロック。
 		final double r500m = 0.005;
@@ -394,14 +400,9 @@ public class SpotLogic  {
 		};
 
 		for (int i=0; i<areas.length; i++) {
-			takeSpots(list, areas[i], lat, lng);
+			takeSpots(list, areas[i], lat, lng, exists);
 		}
 		
-		Comparator comp = new Comparator<SpotModel>() {
-			public int compare(SpotModel a, SpotModel b) {
-				return a.getDistance()>b.getDistance()?-1:1;
-			}
-		};
 		Collections.sort(list, new DistComparator());
 		if (list.size()>limit) {
 			return list.subList(0, limit);
@@ -410,7 +411,7 @@ public class SpotLogic  {
 	}
 
 	public void takeSpots(List<SpotModel> list, String area,
-			double lat, double lng){
+			double lat, double lng, HashSet<Long> exists){
 		SpotModelMeta e = SpotModelMeta.get();
 		ModelQuery q = Datastore.query(e);
 		q.filter(e.areas.equal(area));
@@ -418,6 +419,10 @@ public class SpotLogic  {
 		Iterator<SpotModel> ite = q.asIterator();
 		while (ite.hasNext()) {
 			SpotModel model = ite.next();
+			if (exists != null && exists.contains(model.getId()) ) {
+				continue;
+			}
+			
 			double latR = lat-model.getLat();
 			double lngR = lng-model.getLng();
 			double dist = Math.sqrt(latR*latR + lngR*lngR);

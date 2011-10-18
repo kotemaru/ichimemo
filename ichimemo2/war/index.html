@@ -12,19 +12,21 @@
 	<script src="app/js/Kokorahen.js?v=2" ></script>
 	
 	<script>
+
 console.log(document.cookie);
 PCookie.load();
 var __Login_user = Kokorahen.getLoginUser();
 PCookie.setMaxAge("JSESSIONID",1000000);
 PCookie.save();
-
+/*
 if (__Login_user == null) {
 	window.location = "login.html";
 }
-
+*/
 if (location.hash != "" && location.hash != null) {
 	location.href = "/";
 }
+
 	</script>
 
 
@@ -50,6 +52,7 @@ if (location.hash != "" && location.hash != null) {
 	<script src="app/js/Util.js"></script>
 	<script src="app/js/Login.js"></script>
 
+	<script src="app/js/page/Top.js"></script>
 	<script src="app/js/page/Map.js"></script>
 	<script src="app/js/page/SpotInfo.js"></script>
 	<script src="app/js/page/SpotTags.js"></script>
@@ -93,59 +96,9 @@ SpotInfo.setDefaultPhoto = function(){};
 
 
 
-<div id="Map" data-role="page" >
-	<div data-role="header" data-position="fixed" data-theme="a">
-		<h3>地図</h3>
-		<a href="javascript:Map.setCenterFromGPS()" data-role="button" data-icon="home" data-iconpos="left">今ここ</a>
-<!--
-		<a href="javascript:Map.onMarkerClick()" data-role="button" data-icon="plus" data-iconpos="notext"></a>
--->
-			<a href="#" data-role="button" class="TagSelectBtn"
-				onclick="SpotTags.open(this,'ジャンル','search')" 
-			>ジャンル</a>
-	</div>
-	<div data-role="content" id="mapCanvas">
-	</div>
-	<div data-role="footer" data-position="fixed" >
-		<div id="navbar" data-role="navbar" data-grid="c" class="Navbar" >
-			<ul>
-				<li><a href="#Map" class="tab-map ui-btn-active" myid="tab-map" data-icon="custom" data-transition="none">Map</a></li>
-				<li><a href="#Timeline" class="tab-timeline" myid="tab-timeline" data-icon="custom" data-transition="none" >TimeLine</a></li>
-				<li><a href="#List" class="tab-list" myid="tab-list" data-icon="custom" data-transition="none" >List</a></li>
-<!--
-				<li><a href="#Memo" class="tab-memo" myid="tab-memo" data-icon="custom" data-transition="none" >Memo</a></li>
--->
-				<li><a href="#User" class="tab-user" myid="tab-user" data-icon="custom" data-transition="none" >User</a></li>
-			</ul>
-		</div>
-	</div>
+<div id="Top" data-role="page" >
 </div>
-
-
-<style>
-
-
-/**
- * Spotポップアップの１行目(Spot名)
- */
-.BalloonLine1 {
-	font-size: 16px;
-	font-weight: bold;
-	line-height: 100%;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis; /*…の設定*/
-}
-
-/**
- * Spotポップアップの２行目(住所)
- */
-.BalloonLine2 {
-	font-size: 10px;
-}
-</style>
-
-<!-- EOF --><div id="ClosedDays" data-role="dialog"   >
+<div id="ClosedDays" data-role="dialog"   >
 	<div data-role="header" data-position="fixed"  data-theme="a">
 		<h1>定休日</h1>
 	</div>
@@ -176,10 +129,11 @@ SpotInfo.setDefaultPhoto = function(){};
 
 </style><div id="List" data-role="page">
 	<div data-role="header" data-position="fixed">
-		<h3>一覧</h3>
-			<a href="#" data-role="button"   class="ui-btn-right" 
-				onclick="SpotTags.open(this,'ジャンル','search')" 
-			>ジャンル</a>
+		<h1>一覧</h1>
+		<a href="#" data-role="button" class="TagSelectBtn ui-btn-right" 
+				data-icon="filter" data-iconpos="right"
+				onclick="SpotTags.open('.TagSelectBtn','ジャンル','search')" 
+		>ジャンル</a>
 	</div>
 	<div data-role="content">
 		<label>周辺のスポット:</label>
@@ -250,10 +204,74 @@ SpotInfo.setDefaultPhoto = function(){};
 }
 
 </style>
-<div id="MemoInput"  data-role="page">
+
+<div id="Login" data-role="page">
+	<div data-role="header" data-position="fixed" >
+		<h1 class="ui-title" tabindex="0" role="heading" aria-level="1">Login</h1>
+	</div>
+	<div data-role="content" >
+		<a href="javascript:Login.login('google')" data-role="button" >Google</a>
+		<a href="javascript:Login.login('twitter')" data-role="button" >Twitter</a>
+	</div>
+</div>
+
+<div id="Map" data-role="page" >
+	<div data-role="header" data-position="fixed" data-theme="a">
+		<h1>地図</h1>
+		<a href="javascript:Map.setCenterFromGPS()" data-role="button" data-icon="home" data-iconpos="left">今ここ</a>
+<!--
+		<a href="javascript:Map.onMarkerClick()" data-role="button" data-icon="plus" data-iconpos="notext"></a>
+-->
+		<a href="#" data-role="button" class="TagSelectBtn" 
+				data-icon="filter" data-iconpos="right"
+				onclick="SpotTags.open('.TagSelectBtn','ジャンル','search')" 
+		>ジャンル</a>
+	</div>
+	<div data-role="content" id="mapCanvas">
+	</div>
+	<div data-role="footer" data-position="fixed" >
+		<div id="navbar" data-role="navbar" data-grid="c" class="Navbar" >
+			<ul>
+				<li><a href="#Map" class="tab-map ui-btn-active" myid="tab-map" data-icon="custom" data-transition="none">Map</a></li>
+				<li><a href="#Timeline" class="tab-timeline" myid="tab-timeline" data-icon="custom" data-transition="none" >TimeLine</a></li>
+				<li><a href="#List" class="tab-list" myid="tab-list" data-icon="custom" data-transition="none" >List</a></li>
+<!--
+				<li><a href="#Memo" class="tab-memo" myid="tab-memo" data-icon="custom" data-transition="none" >Memo</a></li>
+-->
+				<li><a href="#User" class="tab-user" myid="tab-user" data-icon="custom" data-transition="none" >User</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+
+<style>
+
+
+/**
+ * Spotポップアップの１行目(Spot名)
+ */
+.BalloonLine1 {
+	font-size: 16px;
+	font-weight: bold;
+	line-height: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis; /*…の設定*/
+}
+
+/**
+ * Spotポップアップの２行目(住所)
+ */
+.BalloonLine2 {
+	font-size: 10px;
+}
+</style>
+
+<!-- EOF --><div id="MemoInput"  data-role="page">
 	<div data-role="header" data-position="fixed">
 		<h1>自分メモ</h1>
-		<a data-icon="back" href="javascript:Util.backPage()" data-iconpos="notext"></a>
+		<a data-icon="back" href="javascript:Util.backPage()" data-iconpos="left"></a>
 		<a data-icon="submit" href="javascript:MemoInput.write()" data-iconpos="notext"></a>
 	</div>
 	<div data-role="content">
@@ -284,7 +302,7 @@ SpotInfo.setDefaultPhoto = function(){};
 
 <div id="PicasaAlbum" data-role="dialog" >
 	<div data-role="header" data-position="fixed" data-theme="a">
-		<h3>画像選択</h3>
+		<h1>画像選択</h1>
 		<a class="PicasaAlbumBack" data-icon="back" href="javascript:PicasaAlbum.showAlbums()" data-iconpos="notext"></a>
 	</div>
 	<div data-role="content">
@@ -352,7 +370,7 @@ SpotInfo.setDefaultPhoto = function(){};
 <div id="Review"  data-role="page">
 	<div data-role="header" data-position="fixed">
 		<h1>レビュー</h1>
-		<a data-icon="back" href="javascript:Util.backPage()" data-iconpos="notext"></a>
+		<a data-icon="back" href="javascript:Util.backPage()" data-iconpos="left"></a>
 	</div>
 	<div data-role="content">
 		<div class="SpotBrief" onclick="SpotInfo.go()"></div>
@@ -427,7 +445,7 @@ SpotInfo.setDefaultPhoto = function(){};
 <div id="ReviewInput"  data-role="page">
 	<div data-role="header" data-position="fixed">
 		<h1>レビュー登録</h1>
-		<a data-icon="back" href="javascript:Util.backPage()" data-iconpos="notext"></a>
+		<a data-icon="back" href="javascript:Util.backPage()" data-iconpos="left"></a>
 		<a data-icon="submit" href="javascript:ReviewInput.write()" data-iconpos="notext"></a>
 	</div>
 	<div data-role="content">
@@ -494,7 +512,7 @@ SpotInfo.setDefaultPhoto = function(){};
 <div id="SpotInfo" data-role="page" >
 	<div data-role="header" data-position="fixed" data-theme="a" data-add-back-btn="true">
 		<h1>スポット詳細</h1>
-		<a data-icon="back" href="javascript:Util.backPage()" data-iconpos="notext"></a>
+		<a data-icon="back" href="javascript:Util.backPage()" data-iconpos="left"></a>
 		<a data-icon="submit" href="javascript:SpotInfo.write()" data-iconpos="notext"></a>
 	</div>
 	<div data-role="content">
@@ -660,8 +678,8 @@ SpotInfo.setDefaultPhoto = function(){};
 
 <div id="SpotTL" data-role="page"  >
 	<div data-role="header" data-position="fixed" data-theme="a">
-		<h1>スポット情報</h1>
-		<a data-icon="back" href="javascript:Util.backPage()" data-iconpos="notext"></a>
+		<h1>スポット</h1>
+		<a data-icon="back" href="javascript:Util.backPage()"></a>
 	</div>
 	<div data-role="content" >
 		<div class="SpotBrief" onclick="SpotInfo.go()"></div>
@@ -724,10 +742,11 @@ SpotInfo.setDefaultPhoto = function(){};
 </div>
 <div id="Timeline" data-role="page" >
 	<div data-role="header" data-position="fixed" >
-		<h3>タイムライン</h3>
-			<a href="#" data-role="button"  class="ui-btn-right" 
-				onclick="SpotTags.open(this,'ジャンル','search')" 
-			>ジャンル</a>
+		<h1>タイムライン</h1>
+		<a href="#" data-role="button" class="TagSelectBtn ui-btn-right" 
+				data-icon="filter" data-iconpos="right"
+				onclick="SpotTags.open('.TagSelectBtn','ジャンル','search')" 
+		>ジャンル</a>
 	</div>
 	<div data-role="content"  >	
 		<label>最近のレビュー:</label>
@@ -752,7 +771,7 @@ SpotInfo.setDefaultPhoto = function(){};
 <div id="TwitInput"  data-role="page">
 	<div data-role="header" data-position="fixed">
 		<h1>つぶやく</h1>
-		<a data-icon="back" href="javascript:Util.backPage()" data-iconpos="notext"></a>
+		<a data-icon="back" href="javascript:Util.backPage()" data-iconpos="left"></a>
 		<a data-icon="submit" href="javascript:TwitInput.write()" data-iconpos="notext"></a>
 	</div>
 	<div data-role="content">
@@ -817,7 +836,7 @@ SpotInfo.setDefaultPhoto = function(){};
 </style>	<div id="UserConf" data-role="page">
 		<div data-role="header" data-position="fixed">
 			<h1>ユーザ設定</h1>
-			<a data-icon="back" href="javascript:Util.backPage()" data-iconpos="notext"></a>
+			<a data-icon="back" href="javascript:Util.backPage()" data-iconpos="left"></a>
 			<a data-icon="submit" href="javascript:UserConf.write()" data-iconpos="notext"></a>
 		</div>
 		<div data-role="content">
@@ -875,8 +894,8 @@ SpotInfo.setDefaultPhoto = function(){};
 	</div>
 <div id="UserTL" data-role="page">
 	<div data-role="header" data-position="fixed">
-		<h1>UserTL</h1>
-		<a data-icon="back" href="javascript:Util.backPage()" data-iconpos="notext"></a>
+		<h1>レビュア</h1>
+		<a data-icon="back" href="javascript:Util.backPage()" data-iconpos="left"></a>
 	</div>
 	<div data-role="content">
 		<div class="UserBrief">
@@ -894,15 +913,15 @@ SpotInfo.setDefaultPhoto = function(){};
 
 		<a class="AddFollow" data-role="button" data-iconpos="right" data-icon="plus" 
 			href="javascript:UserTL.addFollow()">
-				このユーザをフォローする
+				このレビュアをフォローする
 		</a>
 		<a class="DelFollow" data-role="button" data-iconpos="right" data-icon="delete" 
 			href="javascript:UserTL.delFollow()" >
-				このユーザのフォローを止める
+				このレビュアのフォローを止める
 		</a>
 		
 		<br/>
-		<label>このユーザのレビュー:</label>
+		<label>このレビュアのレビュー:</label>
 		<div align="center">
 			<input Class="Search" type="search" name="search" value="" style="width:100%;"/>
 		</div>
@@ -916,9 +935,6 @@ SpotInfo.setDefaultPhoto = function(){};
 </div>
 
 <style>
-#UserTL .ui-btn-inner {
-	padding-left:4px!important;
-}
 </style>
 
 <div class="Template">
