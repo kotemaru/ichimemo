@@ -1,34 +1,41 @@
-<!-- Indices written at Mon, 17 Oct 2011 03:32:26 UTC -->
+<!-- Indices written at Tue, 18 Oct 2011 07:10:01 UTC -->
 
 <datastore-indexes>
 
-    <!-- Used 61 times in query history -->
+    <!-- Used 582 times in query history -->
     <datastore-index kind="SpotModel" ancestor="false" source="auto">
         <property name="areas" direction="asc"/>
         <property name="appraise" direction="desc"/>
     </datastore-index>
 
-    <!-- Used 1 time in query history -->
+    <!-- Used 20 times in query history -->
     <datastore-index kind="ReviewModel" ancestor="false" source="auto">
-        <property name="userId" direction="asc"/>
+        <property name="spotId" direction="asc"/>
         <property name="updateDate" direction="desc"/>
     </datastore-index>
 
-    <!-- Used 36 times in query history -->
+    <!-- Used 216 times in query history -->
     <datastore-index kind="ReviewModel" ancestor="false" source="auto">
         <property name="areas" direction="asc"/>
         <property name="updateDate" direction="desc"/>
     </datastore-index>
 
-    <!-- Used 7 times in query history -->
+    <!-- Used 84 times in query history -->
+    <datastore-index kind="SpotModel" ancestor="false" source="auto">
+        <property name="areas" direction="asc"/>
+        <property name="tags" direction="asc"/>
+        <property name="appraise" direction="desc"/>
+    </datastore-index>
+
+    <!-- Used 324 times in query history -->
     <datastore-index kind="ReviewModel" ancestor="false" source="auto">
-        <property name="spotId" direction="asc"/>
+        <property name="areas" direction="asc"/>
+        <property name="tags" direction="asc"/>
         <property name="updateDate" direction="desc"/>
     </datastore-index>
 
-    <!-- Used 1 time in query history -->
+    <!-- Used 17 times in query history -->
     <datastore-index kind="ReviewModel" ancestor="false" source="auto">
-        <property name="spotId" direction="asc"/>
         <property name="userId" direction="asc"/>
         <property name="updateDate" direction="desc"/>
     </datastore-index>

@@ -95,9 +95,7 @@ SpotInfo.setDefaultPhoto = function(){};
 
 <div id="Map" data-role="page" >
 	<div data-role="header" data-position="fixed" data-theme="a">
-		<h3>
-			Map
-		</h3>
+		<h3>地図</h3>
 		<a href="javascript:Map.setCenterFromGPS()" data-role="button" data-icon="home" data-iconpos="left">今ここ</a>
 <!--
 		<a href="javascript:Map.onMarkerClick()" data-role="button" data-icon="plus" data-iconpos="notext"></a>
@@ -178,11 +176,10 @@ SpotInfo.setDefaultPhoto = function(){};
 
 </style><div id="List" data-role="page">
 	<div data-role="header" data-position="fixed">
-		<h3>
-			<a href="#" data-role="button" 
+		<h3>一覧</h3>
+			<a href="#" data-role="button"   class="ui-btn-right" 
 				onclick="SpotTags.open(this,'ジャンル','search')" 
 			>ジャンル</a>
-		</h3>
 	</div>
 	<div data-role="content">
 		<label>周辺のスポット:</label>
@@ -515,17 +512,16 @@ SpotInfo.setDefaultPhoto = function(){};
 								onclick="PicasaAlbum.go(this)" />
 						</div></div></span>
 					</td>
-					<td>
-						<input class="Text" type="text" name="name" placeholder="名前" />
-						<input class="Text" type="text" name="furikana" placeholder="ふりかな" />
+					<td class="NameTD">
+						<input class="Text" type="text" name="name" placeholder="名前(必須)" />
+						<input class="Text" type="text" name="furikana" placeholder="ふりかな(必須)" />
 					</td>
 				</tr>
 			</table>
 		
-
-		</div>
+		<br/>
 		<div data-role=“fieldcontain”>
-			<label for="tags">タグ:</label>
+			<label for="tags">ジャンル:<span class="Require">(必須)</span></label>
 				<a id="spotTags" data-role="button"
 					data-iconpos="right" 
 					data-icon="arrow-d"
@@ -536,7 +532,7 @@ SpotInfo.setDefaultPhoto = function(){};
 
 		<br/>
 		<div data-role=“fieldcontain”>
-			<label>住所:</label>
+			<label>住所:<span class="Require">(必須)</span></label>
 			<div class="FullSizeInput">
 				<input type="text" name="address" placeholder="住所" readonly="readonly"/>
 			</div>
@@ -637,16 +633,27 @@ SpotInfo.setDefaultPhoto = function(){};
  */
 #SpotInfo  .PhotoTable {
 	width: 100%;
-	padding-right: 20px;
+	margin: 0;
+	padding-right: 0px;
+	border-collapse: collapse;
+	border-spacing: 0px;
+	border: none;
+	background-color: transparent;
 }
 #SpotInfo  .PhotoTable td {
 	padding:0;
+}
+#SpotInfo  .PhotoTable td.NameTD {
+	padding-right:10px;
 }
 #SpotInfo  .PhotoTable input.Text {
 	width: 100%!important;
 }
 
-
+#SpotInfo span.Require {
+	color: red;
+	font-size: 8px;
+}
 
 </style>
 
@@ -717,11 +724,10 @@ SpotInfo.setDefaultPhoto = function(){};
 </div>
 <div id="Timeline" data-role="page" >
 	<div data-role="header" data-position="fixed" >
-		<h3>
-			<a href="#" data-role="button" 
+		<h3>タイムライン</h3>
+			<a href="#" data-role="button"  class="ui-btn-right" 
 				onclick="SpotTags.open(this,'ジャンル','search')" 
 			>ジャンル</a>
-		</h3>
 	</div>
 	<div data-role="content"  >	
 		<label>最近のレビュー:</label>
