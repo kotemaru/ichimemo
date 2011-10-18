@@ -99,6 +99,8 @@ Spot.onCenterChanged = function() {
 }
 
 Spot.load = function(map) {
+	if (Login.user == null) return;
+	
 	var areas = Spot.getAreas(map);
 	var range = areas[0].length;
 	if (Spot.currentRange != range) {
