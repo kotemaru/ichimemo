@@ -1,8 +1,8 @@
-<!-- Indices written at Tue, 18 Oct 2011 07:10:01 UTC -->
+<!-- Indices written at Tue, 18 Oct 2011 08:32:34 UTC -->
 
 <datastore-indexes>
 
-    <!-- Used 582 times in query history -->
+    <!-- Used 696 times in query history -->
     <datastore-index kind="SpotModel" ancestor="false" source="auto">
         <property name="areas" direction="asc"/>
         <property name="appraise" direction="desc"/>
@@ -27,14 +27,14 @@
         <property name="appraise" direction="desc"/>
     </datastore-index>
 
-    <!-- Used 324 times in query history -->
+    <!-- Used 360 times in query history -->
     <datastore-index kind="ReviewModel" ancestor="false" source="auto">
         <property name="areas" direction="asc"/>
         <property name="tags" direction="asc"/>
         <property name="updateDate" direction="desc"/>
     </datastore-index>
 
-    <!-- Used 17 times in query history -->
+    <!-- Used 22 times in query history -->
     <datastore-index kind="ReviewModel" ancestor="false" source="auto">
         <property name="userId" direction="asc"/>
         <property name="updateDate" direction="desc"/>

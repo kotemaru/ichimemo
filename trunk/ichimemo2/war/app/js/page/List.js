@@ -14,6 +14,8 @@ Class.init = function()  {
 			Class.load();
 		}
 	});
+	$page.find(".Search").live('blur', Class.load);
+
 	$(Class.PAGE).find(Class.RADIUS).change(function(ev) {
 		Class.load();
 	});

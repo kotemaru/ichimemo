@@ -19,6 +19,7 @@ Class.init = function() {
 			Class.reload();
 		}
 	});
+	$page.find(".Search").live('blur', Class.reload);
 }
 
 Class.onBeforeShow = function() {
