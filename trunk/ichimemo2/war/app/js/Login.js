@@ -7,13 +7,13 @@ Class.login = function(provider) {
 }
 
 Class.logout = function() {
+	document.cookie = "JSESSIONID=x";
+	PCookie.clear();
 	if (Class.user != null) {
 		location.href = Kokorahen.logout(Class.user.provider);
 	} else {
 		location.href = Kokorahen.logout(null);
 	}
-	Class.user = null;
-	PCookie.clear();
 }
 Class.refresh = function() {
 	Class.user = Kokorahen.getLoginUser();

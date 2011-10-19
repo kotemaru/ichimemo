@@ -14,7 +14,7 @@ Class.go = function()  {
 	form.twitterUser.value = Login.user.twitterUser;
 	form.nickname.value = Login.user.nickname;
 	form.autoTwit.selectedIndex = Login.user.autoTwit ? 1 : 0;
-	Class.getThumbnailImg().attr("src", Login.user.photoUrl);
+	Class.getThumbnailImg().attr("src", Util.correctImg(Login.user.photoUrl));
 
 	Util.changePage(Class.ID);
 }

@@ -46,7 +46,7 @@ PCookie.onInsert = function(tx) {
 	}
 }
 PCookie.onInit = function(tx,err) {
-    alert(err.message);
+    //alert(err.message);
     tx.executeSql(PCookie.SQL_CREATE, [],
     		PCookie.onNil, PCookie.onError); 
     PCookie.onInsert(tx);
@@ -58,7 +58,7 @@ PCookie.load = function() {
 	var db = openDatabase(PCookie.DB_NAME, PCookie.DB_VER,PCookie.DB_NAME,PCookie.DB_SIZE);
 	db.transaction(function(tx){
 		tx.executeSql(PCookie.SQL_SELECT, [],
-			PCookie.onSelect, PCookie.onError);
+			PCookie.onSelect, PCookie.onErrorLog);
 	});
 }
 
@@ -66,9 +66,9 @@ PCookie.onSelect = function(tx, rs) {
 	var cookies = PCookie.getCookies();
 	for (var i=0; i<rs.rows.length; i++) {
 		var row = rs.rows.item(i);
-		console.log("===>"+row.key+"="+row.value);
+		//console.log("===>"+row.key+"="+row.value);
 		if (PCookie.names[row.key]) {
-			console.log("==-----=>"+row.key+"="+row.value);
+			//console.log("==-----=>"+row.key+"="+row.value);
 			cookies[row.key] = row.value;
 		}
 	}
@@ -76,6 +76,9 @@ PCookie.onSelect = function(tx, rs) {
 }
 PCookie.onError = function(tx, err) {
     alert(err.message);
+}
+PCookie.onErrorLog = function(tx, err) {
+    console.log(err.message);
 }
 PCookie.onNil = function(tx, err) {}
 

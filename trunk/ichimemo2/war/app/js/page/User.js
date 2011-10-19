@@ -15,7 +15,7 @@ Class.onBeforeShow = function() {
 
 	if (Login.user == null) return;
 	var $brief = $(Class.PAGE).find(".UserBrief");
-	$brief.find(".Thumbnail img").attr("src",Login.user.photoUrl);
+	$brief.find(".Thumbnail img").attr("src", Util.correctImg(Login.user.photoUrl));
 	$brief.find(".Title").text(Login.user.nickname);
 	var email = Login.user.twitterUser 
 		? Login.user.twitterUser : Login.user.googleUser;

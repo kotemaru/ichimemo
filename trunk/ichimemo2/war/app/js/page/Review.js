@@ -41,7 +41,7 @@ Class.onBeforeShow = function() {
 	var appraise = Math.floor(data.appraise);
 	var $page = $(Class.PAGE);
 
-	$page.find(".ThumbnailL").attr("src", data.photoUrl);
+	$page.find(".ThumbnailL").attr("src", Util.correctImg(data.photoUrl));
 	$page.find(".FaceMark").attr("src", "/images/face-"+appraise+".png");
 	$page.find(".FaceMarkText").text(Class.FACE_MARK_TEXT[appraise]);
 	$page.find(".Comment").text(data.comment);

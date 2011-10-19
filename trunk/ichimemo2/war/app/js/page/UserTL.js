@@ -29,7 +29,7 @@ Class.onBeforeShow = function() {
 	if (user == null) return;
 	var $page = $(Class.PAGE);
 	var $brief = $page.find(".UserBrief");
-	$brief.find(".Thumbnail").attr("src",user.photoUrl);
+	$brief.find(".Thumbnail").attr("src", Util.correctImg(user.photoUrl));
 	$brief.find(".Title").text(user.nickname);
 	var email = user.twitterUser 
 		? user.twitterUser : user.googleUser;
