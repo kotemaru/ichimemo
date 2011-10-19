@@ -36,7 +36,10 @@ public class SpotModel extends ModelBase {
 	private String closedDay;
 	private String email;
 	private String url;
-	
+	private Boolean invalid = false;
+	private Long masterSpotId;
+	private Long owner;
+
 	@Attribute(persistent = false)
 	private double distance;
 
@@ -266,6 +269,31 @@ public class SpotModel extends ModelBase {
 
 	public void setDistance(double distance) {
 		this.distance = distance;
+	}
+
+
+	public Boolean getInvalid() {
+		return invalid;
+	}
+
+	public void setInvalid(Boolean invalid) {
+		this.invalid = invalid;
+	}
+
+	public Long getMasterSpotId() {
+		return masterSpotId;
+	}
+
+	public void setMasterSpotId(Long masterSpotId) {
+		this.masterSpotId = masterSpotId;
+	}
+
+	public Long getOwner() {
+		return owner;
+	}
+
+	public void setOwner(Long owner) {
+		this.owner = owner;
 	}
 
 

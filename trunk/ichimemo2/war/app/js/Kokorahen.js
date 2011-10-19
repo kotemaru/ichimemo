@@ -130,6 +130,12 @@ Kokorahen.logout = function(provider){
 Kokorahen.logoutAsync = function(_callback ,provider){
 	return JSRPC.callAsync(Kokorahen.__URL, "logout", arguments);
 }
+Kokorahen.removeSpot = function(spotId){
+	return JSRPC.call(Kokorahen.__URL, "removeSpot", arguments);
+}
+Kokorahen.removeSpotAsync = function(_callback ,spotId){
+	return JSRPC.callAsync(Kokorahen.__URL, "removeSpot", arguments);
+}
 Kokorahen.setHttpServletRequest = function(req){
 	return JSRPC.call(Kokorahen.__URL, "setHttpServletRequest", arguments);
 }
@@ -141,6 +147,12 @@ Kokorahen.setHttpServletResponse = function(res){
 }
 Kokorahen.setHttpServletResponseAsync = function(_callback ,res){
 	return JSRPC.callAsync(Kokorahen.__URL, "setHttpServletResponse", arguments);
+}
+Kokorahen.setInvalid = function(id){
+	return JSRPC.call(Kokorahen.__URL, "setInvalid", arguments);
+}
+Kokorahen.setInvalidAsync = function(_callback ,id){
+	return JSRPC.callAsync(Kokorahen.__URL, "setInvalid", arguments);
 }
 Kokorahen.setLoginUser = function(name){
 	return JSRPC.call(Kokorahen.__URL, "setLoginUser", arguments);

@@ -205,9 +205,20 @@ Class.write = function(){
 	params.closedDay = ClosedDays.getValue().join(",");
 	var id = Kokorahen.writeSpot(params);
 	alert("登録しました。("+id+")");
+	Spot.clearCache();
 	List.go();
 }
 
+Class.remove = function(){
+	var msg = Kokorahen.removeSpot(Class.current.data.id);
+	if (msg == null) {
+		alert("スポットを削除しました。");
+		Spot.clearCache();
+		List.go();
+	} else {
+		alert("スポットの削除に失敗しました。("+msg+")");
+	}
+}
 Class.setDefaultPhoto = function(img)  {
 	img.src = "/images/Home.png";
 }

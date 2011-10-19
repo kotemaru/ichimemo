@@ -31,6 +31,9 @@ public class UserModel extends ModelBase {
 	private List<Long> follows = null;
 	private Integer followerNum = 0;
 
+	
+	@Attribute(persistent = false)
+	private boolean admin;
 	@Attribute(persistent = false)
 	private String provider;
 	@Attribute(persistent = false)
@@ -146,7 +149,12 @@ public class UserModel extends ModelBase {
 	public void setFollowerNum(Integer followerNum) {
 		this.followerNum = followerNum;
 	}
-
+	public boolean isAdmin() {
+		return admin;
+	}
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
+	}
 
 
 }
