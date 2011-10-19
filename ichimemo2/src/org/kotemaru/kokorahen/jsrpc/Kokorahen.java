@@ -108,9 +108,15 @@ public class Kokorahen implements JsrpcEnvironment {
 	private void checkLogin(Long id) throws JsrpcException {
 		checkLogin();
 		long curId = loginUser.getUserId();
-System.out.println("checkLogin:"+curId+":"+id);
+//System.out.println("checkLogin:"+curId+":"+id);
 		if (curId != id) {
 			throw new JsrpcException("Not you.");
+		}
+	}
+	private void checkAdmin() throws JsrpcException {
+		checkLogin();
+		if (!loginUser.isAdmin()) {
+			throw new JsrpcException("Not admin.");
 		}
 	}
 
@@ -133,6 +139,7 @@ System.out.println("checkLogin:"+curId+":"+id);
 			UserModel user = userLogic.getGoogleUser(name, true);
 			userLogic.lastLogin(user);
 			user.setProvider(GOOGLE);
+			user.setAdmin(us.isUserAdmin());
 			this.loginUser = user;
 			return "/";
 		}
@@ -231,6 +238,10 @@ System.out.println("checkLogin:"+curId+":"+id);
 	public void appraiseTask(long spotId){
 		spotLogic.appraiseTask(spotId);
 	}
+	public String removeSpot(long spotId){
+		Long userId = loginUser.isAdmin() ? null : loginUser.getUserId();
+		return spotLogic.removeSpot(spotId, userId);
+	}
 
 	//------------------------------------------------------------------------------
 	// Review管理
@@ -276,7 +287,8 @@ System.out.println("checkLogin:"+curId+":"+id);
 	}
 	// TODO: delete.
 	public UserModel writeUserDebug(Map map) throws Exception {
-		
+		checkAdmin();
+	
 		Params params = new Params(map);
 		//checkLogin(params.toLong("userId"));
 		if (params.toString("googleUser") != null) {
@@ -292,6 +304,7 @@ System.out.println("checkLogin:"+curId+":"+id);
 		return user;
 	}
 	public void setLoginUser(String name) throws Exception {
+		checkAdmin();
 		this.loginUser = userLogic.getGoogleUser(name, false);
 	}
 	public List<SpotModel> listAllSpot(){
@@ -304,6 +317,10 @@ System.out.println("checkLogin:"+curId+":"+id);
 		map.put("spotName", map.get("name"));
 		reviewLogic.writeReview(map);
 		return spotId;
+	}
+	public Long setInvalid(Long id) {
+		checkAdmin();
+		return spotLogic.setInvalid(id);
 	}
 
 }

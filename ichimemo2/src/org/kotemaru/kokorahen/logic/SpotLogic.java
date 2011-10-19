@@ -53,6 +53,7 @@ public class SpotLogic  {
 			model = new SpotModel();
 		}
 
+		model.setOwner(env.getLoginUser().getUserId());
 		model.setName(params.toString("name"));
 		model.setFurikana(params.toString("furikana"));
 		model.setCreateDate(new Date());
@@ -146,6 +147,7 @@ public class SpotLogic  {
 		Iterator<SpotModel>[] qs = new Iterator[areas.size()];
 		for (int i=0; i<qs.length; i++) {
 			ModelQuery q = Datastore.query(e);
+			q.filter(e.invalid.equal(false));
 			q.filter(e.areas.in(areas.get(i)));
 			q.sort(e.appraise.desc);
 			if (tag != null) q.filter(e.tags.in(tag));
@@ -321,6 +323,26 @@ public class SpotLogic  {
 			);
 	}
 	
+	public String removeSpot(Long spotId, Long userId){
+		for (int i = 0; i < 3; i++) {
+			Transaction tx = Datastore.beginTransaction();
+			try {
+				Key key = Datastore.createKey(SpotModel.class, spotId);
+				SpotModel model = Datastore.get(tx, SpotModel.class, key);
+				if (userId != null && !userId.equals(model.getOwner())) {
+					return "Not owner "+userId;
+				}
+				model.setInvalid(true);
+				Datastore.put(tx, model);
+				tx.commit();
+				return null;
+			} catch (Throwable t) {
+				if (tx.isActive()) tx.rollback();
+			}
+		}
+		return "Retry over.";
+	}
+
 	public void appraiseTask(Long spotId){
 		float appraise = env.reviewLogic.calcAppraise(spotId);
 
@@ -338,7 +360,6 @@ public class SpotLogic  {
 		}
 	}
 
-	
 	public List<SpotModel> listNearSpot(double lat, double lng, int limit){
 		return listNear100mSpot(lat, lng, limit);
 	}
@@ -414,6 +435,7 @@ public class SpotLogic  {
 			double lat, double lng, HashSet<Long> exists){
 		SpotModelMeta e = SpotModelMeta.get();
 		ModelQuery q = Datastore.query(e);
+		q.filter(e.invalid.equal(false));
 		q.filter(e.areas.equal(area));
 		q.limit(999);
 		Iterator<SpotModel> ite = q.asIterator();
@@ -431,13 +453,32 @@ public class SpotLogic  {
 		}
 	}
 
-	
+
 	
 	// for debug
 	public List<SpotModel> listAllSpot(){
 		SpotModelMeta e = SpotModelMeta.get();
 		ModelQuery q = Datastore.query(e);
+		q.filter(e.invalid.equal(false));
 		return q.asList();
+	}
+	public Long setInvalid(Long id) {
+		Key key = Datastore.createKey(SpotModel.class, id);
+		SpotModelMeta e = SpotModelMeta.get();
+		try {
+			ModelQuery q = Datastore.query(e);
+			q.filter(e.key.greaterThan(key));
+			Iterator<SpotModel> ite = q.asIterator();
+			while (ite.hasNext()) {
+				SpotModel model = ite.next();
+				model.setInvalid(false);
+				Datastore.put(model);
+				id = model.getId();
+			}
+		} catch (Exception ex) {
+			return id;
+		}
+		return null;
 	}
 
 }
