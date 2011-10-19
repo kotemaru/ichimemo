@@ -21,7 +21,8 @@ Class.go = function(id, spotId) {
 	}
 
 	Class.onFaceClick(Class.current.appraise);
-	$(Class.PAGE).find(".ReviewPhoto").attr("src",Class.current.photoUrl);
+	$(Class.PAGE).find(".ReviewPhoto")
+		.attr("src",Util.correctImg(Class.current.photoUrl));
 	$(document.review.comment).val(Class.current.comment);
 	
 	Util.changePage(Class.ID);

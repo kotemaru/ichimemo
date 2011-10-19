@@ -5,12 +5,14 @@ Class.onBeforeShow = function() {
 		Class.changePage("#Login");
 	} else {
 		Class.changePage(Map.ID);
+		//Map.setCenterFromGPS();
 	}
 }
 Class.changePage = function(id) {
 	$.mobile.showPageLoadingMsg();
 	setTimeout(function(){
 		$.mobile.changePage(id, "none");
+		Map.setCenterFromGPS();
 	},100);
 }
 

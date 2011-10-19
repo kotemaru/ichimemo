@@ -129,4 +129,11 @@ body>div {
 	left:3px;
 }
 
+/*
+ * JQM‚ÌƒoƒOH‘Î‰
+ */
+.ui-field-contain {
+	border: none!important;
+}
+
 /*EOF*/

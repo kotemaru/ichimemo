@@ -155,4 +155,9 @@ Class.correntTextarea = function(input) {
 	}, 500);
 }
 
+Class.correctImg = function(img) {
+	if (img == null) return "/images/noimage.gif";
+	return img;
+}
+
 });
