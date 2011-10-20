@@ -29,6 +29,7 @@ Class.load = function(userId) {
 	Kokorahen.listTimelineAsync({
 		success: function(list) {
 			Review.makeList(Class.LIST_DIV, null, list);
+			Util.setNavbar(Class.PAGE);
 		}
 	}, {userId:userId, limit:Class.LIMIT});
 }

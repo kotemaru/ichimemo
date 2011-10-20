@@ -66,6 +66,7 @@ Class.onloadGetSpots = {
 		//	return (a._distance > b._distance) ? 1 : -1;
 		//});
 		Class.listview(spots);
+		Util.setNavbar(Class.PAGE);
 	}
 }
 

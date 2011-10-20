@@ -35,7 +35,9 @@ Class.onBeforeShow = function() {
 		? user.twitterUser : user.googleUser;
 	$brief.find(".SubTitle").text(email);
 	
-	$page.find(".Comment").val(user.comment);
+	//$page.find(".Comment").val(user.comment);
+	$page.find(".Comment").text("無し");
+	$page.find(".Comment").text(user.comment);
 	Util.correntTextarea($page.find(".Comment"));
 	
 	if (Login.user.follows.indexOf(user.userId) >= 0) {

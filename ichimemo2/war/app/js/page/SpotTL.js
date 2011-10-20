@@ -45,6 +45,7 @@ Class.load = function(spotId) {
 	Kokorahen.listReviewAsync({
 		success: function(list) {
 			Review.makeList(Class.LIST_DIV, null, list);
+			Util.setNavbar(Class.PAGE);
 		}
 	}, spotId, follows);
 }

@@ -54,6 +54,7 @@ Class.reload = function(ev) {
 	Kokorahen.listTimelineAsync({
 		success: function(list) {
 			Review.makeList(Class.LIST_DIV, null, list);
+			Util.setNavbar(Class.PAGE);
 		}
 	}, params);
 }

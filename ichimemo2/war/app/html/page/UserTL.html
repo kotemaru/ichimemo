@@ -13,9 +13,8 @@
 			<br clear="all" />
 		</div>
 
-		<div class="FullSizeInput">
-			<textarea class="Comment" readonly=readonly rows=1></textarea>
-		</div>
+		<label>自己紹介:</label>
+		<div><pre class="Comment ui-shadow-inset ui-btn-corner-all ui-btn-shadow ui-icon-searchfield ui-body-c"></pre></div>
 
 		<a class="AddFollow" data-role="button" data-iconpos="right" data-icon="plus" 
 			href="javascript:UserTL.addFollow()">
@@ -41,5 +40,11 @@
 </div>
 
 <style>
+#UserTL pre.Comment {
+	background-color: white;
+	padding:8px;
+	margin-top: 0px;
+}
+
 </style>
 

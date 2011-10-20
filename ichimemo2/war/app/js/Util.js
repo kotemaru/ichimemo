@@ -19,6 +19,12 @@ Class.spotDistance = function(spot) {
 Class.setNavbar = function(id) {
 	// TODO: JQMがβのせいかFooterの共有が出来ないので自前で対処。
 	$(id).find("div[data-role='footer']").append(Class.navbar);
+	if ("string" === typeof id) {
+		var $navbar = $(Class.navbar);
+		$navbar.find("a").removeClass("ui-btn-active");
+		$navbar.find("a[href='"+id+"']").addClass("ui-btn-active");
+	}
+	
 	$.mobile.silentScroll(0);
 }
 
