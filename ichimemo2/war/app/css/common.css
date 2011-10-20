@@ -135,5 +135,15 @@ body>div {
 .ui-field-contain {
 	border: none!important;
 }
+/*
+ * ”¼‰üs
+ */
+.HalfLine {
+	height: 8px;
+}
+
+fieldset {
+	display: inline-block!important;
+}
 
 /*EOF*/

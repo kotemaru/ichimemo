@@ -12,7 +12,6 @@ Class.changePage = function(id) {
 	$.mobile.showPageLoadingMsg();
 	setTimeout(function(){
 		$.mobile.changePage(id, "none");
-		Map.setCenterFromGPS();
 	},100);
 }
 

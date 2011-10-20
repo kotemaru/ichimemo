@@ -5,6 +5,7 @@ Class.marker = null;
 Class.markers = null;
 Class.DEFAULT_CENTER = new google.maps.LatLng(35.684699,139.753897);
 Class.searchTag = null;
+Class.initFlag = true;
 
 Class.options = {
 	zoom: 14,
@@ -37,7 +38,7 @@ Class.init = function() {
 		google.maps.event.addListener(Class.marker, 'click', Class.onMarkerClick);
 		Class.infobox.addEventListener('click', Class.onBalloonClick, false);
 
-		Class.setCenterFromGPS();
+		//Class.setCenterFromGPS();
 }
 /**
  * GPS取得イベント処理。
@@ -92,7 +93,6 @@ Class.onBeforeShow = function(ev) {
 	if (Login.user == null) {
 		Util.changePage("#Login");
 	}
-	
 	Class.onTagChange();
 	//Spot.visible(Class.LIMIT);
 	Util.setNavbar(Class.PAGE);
@@ -110,6 +110,10 @@ Class.onTagChange = function() {
 }
 
 Class.onShow = function(ev, info){
+	if (Class.initFlag) {
+		Class.setCenterFromGPS();
+		Class.initFlag = false;
+	}
 	// Note: 地図が初期状態で非表示だと誤動作するのでその対処。
 	google.maps.event.trigger(Class.map, "resize");
 	//Class.map.setCenter(Class.marker.getPosition());
