@@ -20,7 +20,7 @@ PCookie.setNames = function(names) {
 }
 
 PCookie.save = function() {
-	if (! openDatabase) return;
+	if (undefined === window.openDatabase) return;
 		
 	var db = openDatabase(PCookie.DB_NAME, PCookie.DB_VER,PCookie.DB_NAME,PCookie.DB_SIZE);
 	db.transaction(function(tx){
@@ -29,7 +29,7 @@ PCookie.save = function() {
 	});
 }
 PCookie.clear = function() {
-	if (! openDatabase) return;
+	if (undefined === window.openDatabase) return;
 		
 	var db = openDatabase(PCookie.DB_NAME, PCookie.DB_VER,PCookie.DB_NAME,PCookie.DB_SIZE);
 	db.transaction(function(tx){
@@ -53,7 +53,7 @@ PCookie.onInit = function(tx,err) {
 }
 
 PCookie.load = function() {
-	if (! openDatabase) return;
+	if (undefined === window.openDatabase) return;
 		
 	var db = openDatabase(PCookie.DB_NAME, PCookie.DB_VER,PCookie.DB_NAME,PCookie.DB_SIZE);
 	db.transaction(function(tx){

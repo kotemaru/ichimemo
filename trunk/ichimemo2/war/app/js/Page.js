@@ -25,9 +25,9 @@ Page.init = function(m) {
 		m.go = function() {Page.go(this);}
 	}
 
-	var $obj = $(m.PAGE);
+	var $obj = $(m.ID);
 	if (m.onBeforeShow) {
-		$obj.bind('pagebeforeshow', function(ev, ui) {
+		$obj.live('pagebeforeshow', function(ev, ui) {
 			try {
 				m.onBeforeShow(ev,ui);
 			} catch(e) {
@@ -37,7 +37,7 @@ Page.init = function(m) {
 		});
 	}
 	if (m.onShow) {
-		$obj.bind('pageshow', function(ev, ui) {
+		$obj.live('pageshow', function(ev, ui) {
 			try {
 				m.onShow(ev,ui);
 			} catch(e) {
@@ -47,7 +47,7 @@ Page.init = function(m) {
 		});
 	}
 	if (m.onHide) {
-		$obj.bind('pagebeforehide', function(ev, ui) {
+		$obj.live('pagebeforehide', function(ev, ui) {
 			try {
 				m.onHide(ev,ui);
 			} catch(e) {
