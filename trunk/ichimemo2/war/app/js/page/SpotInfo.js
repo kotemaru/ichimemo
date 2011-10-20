@@ -173,6 +173,7 @@ Class.onShow = function(ev, info){
 	Class.map.setCenter(Class.marker2.getPosition());
 	SpotTags.setLabel($("#spotTags")[0],SpotTags.formTags,"ジャンル選択");
 	ClosedDays.updateLabel();
+	Util.setNavbar(Class.PAGE);
 };
 
 Class.setClassPos = function(pos){
