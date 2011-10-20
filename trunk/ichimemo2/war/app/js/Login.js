@@ -3,7 +3,11 @@ Module.def(window, function Login(){}, function(Class){
 Class.user = __Login_user;
 
 Class.login = function(provider) {
-	location.href = Kokorahen.login(provider);
+	try {
+		location.href = Kokorahen.login(provider);
+	} catch (err) {
+		alert(err);
+	}
 }
 
 Class.logout = function() {

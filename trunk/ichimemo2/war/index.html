@@ -77,10 +77,6 @@ if (location.hash != "" && location.hash != null) {
 	<script src="app/js/SpotBrief.js"></script>
 
 	<script>
-		$(function(){
-			Module.onload();
-			Page.onload();
-		})
 function updateOrientation() {
 	Map.updateOrientation();
 }
@@ -88,7 +84,6 @@ function updateOrientation() {
 Map.updateOrientation = function(){};
 User.setDefaultPhoto = function(){};
 SpotInfo.setDefaultPhoto = function(){};
-
 
 	</script>
 
@@ -101,7 +96,8 @@ SpotInfo.setDefaultPhoto = function(){};
 
 
 
-<div id="Top" data-role="page" >
+<div id="Top" data-role="page" class="type-home" >
+-
 </div>
 <div id="ClosedDays" data-role="dialog"   >
 	<div data-role="header" data-position="fixed"  data-theme="a">
@@ -238,7 +234,7 @@ SpotInfo.setDefaultPhoto = function(){};
 	</div>
 	<div data-role="content" id="mapCanvas">
 	</div>
-	<div data-role="footer" data-position="fixed" >
+	<div  data-role="footer" data-position="fixed" >
 		<div id="navbar" data-role="navbar" data-grid="c" class="Navbar" >
 			<ul>
 				<li><a href="#Map" class="tab-map ui-btn-active" myid="tab-map" data-icon="custom" data-transition="none">Map</a></li>
@@ -546,7 +542,7 @@ SpotInfo.setDefaultPhoto = function(){};
 				</tr>
 			</table>
 		
-		<br/>
+		<div class="HalfLine"></div>
 		<div data-role=“fieldcontain”>
 			<label for="tags">ジャンル:<span class="Require">(必須)</span></label>
 				<a id="spotTags" data-role="button"
@@ -557,7 +553,7 @@ SpotInfo.setDefaultPhoto = function(){};
 				>ジャンル選択(複数可)</a>
 		</div>
 
-		<br/>
+		<div class="HalfLine"></div>
 		<div data-role=“fieldcontain”>
 			<label>住所:<span class="Require">(必須)</span></label>
 			<div class="FullSizeInput">
@@ -916,9 +912,8 @@ SpotInfo.setDefaultPhoto = function(){};
 			<br clear="all" />
 		</div>
 
-		<div class="FullSizeInput">
-			<textarea class="Comment" readonly=readonly rows=1></textarea>
-		</div>
+		<label>自己紹介:</label>
+		<div><pre class="Comment ui-shadow-inset ui-btn-corner-all ui-btn-shadow ui-icon-searchfield ui-body-c"></pre></div>
 
 		<a class="AddFollow" data-role="button" data-iconpos="right" data-icon="plus" 
 			href="javascript:UserTL.addFollow()">
@@ -944,6 +939,12 @@ SpotInfo.setDefaultPhoto = function(){};
 </div>
 
 <style>
+#UserTL pre.Comment {
+	background-color: white;
+	padding:8px;
+	margin-top: 0px;
+}
+
 </style>
 
 <div class="Template">
@@ -1024,4 +1025,8 @@ span.Thumbnail  img{
 
 
 </body>
+	<script>
+		Module.onload();
+		Page.onload();
+	</script>
 </html>
