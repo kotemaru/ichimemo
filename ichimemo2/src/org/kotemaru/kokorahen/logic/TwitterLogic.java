@@ -35,8 +35,15 @@ public class TwitterLogic implements java.io.Serializable {
 	public String login(String callback) throws TwitterException {
 		if (twitter == null) {
 			twitter = new TwitterFactory().getInstance();
+			twitterRequestToken = twitter.getOAuthRequestToken(callback);
+		} else {
+			try {
+				twitterRequestToken = twitter.getOAuthRequestToken(callback);
+			} catch (java.lang.IllegalStateException e) {
+				twitter = new TwitterFactory().getInstance();
+				twitterRequestToken = twitter.getOAuthRequestToken(callback);
+			}
 		}
-		twitterRequestToken = twitter.getOAuthRequestToken(callback);
 		return twitterRequestToken.getAuthenticationURL();
 	}
 	
