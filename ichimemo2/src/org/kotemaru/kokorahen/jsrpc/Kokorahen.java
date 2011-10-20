@@ -16,6 +16,7 @@ import org.kotemaru.jsrpc.JsrpcEnvironment;
 import org.kotemaru.jsrpc.JsrpcException;
 import org.kotemaru.jsrpc.Params;
 import org.kotemaru.jsrpc.annotation.JsRpc;
+import org.kotemaru.kokorahen.bean.UserPublicBean;
 import org.kotemaru.kokorahen.logic.KakasiLogic;
 import org.kotemaru.kokorahen.logic.MemoLogic;
 import org.kotemaru.kokorahen.logic.ReviewLogic;
@@ -201,10 +202,9 @@ public class Kokorahen implements JsrpcEnvironment {
 	//------------------------------------------------------------------------------
 	// ユーザ管理
 	
-	public UserModel getUserModelPublic(Long id) {
+	public UserPublicBean getUserModelPublic(Long id) {
 		UserModel user = userLogic.getUserModel(id);
-		// TODO: 非公開データをマスク。
-		return user;
+		return new UserPublicBean(user);
 	}
 	public  void writeUser(Map map) throws Exception {
 		Params params = new Params(map);
