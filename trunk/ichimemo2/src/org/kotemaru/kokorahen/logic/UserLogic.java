@@ -37,7 +37,7 @@ public class UserLogic  {
 		try {
 			user = Datastore.get(UserModel.class, key);
 			cacheUserModel.put(id, user);
-			return user;
+			return collectUserInfo(user);
 		} catch (EntityNotFoundRuntimeException e) {
 			return null;
 		}
@@ -65,7 +65,7 @@ public class UserLogic  {
 		
 		user = new UserModel();
 		user.setGoogleUser(name);
-		user.setNickname(name);
+		user.setNickname(name.replaceFirst("@.*$", ""));
 		//user.setProvider(GOOGLE);
 		user.setCreateDate(new Date());
 		user.setUpdateDate(new Date());
