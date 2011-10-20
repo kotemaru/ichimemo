@@ -54,7 +54,9 @@ JSRPC.callAsync = function(url, mname, args) {
 				 }catch(err){JSRPC.error(callback, err);}
 				},10);
 			} else {
-				JSRPC.error(callback, "Status:"+xreq.status+"\n"+xreq.responseText);
+				JSRPC.error(callback, "Status:"+xreq.status
+						+"\n"+url+"."+mname+JSON.stringify(args)
+						+"\n"+xreq.responseText);
 			}
 		}
 	}
