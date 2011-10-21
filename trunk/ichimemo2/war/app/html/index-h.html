@@ -15,21 +15,8 @@
 
 console.log(document.cookie);
 PCookie.load();
-/*
-var __Login_user = "unknown";
-function __setLogin_user() {
-	if (PCookie.done) {
-		__Login_user = Kokorahen.getLoginUser();
-	} else {
-		console.log("Wait PCookie.load");
-		setTimeout(__setLogin_user, 100);
-	}
-}
-setTimeout(__setLogin_user, 100);
-*/
-
-PCookie.setMaxAge("JSESSIONID",1000000);
-PCookie.save();
+//PCookie.setMaxAge("JSESSIONID",1000000);
+//PCookie.save();
 /*
 if (__Login_user == null) {
 	window.location = "login.html";

@@ -30,14 +30,15 @@ PCookie.save = function() {
 			PCookie.onInsert, PCookie.onInit);
 	});
 }
-PCookie.clear = function() {
+PCookie.clear = function(callback) {
 	if (! window.openDatabase) return;
-		
+
+	if (callback === undefined) callback = PCookie.onNil;
 	PCookie.done = false;
 	var db = openDatabase(PCookie.DB_NAME, PCookie.DB_VER,PCookie.DB_NAME,PCookie.DB_SIZE);
 	db.transaction(function(tx){
 		tx.executeSql(PCookie.SQL_DELETE, [],
-			PCookie.onNil, PCookie.onInit);
+			callback, PCookie.onInit);
 	});
 }
 

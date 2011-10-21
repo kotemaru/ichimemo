@@ -1,6 +1,21 @@
 Module.def(window, function Login(){}, function(Class){
 
 Class.user = null;
+Class.waitCount = 0;
+
+Class.loginCheck = function(callback) {
+	if (PCookie.done || Class.waitCount>10) {
+		Class.user = Kokorahen.getLoginUser();
+		PCookie.setMaxAge("JSESSIONID",1000000);
+		PCookie.save();
+	} else {
+		Class.waitCount++;
+		console.log("Wait PCookie.load ", Class.waitCount);
+		setTimeout(function(){Class.loginCheck(callback)}, 100);
+		return;
+	}
+	callback(Class.user);
+}
 
 Class.login = function(provider) {
 	try {
@@ -11,16 +26,17 @@ Class.login = function(provider) {
 }
 
 Class.logout = function() {
-	document.cookie = "JSESSIONID=x";
-	PCookie.clear();
-	if (Class.user != null) {
-		location.href = Kokorahen.logout(Class.user.provider);
-	} else {
-		location.href = Kokorahen.logout(null);
-	}
+	PCookie.clear(function(){
+		var provider = Class.user==null ? null : Class.user.provider;
+		var href = Kokorahen.logout(Class.user.provider);
+		document.cookie = "JSESSIONID=x";
+		location.href = href;
+	});
 }
 Class.refresh = function() {
 	Class.user = Kokorahen.getLoginUser();
 }
+
+
 
 });
