@@ -1,5 +1,5 @@
 
-- spot更新のログ機能
+-o spot更新のログ機能
 - list待ちのグルグル
 - yuicom のWARN外し
 
