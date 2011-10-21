@@ -15,7 +15,19 @@
 
 console.log(document.cookie);
 PCookie.load();
-var __Login_user = Kokorahen.getLoginUser();
+/*
+var __Login_user = "unknown";
+function __setLogin_user() {
+	if (PCookie.done) {
+		__Login_user = Kokorahen.getLoginUser();
+	} else {
+		console.log("Wait PCookie.load");
+		setTimeout(__setLogin_user, 100);
+	}
+}
+setTimeout(__setLogin_user, 100);
+*/
+
 PCookie.setMaxAge("JSESSIONID",1000000);
 PCookie.save();
 /*
@@ -97,7 +109,7 @@ SpotInfo.setDefaultPhoto = function(){};
 
 
 <div id="Top" data-role="page" class="type-home" >
--
+Please wait...
 </div>
 <div id="ClosedDays" data-role="dialog"   >
 	<div data-role="header" data-position="fixed"  data-theme="a">

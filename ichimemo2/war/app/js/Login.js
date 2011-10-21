@@ -1,6 +1,6 @@
 Module.def(window, function Login(){}, function(Class){
 
-Class.user = __Login_user;
+Class.user = null;
 
 Class.login = function(provider) {
 	try {

@@ -10,6 +10,7 @@ PCookie.SQL_SELECT = "SELECT * FROM cookies";
 PCookie.SQL_DELETE = "DELETE FROM cookies";
 PCookie.SQL_INSERT = "INSERT INTO cookies VALUES(?,?)";
 PCookie.SQL_UPDATE = "UPDATE cookies SET value=? WHERE key=?";
+PCookie.done = true;
 
 PCookie.names = {
 	JSESSIONID:true
@@ -20,8 +21,9 @@ PCookie.setNames = function(names) {
 }
 
 PCookie.save = function() {
-	if (undefined === window.openDatabase) return;
-		
+	if (! window.openDatabase) return;
+
+	PCookie.done = false;
 	var db = openDatabase(PCookie.DB_NAME, PCookie.DB_VER,PCookie.DB_NAME,PCookie.DB_SIZE);
 	db.transaction(function(tx){
 		tx.executeSql(PCookie.SQL_DELETE, [],
@@ -29,8 +31,9 @@ PCookie.save = function() {
 	});
 }
 PCookie.clear = function() {
-	if (undefined === window.openDatabase) return;
+	if (! window.openDatabase) return;
 		
+	PCookie.done = false;
 	var db = openDatabase(PCookie.DB_NAME, PCookie.DB_VER,PCookie.DB_NAME,PCookie.DB_SIZE);
 	db.transaction(function(tx){
 		tx.executeSql(PCookie.SQL_DELETE, [],
@@ -44,6 +47,7 @@ PCookie.onInsert = function(tx) {
         tx.executeSql(PCookie.SQL_INSERT, [key, cookies[key]],
         		PCookie.onNil, PCookie.onError); 
 	}
+	PCookie.done = true;
 }
 PCookie.onInit = function(tx,err) {
     //alert(err.message);
@@ -53,8 +57,9 @@ PCookie.onInit = function(tx,err) {
 }
 
 PCookie.load = function() {
-	if (undefined === window.openDatabase) return;
+	if (! window.openDatabase) return;
 		
+	PCookie.done = false;
 	var db = openDatabase(PCookie.DB_NAME, PCookie.DB_VER,PCookie.DB_NAME,PCookie.DB_SIZE);
 	db.transaction(function(tx){
 		tx.executeSql(PCookie.SQL_SELECT, [],
@@ -73,14 +78,19 @@ PCookie.onSelect = function(tx, rs) {
 		}
 	}
 	PCookie.putCookies(cookies);
+	PCookie.done = true;
 }
 PCookie.onError = function(tx, err) {
+	PCookie.done = true;
     alert(err.message);
 }
 PCookie.onErrorLog = function(tx, err) {
+	PCookie.done = true;
     console.log(err.message);
 }
-PCookie.onNil = function(tx, err) {}
+PCookie.onNil = function(tx, err) {
+	PCookie.done = true;
+}
 
 
 PCookie.getCookies = function() {
