@@ -25,7 +25,7 @@ Class.onBeforeShow = function() {
 }
 
 Class.load = function(userId) {
-	$(Class.LIST_DIV).html("");
+	$(Class.LIST_DIV).html("Please wait...");
 	Kokorahen.listTimelineAsync({
 		success: function(list) {
 			Review.makeList(Class.LIST_DIV, null, list);

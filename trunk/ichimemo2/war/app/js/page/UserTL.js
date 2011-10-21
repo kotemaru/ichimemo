@@ -51,7 +51,7 @@ Class.onBeforeShow = function() {
 }
 
 Class.load = function(userId) {
-	$(Class.LIST_DIV).html("");
+	$(Class.LIST_DIV).html("Please wait...");
 	var search = $(Class.PAGE).find(".Search").val();
 	Kokorahen.listTimelineAsync({
 		success: function(list) {

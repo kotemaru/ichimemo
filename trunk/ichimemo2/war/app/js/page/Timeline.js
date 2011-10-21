@@ -27,6 +27,8 @@ Class.onBeforeShow = function() {
 	Class.reload();
 }
 Class.reload = function(ev) {
+	$(Class.LIST_DIV).html("Please wait...");
+
 	params = {
 		tag: SpotTags.getSearchTag(), 
 		limit: Class.LIMIT
@@ -50,7 +52,6 @@ Class.reload = function(ev) {
 	}
 	params.search = $(Class.PAGE).find(".Search").val();
 	
-	$(Class.LIST_DIV).html("");
 	Kokorahen.listTimelineAsync({
 		success: function(list) {
 			Review.makeList(Class.LIST_DIV, null, list);

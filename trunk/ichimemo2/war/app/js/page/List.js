@@ -26,6 +26,9 @@ Class.init = function()  {
 }
 
 Class.load = function() {
+	var div = $(Class.LIST_DIV);
+	div.html("Please wait...");
+	
 	var curPos = Map.marker.getPosition();
 	var sort = $(Class.PAGE).find(Class.SORT).filter(':checked').val();
 
