@@ -3,6 +3,7 @@ package org.kotemaru.kokorahen.logic;
 import java.util.*;
 import java.util.logging.Logger;
 import org.slim3.datastore.*;
+import org.slim3.util.BeanUtil;
 import org.kotemaru.jsrpc.Params;
 import org.kotemaru.kokorahen.jsrpc.Kokorahen;
 import org.kotemaru.kokorahen.meta.ReviewModelMeta;
@@ -51,12 +52,20 @@ public class SpotLogic  {
 		SpotModel model = getSpot(id);
 		if (id == null) {
 			model = new SpotModel();
+			model.setOwner(env.getLoginUser().getUserId());
+			model.setCreateDate(new Date());
+		} else {
+			SpotModel backup = new SpotModel();
+			BeanUtil.copy(model, backup);
+			backup.setKey(null);
+			backup.setInvalid(true);
+			backup.setMasterSpotId(id);
+			Datastore.put(backup);
 		}
 
-		model.setOwner(env.getLoginUser().getUserId());
+		model.setUpdater(env.getLoginUser().getUserId());
 		model.setName(params.toString("name"));
 		model.setFurikana(params.toString("furikana"));
-		model.setCreateDate(new Date());
 		model.setUpdateDate(new Date());
 		model.setLat(params.toDouble("lat"));
 		model.setLng(params.toDouble("lng"));
