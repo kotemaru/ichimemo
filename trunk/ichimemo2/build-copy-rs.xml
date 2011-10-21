@@ -17,7 +17,7 @@
 		classname="org.kotemaru.yui.YuiCompressTask"
 		classpath="lib/yuicompress-ant-task.jar;lib/yuicompressor-2.4.6.jar" />
 
-	<target name="default" depends="copy-resource, index.html" />
+	<target name="default" depends="copy-resource, index.html, compress" />
 
 	<target name="copy-resource">
 		<copy todir="${classes}">
@@ -30,24 +30,23 @@
 		</copy>
 	</target>
 
-	<target name="compress" depends="comp.css,comp.js,comp.beforejs">
+	<target name="compress" depends="comp.css,comp.js">
 	</target>
 
 	<target name="comp.css">
-		<concat destfile="war/kokorahen/all.css" >
-			<fileset file="war/jq/jqm/jquery.mobile-1.0b2.min.css" />
-			<fileset file="war/css/common.css" />
-			<fileset dir="war/css/modules" />
+		<mkdir dir="war/app/min" />
+		<concat destfile="war/app/min/all.css" encoding="utf-8">
+			<fileset file="war/app/css/common.css" />
 		</concat>
 		
 		<yuicompress
-			file="war/kokorahen/all-min.css"
+			file="${basedir}/war/app/min/all-min.css"
 			verbose="true"
 			type="css"
 			charset="utf-8"
 			column="40"
 		>
-			<fileset file="war/kokorahen/all.css" />
+			<fileset file="war/app/min/all.css" />
 		</yuicompress>
 		<!--
 		<gzip src="war/kokorahen/all-min.css" zipfile="war/kokorahen/all-min.css.gz"/>
@@ -55,53 +54,33 @@
 	</target>
 	
 	<target name="comp.js">
-		<concat destfile="war/kokorahen/all.js" >
-			<fileset file="war/jq/jq.raty/js/jquery.raty.min.js" />
-			<fileset file="war/jq/jqm/jquery.mobile-1.0b2.js"/>
-			<fileset file="war/js/InfoBox.js" />
-			<fileset file="war/js/Picasa.js" />
-			<fileset dir="war/js/modules" />
-			<fileset file="war/js/Loader.js" />
-			<fileset file="war/js/onload.js" />
+		<mkdir dir="war/app/min" />
+		<concat destfile="war/app/min/all.js" encoding="utf-8" >
+			<fileset file="war/jq/jqm/jquery.mobile-1.0rc2.js"/>
+			<fileset dir="war/app/js/pre" includes="*.js"/>
+			<fileset dir="war/app/js" includes="*.js"/>
+			<fileset dir="war/app/js/page" includes="*.js"/>
 		</concat>
 			
 		<yuicompress
-			file="war/kokorahen/all-min.js"
+			file="${basedir}/war/app/min/all-min.js"
 			verbose="true"
 			type="js"
 			charset="utf-8"
 			column="40"
 		>
-			<fileset file="war/kokorahen/all.js" />
+			<fileset file="war/app/min/all.js" />
 		</yuicompress>
 		<!--
 		<gzip src="war/kokorahen/all-min.js" zipfile="war/kokorahen/all-min.js.gz"/>
 		-->
 	</target>
-	<target name="comp.beforejs">
-		<concat destfile="war/kokorahen/before.js" >
-			<fileset file="war/js/before/PCookie.js" />
-			<fileset file="war/js/before/Jsrpc.js" />
-			<fileset file="war/WEB-INF/classes/org/kotemaru/kokorahen/jsrpc/Kokorahen.js" />
-		</concat>
-			
-		<yuicompress
-			file="war/kokorahen/before-min.js"
-			verbose="true"
-			type="js"
-			charset="utf-8"
-			column="40"
-		>
-			<fileset file="war/kokorahen/before.js" />
-		</yuicompress>
-		<!--
-		<gzip src="war/kokorahen/before-min.js" zipfile="war/kokorahen/before-min.js.gz"/>
-		-->
-	</target>
 	
 	<target name="index.html">
 		<concat destfile="war/index.html" encoding="utf-8">
-			<fileset file="war/app/html/index-h.html" />
+			<fileset file="war/app/html/index-h1.html" />
+			<fileset file="war/app/html/index-h2-min.html" />
+			<fileset file="war/app/html/index-h3.html" />
 			<fileset dir="war/app/html/page" includes="*.html" />
 			<fileset file="war/app/html/SpotBrief.html" />
 			<fileset file="war/app/html/index-f.html" />

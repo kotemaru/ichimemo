@@ -1,0 +1,26 @@
+
+	<script>
+console.log(document.cookie);
+PCookie.load();
+if (location.hash != "" && location.hash != null) {
+	location.href = "/";
+}
+
+function updateOrientation() {
+	Map.updateOrientation();
+}
+// Dummys
+Map.updateOrientation = function(){};
+User.setDefaultPhoto = function(){};
+SpotInfo.setDefaultPhoto = function(){};
+
+	</script>
+
+
+</head>
+<body
+	onorientationchange="updateOrientation();"
+	onresize="updateOrientation();"
+>
+
+
