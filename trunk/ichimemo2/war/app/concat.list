@@ -20,5 +20,6 @@ app/html/page/ReviewInput.html
 app/html/page/TwitInput.html
 app/html/page/MemoInput.html
 app/html/page/Login.html
+app/html/page/Info.html
 app/html/SpotBrief.html
 app/html/index-f.html
