@@ -1,4 +1,8 @@
 
+- spot更新のログ機能
+- list待ちのグルグル
+- yuicom のWARN外し
+
 - getListItem共通化
 - Spot.data の Spot 直化
 - Current クラス必要
