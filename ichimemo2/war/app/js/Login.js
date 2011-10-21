@@ -28,7 +28,7 @@ Class.login = function(provider) {
 Class.logout = function() {
 	PCookie.clear(function(){
 		var provider = Class.user==null ? null : Class.user.provider;
-		var href = Kokorahen.logout(Class.user.provider);
+		var href = Kokorahen.logout(provider);
 		document.cookie = "JSESSIONID=x";
 		location.href = href;
 	});
