@@ -2,6 +2,10 @@
 -o spot更新のログ機能
 - list待ちのグルグル
 - yuicom のWARN外し
+- memcache
+-- user,spot
+
+- google place
 
 - getListItem共通化
 - Spot.data の Spot 直化

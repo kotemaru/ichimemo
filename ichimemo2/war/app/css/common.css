@@ -49,6 +49,7 @@ body>div {
 .tab-timeline .ui-icon {background: url(/images/clock_time.png) 50% 0 no-repeat; background-size: 32px 32px;}
 .tab-list .ui-icon {background: url(/images/list.png) 50% 0 no-repeat; background-size: 32px 32px;}
 .tab-memo .ui-icon {background: url(/images/edit.png) 50% 0 no-repeat; background-size: 32px 32px;}
+.tab-info .ui-icon {background: url(/images/information.png) 50% 0 no-repeat; background-size: 32px 32px;}
 .tab-user .ui-icon {background: url(/images/user.png) 50% 0 no-repeat; background-size: 32px 32px;}
 
 
