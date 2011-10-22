@@ -41,7 +41,7 @@ Class.load = function(spotId) {
 		follows = Login.user.follows;
 	}
 	
-	$(Class.LIST_DIV).html("");
+	$(Class.LIST_DIV).html("Please wait...");
 	Kokorahen.listReviewAsync({
 		success: function(list) {
 			Review.makeList(Class.LIST_DIV, null, list);

@@ -13,7 +13,7 @@
 	</div>
 	<div data-role="content" id="mapCanvas">
 	</div>
-	<div  data-role="footer" data-position="fixed" >
+	<div id="MapFooter" data-role="footer" data-position="fixed" >
 		<div id="navbar" data-role="navbar" data-grid="d" class="Navbar" >
 			<ul>
 				<li><a href="#Map" class="tab-map ui-btn-active" myid="tab-map" data-icon="custom" data-transition="none">Map</a></li>
@@ -28,8 +28,12 @@
 
 
 <style>
-
-
+#mapCanvas {
+	height: 1000px;
+}
+body {
+	height: 1000px;
+}
 /**
  * Spotポップアップの１行目(Spot名)
  */

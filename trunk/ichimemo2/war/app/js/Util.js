@@ -33,9 +33,12 @@ Class.changePage = function(id) {
 
 	$.mobile.showPageLoadingMsg();
 	setTimeout(function(){
-		//jqt.goTo(Spot.ID, "slideleft");
-		$.mobile.changePage(id, "slide");
-		$.mobile.activePage.find("a[data-icon='back'] .ui-btn-text").text(title);
+		try {
+			$.mobile.changePage(id, "slide");
+			$.mobile.activePage.find("a[data-icon='back'] .ui-btn-text").text(title);
+		} catch (err) {
+			alert(err);
+		}
 	},100);
 }
 Class.backPage = function() {

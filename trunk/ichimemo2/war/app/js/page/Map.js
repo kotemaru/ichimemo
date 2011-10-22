@@ -86,7 +86,8 @@ Class.onCenterChanged = function(ev) {
 Class.updateOrientation = function(ev) {
 	var h1 = 43; // $("#mapHeader").height();
 	var h2 = 50; //$("#tabbar").height();
-	$(Class.CANVAS).height($("html").height() - h1 - h2);
+	$(Class.CANVAS).height(window.innerHeight - h1 - h2);
+	//$(Class.CANVAS).height($("html").height() - h1 - h2);
 }
 
 Class.onBeforeShow = function(ev) {
