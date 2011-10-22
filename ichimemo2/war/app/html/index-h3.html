@@ -3,17 +3,17 @@
 console.log(document.cookie);
 PCookie.load();
 if (location.hash != "" && location.hash != null) {
-	location.href = "/";
+	location.hash = "";
 }
 
 function updateOrientation() {
 	Map.updateOrientation();
 }
-// Dummys
-Map.updateOrientation = function(){};
-User.setDefaultPhoto = function(){};
-SpotInfo.setDefaultPhoto = function(){};
-
+$(function(){
+	$("#Map").bind("scrollstop", function(){
+		updateOrientation();
+	});
+});
 	</script>
 
 

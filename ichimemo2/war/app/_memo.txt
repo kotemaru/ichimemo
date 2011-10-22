@@ -4,6 +4,8 @@
 - yuicom のWARN外し
 - memcache
 -- user,spot
+-? window.onerrorが使えない
+- 回転対応
 
 - google place
 

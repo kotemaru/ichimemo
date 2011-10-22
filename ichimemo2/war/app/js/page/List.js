@@ -116,7 +116,6 @@ Class.getListItem = function(spot) {
 }
 
 Class.onItemClick = function(id) {
-	SpotInfo.setCurrent(Spot.all[id]);
 	SpotTL.go(id);
 }
 
