@@ -46,6 +46,7 @@ public class KakasiLogic {
 		File dir = new File("kakasi/dic");
 		File[] files = dir.listFiles();
 		for (int i=0; i<files.length; i++) {
+			if (files[i].isDirectory()) continue;
 			InputStream in = new FileInputStream(files[i]);
 			try {
 				Reader reader = new InputStreamReader(in,"EUC-JP");

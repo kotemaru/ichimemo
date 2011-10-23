@@ -40,6 +40,8 @@ public class SpotModel extends ModelBase {
 	private Long masterSpotId;
 	private Long owner;
 	private Long updater;
+	private Float placeRating;
+	private String placeId;
 
 	@Attribute(persistent = false)
 	private double distance;
@@ -303,6 +305,22 @@ public class SpotModel extends ModelBase {
 
 	public void setUpdater(Long updater) {
 		this.updater = updater;
+	}
+
+	public String getPlaceId() {
+		return placeId;
+	}
+
+	public void setPlaceId(String placeId) {
+		this.placeId = placeId;
+	}
+
+	public Float getPlaceRating() {
+		return placeRating;
+	}
+
+	public void setPlaceRating(Float placeRating) {
+		this.placeRating = placeRating;
 	}
 
 

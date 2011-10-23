@@ -17,6 +17,7 @@ import org.kotemaru.jsrpc.JsrpcException;
 import org.kotemaru.jsrpc.Params;
 import org.kotemaru.jsrpc.annotation.JsRpc;
 import org.kotemaru.kokorahen.bean.UserPublicBean;
+import org.kotemaru.kokorahen.logic.GPlaceLogic;
 import org.kotemaru.kokorahen.logic.KakasiLogic;
 import org.kotemaru.kokorahen.logic.MemoLogic;
 import org.kotemaru.kokorahen.logic.ReviewLogic;
@@ -55,6 +56,7 @@ public class Kokorahen implements JsrpcEnvironment {
 	public transient ReviewLogic reviewLogic;// = ReviewLogic.getInstance(this);
 	public transient TimelineLogic timelineLogic;// = TimelineLogic.getInstance(this);
 	public transient MemoLogic memoLogic;// = TimelineLogic.getInstance(this);
+	public transient GPlaceLogic gplaceLogic;// = TimelineLogic.getInstance(this);
 	public TwitterLogic twitterLogic = TwitterLogic.getInstance(this);
 
 	private UserModel loginUser;
@@ -65,6 +67,7 @@ public class Kokorahen implements JsrpcEnvironment {
 		reviewLogic = ReviewLogic.getInstance(this);
 		timelineLogic = TimelineLogic.getInstance(this);
 		memoLogic = MemoLogic.getInstance(this);
+		gplaceLogic = GPlaceLogic.getInstance(this);
 	}
 
 	
@@ -273,6 +276,18 @@ public class Kokorahen implements JsrpcEnvironment {
 	public  Long writeMemo(Map map) throws Exception {
 		checkLogin();
 		return memoLogic.writeMemo(map);
+	}
+	//------------------------------------------------------------------------------
+	// Google Place連係
+	public long fromGooglePlace(Map map) throws Exception {
+		checkLogin();
+		try {
+			int count = gplaceLogic.fromPlace(map);
+			return count;
+		} catch (IOException e) {
+			LOG.warning(e.toString());
+			return -1;
+		}
 	}
 
 	//------------------------------------------------------------------------------

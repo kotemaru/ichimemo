@@ -6,13 +6,6 @@
 	<meta id="viewport" name="viewport"
 		content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
 	<title>ここらへん</title> 
-	<link rel="stylesheet" href="jq/jqm/jquery.mobile-1.0rc2.css" />
-	<script src="jq/jquery-1.6.2.min.js"></script>
-	
-	<link rel="stylesheet" href="app/min/all-min.css?v=20111022_1320" />
-	<script src="http://maps.google.com/maps/api/js?libraries=geometry&amp;sensor=true"></script>
-	<script src="app/min/all-min.js?v=20111022_1320"></script>
-
 	<script>
 window.onerror = function(err) {
 	if (err.stack) {
@@ -21,9 +14,28 @@ window.onerror = function(err) {
 		alert(err);
 	}
 }
+
+if (undefined === window.console) {
+	window.condole = {log: function(){}};
+}
+
 	</script>
+
+
+	<link rel="stylesheet" href="jq/jqm/jquery.mobile-1.0rc2.css" />
+	<script src="jq/jquery-1.6.2.min.js"></script>
+	
+	<link rel="stylesheet" href="app/min/all-min.css?v=20111024_0131" />
+	<script src="http://maps.google.com/maps/api/js?libraries=geometry&amp;sensor=true"></script>
+	<script src="app/min/all-min.js?v=20111024_0131"></script>
+
+	<style>
+		body>div {
+			max-width: 768px;
+		}
+	</style>
+	
 	<script>
-console.log(document.cookie);
 PCookie.load();
 if (location.hash != "" && location.hash != null) {
 	location.hash = "";
@@ -87,7 +99,9 @@ Please wait...
 	</div>
 	<div data-role="content">
 ここらへん Ver-0.5
-<div onclick="xxxx;" >test</div>
+
+<label>Google Place連係:</label>
+<a data-role="button" href="javascript:Info.fromGooglePlace()">周辺のスポットを取得する</a>
 	</div>
 	<div data-role="footer"  data-position="fixed" >
 	</div>
@@ -252,7 +266,7 @@ body {
 		<input name="spotId" type="hidden"/>
 		<input name="appraise" type="hidden"/>
 
-		<div class="SpotBrief" onclick="SpotInfo.go()"></div>
+		<div class="SpotBrief" ></div>
 		
 		<div class="FullSizeInput">
 			<textarea name="comment"  cols="100%" rows="10" placeholder="コメント" ></textarea>
@@ -345,7 +359,7 @@ body {
 		<a data-icon="back" href="javascript:Util.backPage()" data-iconpos="left"></a>
 	</div>
 	<div data-role="content">
-		<div class="SpotBrief" onclick="SpotInfo.go()"></div>
+		<div class="SpotBrief" ></div>
 		
 		<p/>
 		評価：<img class="FaceMark" src='/images/face-${appraise}.png' />
@@ -426,7 +440,7 @@ body {
 		<input name="spotId" type="hidden"/>
 		<input name="appraise" type="hidden"/>
 
-		<div class="SpotBrief" onclick="SpotInfo.go()"></div>
+		<div class="SpotBrief" ></div>
 		
 <!--		
 		<div  data-role="fieldcontain" align="center"> 
@@ -654,7 +668,7 @@ body {
 		<a data-icon="back" href="javascript:Util.backPage()"></a>
 	</div>
 	<div data-role="content" >
-		<div class="SpotBrief" onclick="SpotInfo.go()"></div>
+		<div class="SpotBrief"></div>
 
 		<div class="ui-grid-b">
 			<div class="ui-block-a" >
@@ -752,7 +766,7 @@ body {
 		<input name="spotId" type="hidden"/>
 		<input name="appraise" type="hidden"/>
 
-		<div class="SpotBrief" onclick="SpotInfo.go()"></div>
+		<div class="SpotBrief" ></div>
 		
 		<div class="FullSizeInput">
 			<textarea name="comment"  cols="100%" rows="10" placeholder="コメント" ></textarea>
@@ -917,14 +931,26 @@ body {
 <div class="Template">
 	
 	<div id="spotBrief" class="SpotBrief" >
-		<a data-role="button"	data-icon="arrow-r" data-iconpos="notext"></a>
+		<a class="Edit" data-role="button" data-icon="edit" data-iconpos="notext"></a>
 		<span class="Thumbnail" ><div><div>
 			<img src="/images/Home.png" onerror='SpotInfo.setDefaultPhoto(this)' />
 		</div></div></span>
 		<div class="Title">Title</div>
 		<div class="SubTitle">SubTitle</div>
-		<div class="Distance">999m</div>
-		<br clear="all" />
+		<div class="Small">距離:<span class="Distance">999m</span> <span>一般評価:<span class="appraise"></span></div>
+		<div class="SpotDetail">
+			<div>ジャンル: <span class="tags"></span></div>
+			<div>昼: <span class="timeLunchMin"></span>〜<span class="timeLunchMax"></span></div>
+			<div>夜: <span class="timeDinnerMin"></span>〜<span class="timeDinnerMax"></span></div>
+			<div>休: <span class="closedDays"></span></div>
+			<div>備考: <span class="openHours"></span>
+				<span class="comment"></span></div>
+			<div>(※未記入項目への記入に御協力下さい。)</div>
+			<div class="GoogleLogo" align="right"></div>
+		</div>
+		<div class="SpotDetailKnob">
+			<img src="/images/pulldown.gif" onclick="SpotBrief.toggleDetail(event,this)">
+		</div>
 	</div>
 
 </div>
@@ -934,6 +960,19 @@ body {
 .SpotBrief > a {
 	float: right;
 }
+.SpotBrief > div.SpotDetail {
+	clear:both;
+	font-size: 70%;
+	display:none;
+}
+.SpotBrief > div.SpotDetailKnob {
+	text-align: center;
+	border-top: 2px solid #eeeeee;
+}
+.SpotBrief > div.SpotDetailKnob > img{
+	vertical-align: top;
+}
+
 
 img.Thumbnail {
 	width: 48px;
@@ -949,10 +988,9 @@ img.Thumbnail {
 .SubTitle {
 	font-size: 70%;
 }
-.Distance {
+.Small {
 	font-size: 70%;
 }
-
 
 span.Thumbnail{
 	left:0;
