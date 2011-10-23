@@ -23,8 +23,9 @@ PCookie.setNames = function(names) {
 PCookie.save = function() {
 	if (! window.openDatabase) return;
 
-	PCookie.done = false;
 	var db = openDatabase(PCookie.DB_NAME, PCookie.DB_VER,PCookie.DB_NAME,PCookie.DB_SIZE);
+	if (db == null) return;
+	PCookie.done = false;
 	db.transaction(function(tx){
 		tx.executeSql(PCookie.SQL_DELETE, [],
 			PCookie.onInsert, PCookie.onInit);
@@ -34,8 +35,9 @@ PCookie.clear = function(callback) {
 	if (! window.openDatabase) return;
 
 	if (callback === undefined) callback = PCookie.onNil;
-	PCookie.done = false;
 	var db = openDatabase(PCookie.DB_NAME, PCookie.DB_VER,PCookie.DB_NAME,PCookie.DB_SIZE);
+	if (db == null) return;
+	PCookie.done = false;
 	db.transaction(function(tx){
 		tx.executeSql(PCookie.SQL_DELETE, [],
 			callback, PCookie.onInit);
@@ -60,8 +62,9 @@ PCookie.onInit = function(tx,err) {
 PCookie.load = function() {
 	if (! window.openDatabase) return;
 		
-	PCookie.done = false;
 	var db = openDatabase(PCookie.DB_NAME, PCookie.DB_VER,PCookie.DB_NAME,PCookie.DB_SIZE);
+	if (db == null) return;
+	PCookie.done = false;
 	db.transaction(function(tx){
 		tx.executeSql(PCookie.SQL_SELECT, [],
 			PCookie.onSelect, PCookie.onErrorLog);

@@ -92,7 +92,6 @@ Spot.clearCache= function() {
 Spot.onZoomChanged = function(zoom) {
 	Spot.currentZoom = zoom;
 	Spot.currentAreas = null;
-	//console.log("==========>zoom="+zoom);
 }
 Spot.onCenterChanged = function() {
 	Spot.currentAreas = null;
@@ -123,7 +122,6 @@ Spot.load = function(map) {
 	});
 */
 /*
-	console.log(areas);
 	Spot.currentAreas = areas;
 	Spot.visibleStack = 0;
 	setTimeout(function(){
@@ -134,7 +132,6 @@ Spot.load = function(map) {
 	Spot.currentAreas = areas;
 	setTimeout(function(){
 		if (Spot.currentAreas != areas) return;
-		console.log("==========>POST="+areas);
 
 		var params =  {
 				areas: areas, tag: SpotTags.getSearchTag(), 
@@ -172,7 +169,6 @@ Spot.loadDelay = function(areas, i, n, zoom) {
 		return;
 	}
 	if (Spot.currentAreas != areas || Spot.currentZoom != zoom) {
-		console.log("==========>CANCEL:"+i+":"+areas.length);
 		return; 
 	}
 
@@ -190,7 +186,6 @@ Spot.loadDelay = function(areas, i, n, zoom) {
 
 	var limit = Spot.LIMIT;
 	if (Spot.currentRange >= 20) limit = 999;
-	console.log("==========>POST:"+_areas);
 	Kokorahen.listSpotAsync(Spot.onload, {
 		areas: _areas, tag:Spot.searchTag, 
 		limit: limit, range: Spot.currentRange
@@ -278,7 +273,6 @@ Spot.visible = function(limit) {
 		if (! spots[i].inBounds) break;
 		spots[i].marker.setVisible(true);
 	}
-	console.log("----->visible="+i+":"+limit+":"+spots.length);
 
 	if (i<spots.length) {
 		for (; i<spots.length; i++) {

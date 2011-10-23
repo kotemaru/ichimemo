@@ -16,6 +16,12 @@ Kokorahen.deleteDummyData = function(){
 Kokorahen.deleteDummyDataAsync = function(_callback ){
 	return JSRPC.callAsync(Kokorahen.__URL, "deleteDummyData", arguments);
 }
+Kokorahen.fromGooglePlace = function(map){
+	return JSRPC.call(Kokorahen.__URL, "fromGooglePlace", arguments);
+}
+Kokorahen.fromGooglePlaceAsync = function(_callback ,map){
+	return JSRPC.callAsync(Kokorahen.__URL, "fromGooglePlace", arguments);
+}
 Kokorahen.getKana = function(kanji){
 	return JSRPC.call(Kokorahen.__URL, "getKana", arguments);
 }

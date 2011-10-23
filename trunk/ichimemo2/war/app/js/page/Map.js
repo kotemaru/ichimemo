@@ -65,7 +65,6 @@ Class.onMapClick = function(ev) {
 	Class.infobox.close();
 }
 Class.onBalloonClick = function(ev) {
-	//SpotInfo.go();
 	SpotTL.go(SpotInfo.current.data.id);
 	return Util.eventBreaker(ev);
 }

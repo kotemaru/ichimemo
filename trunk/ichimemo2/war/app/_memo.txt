@@ -1,13 +1,18 @@
 
+
 -o spot更新のログ機能
-- list待ちのグルグル
-- yuicom のWARN外し
-- memcache
--- user,spot
--? window.onerrorが使えない
-- 回転対応
+-x list待ちのグルグル
+-x yuicom のWARN外し
+-x memcache
+--x user,spot
+-x window.onerrorが使えない
+-x 回転対応
+- android
 
 - google place
+-- onclick bug
+-- rating表示
+- list２重バグ
 
 - getListItem共通化
 - Spot.data の Spot 直化

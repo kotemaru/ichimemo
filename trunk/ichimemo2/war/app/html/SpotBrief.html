@@ -1,14 +1,26 @@
 <div class="Template">
 	
 	<div id="spotBrief" class="SpotBrief" >
-		<a data-role="button"	data-icon="arrow-r" data-iconpos="notext"></a>
+		<a class="Edit" data-role="button" data-icon="edit" data-iconpos="notext"></a>
 		<span class="Thumbnail" ><div><div>
 			<img src="/images/Home.png" onerror='SpotInfo.setDefaultPhoto(this)' />
 		</div></div></span>
 		<div class="Title">Title</div>
 		<div class="SubTitle">SubTitle</div>
-		<div class="Distance">999m</div>
-		<br clear="all" />
+		<div class="Small">距離:<span class="Distance">999m</span> <span>一般評価:<span class="appraise"></span></div>
+		<div class="SpotDetail">
+			<div>ジャンル: <span class="tags"></span></div>
+			<div>昼: <span class="timeLunchMin"></span>〜<span class="timeLunchMax"></span></div>
+			<div>夜: <span class="timeDinnerMin"></span>〜<span class="timeDinnerMax"></span></div>
+			<div>休: <span class="closedDays"></span></div>
+			<div>備考: <span class="openHours"></span>
+				<span class="comment"></span></div>
+			<div>(※未記入項目への記入に御協力下さい。)</div>
+			<div class="GoogleLogo" align="right"></div>
+		</div>
+		<div class="SpotDetailKnob">
+			<img src="/images/pulldown.gif" onclick="SpotBrief.toggleDetail(event,this)">
+		</div>
 	</div>
 
 </div>
@@ -18,6 +30,19 @@
 .SpotBrief > a {
 	float: right;
 }
+.SpotBrief > div.SpotDetail {
+	clear:both;
+	font-size: 70%;
+	display:none;
+}
+.SpotBrief > div.SpotDetailKnob {
+	text-align: center;
+	border-top: 2px solid #eeeeee;
+}
+.SpotBrief > div.SpotDetailKnob > img{
+	vertical-align: top;
+}
+
 
 img.Thumbnail {
 	width: 48px;
@@ -33,10 +58,9 @@ img.Thumbnail {
 .SubTitle {
 	font-size: 70%;
 }
-.Distance {
+.Small {
 	font-size: 70%;
 }
-
 
 span.Thumbnail{
 	left:0;
