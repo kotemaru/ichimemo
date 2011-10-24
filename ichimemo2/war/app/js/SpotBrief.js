@@ -32,7 +32,7 @@ var SpotBrief = Module.def(window, function SpotBrief(){}, function(Class){
 		if (data.appraise > 0) {
 			$brief.find(".appraise").text(Math.floor(data.appraise*10)/10);
 		} else {
-			$brief.find(".appraise").text("-");
+			$brief.find(".appraise").text("？");
 		}
 
 		Class._setText($brief, data, "tags");
@@ -48,6 +48,8 @@ var SpotBrief = Module.def(window, function SpotBrief(){}, function(Class){
 			$brief.find(".GoogleLogo").html(
 				"<img src='/images/powered-by-google.png' />"
 			);
+		} else {
+			$brief.find(".GoogleLogo").html("");
 		}
 	}
 	Class._setText = function($brief, data, name) {
@@ -57,7 +59,6 @@ var SpotBrief = Module.def(window, function SpotBrief(){}, function(Class){
 		$brief.find("."+name).text(val);
 	}
 	
-
 	Class.toggleDetail = function(ev,_this) { // this=img
 		var $brief = $(_this.parentNode.parentNode);
 		var that = $brief.data("that");

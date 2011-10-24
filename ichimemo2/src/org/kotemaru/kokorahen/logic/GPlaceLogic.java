@@ -28,8 +28,8 @@ import com.google.appengine.api.urlfetch.*;
 public class GPlaceLogic  {
 	private static final long serialVersionUID = 1L;
 	private static final Logger LOG = Logger.getLogger(GPlaceLogic.class.getName());
-	private static final String KEY =
-		"AIzaSyAvupK0sGEXAAu2FPi69iJZOasSXVtvF0c"; // TODO:->web.xml
+	private static final String KEY = System.getProperty("kokorahen.GPlaceLogic.key");
+	//	"AIzaSyAvupK0sGEXAAu2FPi69iJZOasSXVtvF0c"; // TODO:->web.xml
 	private static final String URL_SEARCH =
 		"https://maps.googleapis.com/maps/api/place/search/json"
 		+"?location=${lat},${lng}"
@@ -196,18 +196,28 @@ public class GPlaceLogic  {
 		for (Map breif : list) {
 			String id = (String)breif.get("id");
 			String refer = (String)breif.get("reference");
-			if (! hasSpot(id)) {
+			String addr = (String)breif.get("vicinity");
+			if (! hasSpot(id,addr)) {
 				makeSpot(refer);
 				count++;
 			}
 		}
 		return count;
 	}
-
-	public boolean hasSpot(String placeId) {
+	public boolean hasSpot(String placeId,String addr) {
+		return hasSpotId(placeId) || hasSpotAddr(addr);
+	}
+	public boolean hasSpotId(String placeId) {
 		SpotModelMeta e = SpotModelMeta.get();
 		ModelQuery<SpotModel> q = Datastore.query(e);
 		q.filter(e.placeId.equal(placeId));
+		SpotModel model = q.asSingle();
+		return model != null;
+	}
+	public boolean hasSpotAddr(String addr) {
+		SpotModelMeta e = SpotModelMeta.get();
+		ModelQuery<SpotModel> q = Datastore.query(e);
+		q.filter(e.address.equal(addr));
 		SpotModel model = q.asSingle();
 		return model != null;
 	}

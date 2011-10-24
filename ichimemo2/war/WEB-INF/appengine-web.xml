@@ -28,5 +28,6 @@
 
 		<property name="kakasi.itaijiDictionary.path" value="kakasi/itaijidict" />
 		<property name="kakasi.kanwaDictionary" value="kakasi/null-kanwadict" />
+		<property name="kokorahen.GPlaceLogic.key" value="AIzaSyAvupK0sGEXAAu2FPi69iJZOasSXVtvF0c" />
 	</system-properties>
 </appengine-web-app>

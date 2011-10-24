@@ -59,7 +59,6 @@
 	<target name="comp.js">
 		<mkdir dir="war/app/min" />
 		<concat destfile="war/app/min/all.js" encoding="utf-8" >
-			<fileset file="war/jq/jqm/jquery.mobile-1.0rc2.js"/>
 			<fileset dir="war/app/js/pre" includes="*.js"/>
 			<fileset dir="war/app/js" includes="*.js"/>
 			<fileset dir="war/app/js/page" includes="*.js"/>
@@ -84,6 +83,7 @@
 			<filterchain>
 				<replacetokens>
  					<token key="date_time" value="${DSTAMP}_${TSTAMP}" />
+ 					<token key="VERSION" value="SNAP-${DSTAMP}-${TSTAMP}" />
 				</replacetokens>
 			</filterchain>
 			<fileset file="war/app/html/index-h1.html" />
