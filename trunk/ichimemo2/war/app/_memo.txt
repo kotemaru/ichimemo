@@ -10,9 +10,11 @@
 - android
 
 - google place
--- onclick bug
--- rating表示
-- list２重バグ
+--o keyの分離
+--o onclick bug
+--o rating表示
+--o 住所チェック
+-o list２重バグ
 
 - getListItem共通化
 - Spot.data の Spot 直化

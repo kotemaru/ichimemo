@@ -398,11 +398,12 @@ public class SpotLogic  {
 		};
 
 		List<SpotModel> list = new ArrayList<SpotModel>(32);
+		HashSet<Long> exists = new HashSet<Long>(32);
 		for (int i=0; i<areas.length; i++) {
-			takeSpots(list, areas[i], lat, lng, null);
+			takeSpots(list, areas[i], lat, lng, exists);
 		}
 		if (list.size() < limit) {
-			return listNear1kSpot(lat, lng, limit, list);
+			return listNear1kSpot(lat, lng, limit, list, exists);
 		}
 		
 		Collections.sort(list, new DistComparator());
@@ -411,15 +412,11 @@ public class SpotLogic  {
 		}
 		return list;
 	}
-	private List<SpotModel> listNear1kSpot(double lat, double lng, int limit,
-			List<SpotModel> list) {
 
-		HashSet<Long> exists = new HashSet<Long>(list.size());
-		for (SpotModel model : list) {
-			exists.add(model.getId());
-		}
 	
-		
+	private List<SpotModel> listNear1kSpot(double lat, double lng, int limit,
+			List<SpotModel> list, HashSet<Long> exists) {
+
 		// 現在値を中心とする策的半径内の2x2ブロック。
 		final double r500m = 0.005;
 		String[] areas = new String[]{
@@ -447,18 +444,20 @@ public class SpotLogic  {
 		q.filter(e.invalid.equal(false));
 		q.filter(e.areas.equal(area));
 		q.limit(999);
+
 		Iterator<SpotModel> ite = q.asIterator();
 		while (ite.hasNext()) {
 			SpotModel model = ite.next();
-			if (exists != null && exists.contains(model.getId()) ) {
+			if (exists.contains(model.getId())) {
 				continue;
 			}
-			
+
 			double latR = lat-model.getLat();
 			double lngR = lng-model.getLng();
 			double dist = Math.sqrt(latR*latR + lngR*lngR);
 			model.setDistance(dist);
 			list.add(model);
+			exists.add(model.getId());
 		}
 	}
 
