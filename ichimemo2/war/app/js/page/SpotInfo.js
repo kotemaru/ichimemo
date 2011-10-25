@@ -34,6 +34,7 @@ Class.init = function() {
 		$(Class.MAP_MASK).hide();
 	}).blur( function(){
 		$(Class.MAP_MASK).show();
+		Class.searchAddr(form.address.value);
 	});
 
 	$(form.name).blur(Class.onNameBlur);
@@ -97,7 +98,7 @@ Class.onClassMarkerClick = function(ev) {
 Class.onMap2Click = function(ev) {
 	Class.marker2.setPosition(ev.latLng);
 	Class.marker2.setVisible(true);
-	Class.setClassPos(Class.marker2.getPosition());
+	Class.setSpotPos(Class.marker2.getPosition());
 	//Class.map.setCenter(Class.marker2.getPosition());
 }
 Class.onMap2Idle = function(ev) {
@@ -135,7 +136,7 @@ Class.setCurrent = function(cur){
 		}
 		SpotTags.setFormTags([]);
 		ClosedDays.clear();
-		Class.setClassPos(pos);
+		Class.setSpotPos(pos);
 
 		$("#spotReviewBtn").hide();
 
@@ -176,7 +177,22 @@ Class.onShow = function(ev, info){
 	Util.setNavbar(Class.PAGE);
 };
 
-Class.setClassPos = function(pos){
+Class.searchAddr = function(addr){
+	var spotForm = document.spot;
+	var geocoder = new google.maps.Geocoder();
+	geocoder.geocode({address: addr, region:"JP"}, function(results, status){
+		if(status == google.maps.GeocoderStatus.OK){
+			var pos = results[0].geometry.location;
+			Class.marker2.setPosition(pos);
+			Class.map.setCenter(pos);
+			Class.setSpotPos(results[0].geometry.location);
+		} else {
+			spotForm.address.value = "???";
+		}
+	});
+}
+
+Class.setSpotPos = function(pos){
 	var spotForm = document.spot;
 	spotForm.lat.value = pos.lat();
 	spotForm.lng.value = pos.lng();
@@ -187,6 +203,7 @@ Class.setClassPos = function(pos){
 		var addr = "???";
 		if(status == google.maps.GeocoderStatus.OK){
 			addr = results[0].formatted_address;
+			addr = addr.replace(/^[^,]*[,][ ]/,"");
 		}
 		spotForm.address.value = addr;
 		spotForm.address.scrollLeft = 1000;
