@@ -198,8 +198,12 @@ public class GPlaceLogic  {
 			String refer = (String)breif.get("reference");
 			String addr = (String)breif.get("vicinity");
 			if (! hasSpot(id,addr)) {
-				makeSpot(refer);
-				count++;
+				try {
+					makeSpot(refer);
+					count++;
+				} catch (Exception e) {
+					LOG.warning(e.toString());
+				}
 			}
 		}
 		return count;
