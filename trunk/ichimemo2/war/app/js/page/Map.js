@@ -125,6 +125,20 @@ Class.onShow = function(ev, info){
 Class.onMapIdol = function(ev) {
 	Spot.load(Class.map);
 	Class.infobox.close();
+	Class.autoMoveMarker();
+}
+Class.autoMoveMarker = function() {
+	var r = Util.getBounds(Class.map);
+	var pos = 	Class.marker.getPosition();
+	var lat = pos.lat();
+	var lng = pos.lng();
+
+	if (r.latMin > lat || lat > r.latMax
+		|| r.lngMin > lng || lng > r.lngMax) {
+		lat = (r.latMin + r.latMax) / 2;
+		lng = (r.lngMin + r.lngMax) / 2;
+		Class.marker.setPosition(new google.maps.LatLng(lat,lng));
+	}
 }
 
 });
