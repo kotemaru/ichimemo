@@ -108,6 +108,7 @@ public class UserLogic  {
 		user.setFollows((List<Long>)params.get("follows"));
 		user.setComment(params.toString("comment"));
 		user.setPhotoUrl(params.toString("photoUrl"));
+		user.setTags((List<String>)params.get("tags"));
 
 		Datastore.put(user);
 		cacheUserModel.remove(id);

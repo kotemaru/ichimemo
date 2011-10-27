@@ -317,5 +317,13 @@ public class ReviewLogic  {
 		float appraise = (float)(total/count);
 		return appraise;
 	}
-
+	public  List<ReviewModel> listReviewForUser(Long userId, int limit){
+		ReviewModelMeta e = ReviewModelMeta.get();
+		ModelQuery q = Datastore.query(e);
+		q.filter(e.userId.equal(userId));
+		q.sort(e.appraise.desc);
+		q.sort(e.updateDate.desc);
+		q.limit(limit);
+		return q.asList();
+	}
 }

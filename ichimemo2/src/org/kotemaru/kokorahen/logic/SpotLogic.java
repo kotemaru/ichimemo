@@ -151,7 +151,29 @@ public class SpotLogic  {
 		List<String> areas = (List<String>) params.get("areas");
 		String tag = params.toString("tag");
 		String search = params.toString("search");
-
+		return listSpot(
+				latMin,
+				lngMin,
+				latMax,
+				lngMax,
+				areas,
+				tag,
+				search,
+				limit,
+				new ArrayList(limit)
+		);
+	}
+	public List<SpotModel> listSpot(
+			double latMin,
+			double lngMin,
+			double latMax,
+			double lngMax,
+			List<String> areas,
+			String tag,
+			String search,
+			Integer limit,
+			List<SpotModel> list
+	) {
 		SpotModelMeta e = SpotModelMeta.get();
 		Iterator<SpotModel>[] qs = new Iterator[areas.size()];
 		for (int i=0; i<qs.length; i++) {
@@ -173,8 +195,7 @@ public class SpotLogic  {
 			}
 		}
 
-		List<SpotModel> list = new ArrayList<SpotModel>(limit);
-		for (int i=0; i<limit; i++) {
+		while (list.size()<limit) {
 			int maxJ = -1;
 			float maxA = -10000.0F;
 			for (int j=0; j<spots.length; j++) {
@@ -194,8 +215,6 @@ public class SpotLogic  {
 			}
 		}
 		
-		System.out.println("spots="+list.size()+"\n"+params);
-
 		return list;
 	}
 	

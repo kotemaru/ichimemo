@@ -31,6 +31,7 @@ public class UserModel extends ModelBase {
 	private List<Long> follows = null;
 	private Integer followerNum = 0;
 
+	private List<String> tags;
 	
 	@Attribute(persistent = false)
 	private boolean admin;
@@ -154,6 +155,12 @@ public class UserModel extends ModelBase {
 	}
 	public void setAdmin(boolean admin) {
 		this.admin = admin;
+	}
+	public List<String> getTags() {
+		return tags;
+	}
+	public void setTags(List<String> tags) {
+		this.tags = tags;
 	}
 
 

@@ -25,10 +25,10 @@ if (undefined === window.console) {
 	<link rel="stylesheet" href="jq/jqm/jquery.mobile-1.0rc2.css" />
 	<script src="jq/jquery-1.6.2.min.js"></script>
 	
-	<link rel="stylesheet" href="app/min/all-min.css?v=20111025_1418" />
+	<link rel="stylesheet" href="app/min/all-min.css?v=20111027_1340" />
 	<script src="http://maps.google.com/maps/api/js?libraries=geometry&amp;sensor=true"></script>
 	<script src="jq/jqm/jquery.mobile-1.0rc2.min.js"></script>
-	<script src="app/min/all-min.js?v=20111025_1418"></script>
+	<script src="app/min/all-min.js?v=20111027_1340"></script>
 
 	<style>
 		body>div {
@@ -99,7 +99,7 @@ Please wait...
 		<h1>情報</h1>
 	</div>
 	<div data-role="content">
-		<h3>ここらへん Ver:SNAP-20111025-1418</h3>
+		<h3>ここらへん Ver:SNAP-20111027-1340</h3>
 		<hr/>
 		<div>Google Place連係:</div>
 		<a data-role="button" href="javascript:Info.fromGooglePlace()">周辺のスポットを取得する</a>
@@ -287,6 +287,71 @@ body {
 	</div>
 </div>
 
+
+
+<div id="MySpotInput"  data-role="page">
+	<div data-role="header" data-position="fixed">
+		<h1>マイスポット登録</h1>
+		<a data-icon="back" href="javascript:Util.backPage()" data-iconpos="left"></a>
+		<a data-icon="submit" href="javascript:MySpotInput.write()" data-iconpos="notext"></a>
+	</div>
+	<div data-role="content">
+
+		<div class="SpotBrief" ></div>
+		
+		<form>
+		<div data-role=“fieldcontain”>
+				<a class="tags" data-role="button"
+					data-iconpos="right" 
+					data-icon="arrow-d"
+					href="#"
+					onclick="SpotTags.open(this,'ジャンル選択(複数可)','form')" 
+				>ジャンル選択(複数可)</a>
+		</div>
+
+		<div  data-role="fieldcontain" align="center"> 
+			<fieldset data-type="horizontal" data-role="controlgroup" align="center"> 
+		  		<input type="radio" name="todo" value="checked" id="MySpotIn-checked" class="custom" checked="checked"/> 
+				<label for="MySpotIn-checked">&nbsp;行った&nbsp;</label> 
+				<input type="radio" name="todo" value="todo" id="MySpotIn-todo" class="custom"/> 
+				<label for="MySpotIn-todo">行きたい</label> 
+			</fieldset> 
+		</div>
+
+		<div class="FullSizeInput">
+			<textarea name="comment"  cols="100%" rows="10" placeholder="コメント" ></textarea>
+		</div>
+
+		<input type="hidden" name="appraise" />
+		<div class="Faces" align="center">
+			<span><img class="FaceMark" src="/images/face-1.png" onclick="MySpotInput.onFaceClick(1)"/></span>
+			<span><img class="FaceMark" src="/images/face-2.png" onclick="MySpotInput.onFaceClick(2)"/></span>
+			<span><img class="FaceMark" src="/images/face-3.png" onclick="MySpotInput.onFaceClick(3)"/></span>
+			<span><img class="FaceMark" src="/images/face-4.png" onclick="MySpotInput.onFaceClick(4)"/></span>
+			<span><img class="FaceMark" src="/images/face-5.png" onclick="MySpotInput.onFaceClick(5)"/></span>
+			<div class="FaceMarkText"></div>
+		</div>
+		</form>
+		<a data-role="button" data-icon="submit" data-iconpos="right"
+				href="javascript:MySpotInput.write()">登録</a>
+	</div>
+	<div data-role="footer"  data-position="fixed" >
+	</div>
+</div>
+
+<style>
+#ReviewInput .Faces {
+	margin: 8px;
+	min-height: 32px;
+}
+#ReviewInput .Faces > span {
+	display: inline-block;
+	min-width: 40px;
+	vertical-align: middle;
+	margin: 0px;
+}
+
+</style>
 
 
 <div id="PicasaAlbum" data-role="dialog" >
@@ -483,11 +548,11 @@ body {
 </div>
 
 <style>
-#ReviewInput .Faces {
+.Faces {
 	margin: 8px;
 	min-height: 32px;
 }
-#ReviewInput .Faces > span {
+.Faces > span {
 	display: inline-block;
 	min-width: 40px;
 	vertical-align: middle;
@@ -541,7 +606,7 @@ body {
 		<div data-role=“fieldcontain”>
 			<label>住所:<span class="Require">(必須)</span></label>
 			<div class="FullSizeInput">
-				<input type="text" name="address" placeholder="住所" readonly="readonly"/>
+				<input type="text" name="address" placeholder="住所" />
 			</div>
 			<div id="mapCanvas2"><div id="mapCanvas2Mask">タップして補正</div></div>
 			<br/>
@@ -669,6 +734,7 @@ body {
 	<div data-role="header" data-position="fixed" data-theme="a">
 		<h1>スポット</h1>
 		<a data-icon="back" href="javascript:Util.backPage()"></a>
+		<a data-icon="plus" href="javascript:SpotTL.goMySpot()" data-iconpos="right">マイスポ</a>
 	</div>
 	<div data-role="content" >
 		<div class="SpotBrief"></div>
@@ -719,6 +785,7 @@ body {
 <div id="SpotTags" data-role="dialog"  >
 	<div data-role="header"  data-position="fixed"  data-theme="a">
 		<h1>ジャンル</h1>
+		<a data-icon="plus" href="javascript:TagsConf.go()" data-iconpos="right">ユーザ定義</a>
 	</div>
 	
 	<div data-role="content">
@@ -729,6 +796,29 @@ body {
 	<br/>
 	</div>
 </div>
+	<div id="TagsConf" data-role="page">
+		<div data-role="header" data-position="fixed">
+			<h1>ジャンル定義</h1>
+			<a data-icon="back" href="javascript:Util.backPage()" data-iconpos="left"></a>
+		</div>
+		<div data-role="content">
+			<div>あなた専用のジャンルを定義します。</div>
+			<div class="FullSizeInput">
+				<input class="NewTag" />
+			</div>
+			<a data-role="button" data-icon="plus" data-iconpos="right"
+					href="javascript:TagsConf.add()">ジャンルを追加</a>
+			<br/>
+			<div>現在の定義:</div>
+			<div class="TagList"> 
+				<ul>
+					<li data-icon="delete"><a href="#" onclick="TagsConf.del(this)">${tagName}</a></li>
+				</ul>
+			</div>
+		</div>
+		<div data-role="footer"  data-position="fixed" >
+		</div>
+	</div>
 <div id="Timeline" data-role="page" >
 	<div data-role="header" data-position="fixed" >
 		<h1>タイムライン</h1>
@@ -872,7 +962,10 @@ body {
 					<label ><nobr>フォローユーザ:</nobr></label><br/>
 					<div id="userFollowList" >
 					</div>
-
+					<a data-role="button" data-icon="grid" data-iconpos="right" 
+						href="javascript:UserConf.recommandMySpot()">高評価をマイスポットに自動追加</a>
+					<div class="Small">フォローユーザが高評価しているスポットをあなたのマイスポットに追加します。
+					※マイスポットの登録には時間がかかる場合があります。</div>
 					<hr clear="all"/>
 					<a data-role="button" data-icon="submit" data-iconpos="right"
 						href="javascript:UserConf.write()">登録</a>
@@ -940,7 +1033,10 @@ body {
 		</div></div></span>
 		<div class="Title">Title</div>
 		<div class="SubTitle">SubTitle</div>
-		<div class="Small">距離:<span class="Distance">999m</span> <span>一般評価:<span class="appraise"></span></div>
+		<div class="Small">距離:<span class="Distance">999m</span>
+			一般評価:<span class="appraise"></span>
+			<span class="myAppraiseLabel"></span><span class="myAppraise"></span>
+		</div>
 		<div class="SpotDetail">
 			<div>ジャンル: <span class="tags"></span></div>
 			<div>昼: <span class="timeLunchMin"></span>〜<span class="timeLunchMax"></span></div>

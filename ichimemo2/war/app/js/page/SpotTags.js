@@ -4,41 +4,57 @@ var SpotTags = Page.def(function SpotTags(){}, function(Class){
 Class.SELECTOR = "#spotTagsList";
 Class.button = null;
 
-Class.init = function() {
-	var tagTree = 
+	var TAG_TREE = 
 	[
-		"めし処",[
-			"ラーメン",[
-				"醤油ラーメン",
-				"味噌ラーメン",
-				"豚骨ラーメン",
-				"塩ラーメン",
-				"二郎系",
-			],
-			"カレー",[
-				"インドカレー",
-				"アジアンカレー",
-				"洋風カレー",
-			],
+		"食事",[
+		      "和食",
+		      "洋食",
+		      "中華料理",
+		      "イタリアン",
+		      "フレンチ",
+		      "エスニック",
+		      "ラーメン",
+		      "カレー",
 		],
-		"飲み処",[
-			"酒",[
-				"日本酒",
-				"焼酎",
-				"ワイン",
-				"ビール",
-				"洋酒",
+		"呑む",[
+			      "日本酒",
+			      "焼酎",
+			      "ワイン",
+			      "ビール",
 			],
-			"居酒屋",[
-				"和風居酒屋",
-				"洋風居酒屋",
-				"和民",
-			],
-			"バー"
+		"喫茶",[
+		      "コーヒー",
+		      "紅茶",
+		      "日本茶",
+		      "スイーツ",
+		      "軽食",
+		],
+		"買物",[
+		      "百貨店",
+		      "スーパー",
+		      "コンビニ",
+		      "ドラッグショップ",
+		      "100円ショップ",
+		      "衣料品",
+		      "生活雑貨",
+		      "酒屋"
+		],
+		"行楽",[
+		      "公園",
+		      "イベント",
+		      "カラオケ",
+		      "映画",
+		],
+		"病院",[
+		      "内科",
+		      "外科",
+		      "小児科",
+		      "産婦人科",
+		      "耳鼻科",
+		      "眼科",
+		      "皮膚科",
 		],
 	];
-	Class.selector = new Selector(Class.SELECTOR, tagTree);
-}
 Class.searchTags = [];
 Class.formTags = [];
 Class.openMode = null;
@@ -48,9 +64,16 @@ Class.onBeforeShow = function() {
 	Class.selector.refresh();
 }
 Class.open = function(btn, placeMsg, mode) {
+	if (Class.selector == null) {
+		if (Login.user.tags != null) {
+			tagTree = TAG_TREE.concat(Login.user.tags);
+		}
+		Class.selector = new Selector(Class.SELECTOR, tagTree);
+	}
+
 	Class.button = btn;
 	Class.placeMsg = placeMsg;
-	Class.openMode  = mode;
+	Class.openMode = mode;
 	if (mode == "search") {
 		Class.selector.setValue(Class.searchTags);
 		Class.selector.isSingle = true;
@@ -61,6 +84,7 @@ Class.open = function(btn, placeMsg, mode) {
 
 	Util.dialog(Class.ID);
 }
+
 Class.onHide = function() {
 	var list = Class.selector.getValue();
 	if (Class.openMode == "search") {

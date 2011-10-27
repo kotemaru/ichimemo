@@ -45,6 +45,12 @@ public class SpotModel extends ModelBase {
 
 	@Attribute(persistent = false)
 	private double distance;
+	@Attribute(persistent = false)
+	private Boolean temporal;  // true=フォロイーの推薦
+	@Attribute(persistent = false)
+	private Boolean checked; // true=確認済み
+	@Attribute(persistent = false)
+	private Float myAppraise; // true=確認済み
 
 
 	public long getId() {
@@ -322,6 +328,31 @@ public class SpotModel extends ModelBase {
 	public void setPlaceRating(Float placeRating) {
 		this.placeRating = placeRating;
 	}
+
+	public Boolean getTemporal() {
+		return temporal;
+	}
+
+	public void setTemporal(Boolean temporal) {
+		this.temporal = temporal;
+	}
+
+	public Boolean getChecked() {
+		return checked;
+	}
+
+	public void setChecked(Boolean checked) {
+		this.checked = checked;
+	}
+
+	public Float getMyAppraise() {
+		return myAppraise;
+	}
+
+	public void setMyAppraise(Float myAppraise) {
+		this.myAppraise = myAppraise;
+	}
+
 
 
 }

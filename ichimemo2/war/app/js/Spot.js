@@ -139,7 +139,8 @@ Spot.load = function(map) {
 				limit: Spot.LIMIT, range: Spot.currentRange
 		};
 		Spot.getBounds(Map.map, params);
-		Kokorahen.getSpotsAsync(Spot.onloadGetSpots, params);
+		Kokorahen.listMySpotAsync(Spot.onloadGetSpots, params);
+		//Kokorahen.getSpotsAsync(Spot.onloadGetSpots, params);
 		//Kokorahen.listFollowSpotAsync(Spot.onloadGetSpots, params);
 	}, 200);
 	

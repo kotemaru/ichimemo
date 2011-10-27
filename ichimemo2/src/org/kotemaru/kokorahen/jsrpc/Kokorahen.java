@@ -20,6 +20,7 @@ import org.kotemaru.kokorahen.bean.UserPublicBean;
 import org.kotemaru.kokorahen.logic.GPlaceLogic;
 import org.kotemaru.kokorahen.logic.KakasiLogic;
 import org.kotemaru.kokorahen.logic.MemoLogic;
+import org.kotemaru.kokorahen.logic.MySpotLogic;
 import org.kotemaru.kokorahen.logic.ReviewLogic;
 import org.kotemaru.kokorahen.logic.SpotLogic;
 import org.kotemaru.kokorahen.logic.TimelineLogic;
@@ -53,6 +54,7 @@ public class Kokorahen implements JsrpcEnvironment {
 
 	public transient UserLogic userLogic;// = UserLogic.getInstance(this);
 	public transient SpotLogic spotLogic;// = SpotLogic.getInstance(this);
+	public transient MySpotLogic mySpotLogic;// = SpotLogic.getInstance(this);
 	public transient ReviewLogic reviewLogic;// = ReviewLogic.getInstance(this);
 	public transient TimelineLogic timelineLogic;// = TimelineLogic.getInstance(this);
 	public transient MemoLogic memoLogic;// = TimelineLogic.getInstance(this);
@@ -64,6 +66,7 @@ public class Kokorahen implements JsrpcEnvironment {
 	public void init() {
 		userLogic = UserLogic.getInstance(this);
 		spotLogic = SpotLogic.getInstance(this);
+		mySpotLogic = MySpotLogic.getInstance(this);
 		reviewLogic = ReviewLogic.getInstance(this);
 		timelineLogic = TimelineLogic.getInstance(this);
 		memoLogic = MemoLogic.getInstance(this);
@@ -244,6 +247,25 @@ public class Kokorahen implements JsrpcEnvironment {
 	public String removeSpot(long spotId){
 		Long userId = loginUser.isAdmin() ? null : loginUser.getUserId();
 		return spotLogic.removeSpot(spotId, userId);
+	}
+	//------------------------------------------------------------------------------
+	// MySpot管理
+	public  Long writeMySpot(Map map) throws Exception {
+		checkLogin();
+		return mySpotLogic.writeMySpot(map);
+	}
+	public List<SpotModel> listMySpot(Map map){
+		return mySpotLogic.listSpot(map);
+	}
+
+	public int recommand() throws Exception {
+		checkLogin();
+		return mySpotLogic.recommend(loginUser.getUserId());
+	}
+	public void recommandMySpotTask(long userId, long spotId, double appraise)
+		throws Exception
+	{
+		mySpotLogic.recommandMySpot(userId, spotId, appraise);
 	}
 
 	//------------------------------------------------------------------------------

@@ -45,7 +45,8 @@ Class.load = function() {
 			search : $(Class.PAGE).find(".Search").val()
 		};
 		params.areas = Class.getAreas(params);
-		Kokorahen.getSpotsAsync(Class.onloadGetSpots, params);
+		Kokorahen.listMySpotAsync(Class.onloadGetSpots, params);
+		//Kokorahen.getSpotsAsync(Class.onloadGetSpots, params);
 	} else { // near
 		$(Class.PAGE).find(".Radius").hide();
 		Kokorahen.listNearSpotAsync(Class.onloadGetSpots,

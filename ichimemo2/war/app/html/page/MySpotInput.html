@@ -1,0 +1,65 @@
+<div id="MySpotInput"  data-role="page">
+	<div data-role="header" data-position="fixed">
+		<h1>マイスポット登録</h1>
+		<a data-icon="back" href="javascript:Util.backPage()" data-iconpos="left"></a>
+		<a data-icon="submit" href="javascript:MySpotInput.write()" data-iconpos="notext"></a>
+	</div>
+	<div data-role="content">
+
+		<div class="SpotBrief" ></div>
+		
+		<form>
+		<div data-role=“fieldcontain”>
+				<a class="tags" data-role="button"
+					data-iconpos="right" 
+					data-icon="arrow-d"
+					href="#"
+					onclick="SpotTags.open(this,'ジャンル選択(複数可)','form')" 
+				>ジャンル選択(複数可)</a>
+		</div>
+
+		<div  data-role="fieldcontain" align="center"> 
+			<fieldset data-type="horizontal" data-role="controlgroup" align="center"> 
+		  		<input type="radio" name="todo" value="checked" id="MySpotIn-checked" class="custom" checked="checked"/> 
+				<label for="MySpotIn-checked">&nbsp;行った&nbsp;</label> 
+				<input type="radio" name="todo" value="todo" id="MySpotIn-todo" class="custom"/> 
+				<label for="MySpotIn-todo">行きたい</label> 
+			</fieldset> 
+		</div>
+
+		<div class="FullSizeInput">
+			<textarea name="comment"  cols="100%" rows="10" placeholder="コメント" ></textarea>
+		</div>
+
+		<input type="hidden" name="appraise" />
+		<div class="Faces" align="center">
+			<span><img class="FaceMark" src="/images/face-1.png" onclick="MySpotInput.onFaceClick(1)"/></span>
+			<span><img class="FaceMark" src="/images/face-2.png" onclick="MySpotInput.onFaceClick(2)"/></span>
+			<span><img class="FaceMark" src="/images/face-3.png" onclick="MySpotInput.onFaceClick(3)"/></span>
+			<span><img class="FaceMark" src="/images/face-4.png" onclick="MySpotInput.onFaceClick(4)"/></span>
+			<span><img class="FaceMark" src="/images/face-5.png" onclick="MySpotInput.onFaceClick(5)"/></span>
+			<div class="FaceMarkText"></div>
+		</div>
+		</form>
+		<a data-role="button" data-icon="submit" data-iconpos="right"
+				href="javascript:MySpotInput.write()">登録</a>
+	</div>
+	<div data-role="footer"  data-position="fixed" >
+	</div>
+</div>
+
+<style>
+#ReviewInput .Faces {
+	margin: 8px;
+	min-height: 32px;
+}
+#ReviewInput .Faces > span {
+	display: inline-block;
+	min-width: 40px;
+	vertical-align: middle;
+	margin: 0px;
+}
+
+</style>
+
+
