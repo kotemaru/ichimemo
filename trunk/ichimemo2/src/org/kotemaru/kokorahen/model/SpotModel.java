@@ -50,8 +50,9 @@ public class SpotModel extends ModelBase {
 	@Attribute(persistent = false)
 	private Boolean checked; // true=確認済み
 	@Attribute(persistent = false)
-	private Float myAppraise; // true=確認済み
-
+	private Float myAppraise;
+	@Attribute(persistent = false)
+	private List<String> myTags; 
 
 	public long getId() {
 		return getKey().getId();
@@ -351,6 +352,14 @@ public class SpotModel extends ModelBase {
 
 	public void setMyAppraise(Float myAppraise) {
 		this.myAppraise = myAppraise;
+	}
+
+	public List<String> getMyTags() {
+		return myTags;
+	}
+
+	public void setMyTags(List<String> myTags) {
+		this.myTags = myTags;
 	}
 
 

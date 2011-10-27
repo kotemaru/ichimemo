@@ -241,6 +241,7 @@ public class MySpotLogic  {
 		SpotModel spot = env.spotLogic.getSpot(mySpot.getSpotId());
 		if (spot == null) return null;
 		spot.setMyAppraise(mySpot.getAppraise());
+		spot.setMyTags(mySpot.getTags());
 		spot.setChecked(mySpot.getChecked());
 		spot.setTemporal(mySpot.getTemporal());
 		return spot;
