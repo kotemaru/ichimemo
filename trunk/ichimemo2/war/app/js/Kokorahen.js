@@ -94,6 +94,12 @@ Kokorahen.listFollowSpot = function(map){
 Kokorahen.listFollowSpotAsync = function(_callback ,map){
 	return JSRPC.callAsync(Kokorahen.__URL, "listFollowSpot", arguments);
 }
+Kokorahen.listMySpot = function(map){
+	return JSRPC.call(Kokorahen.__URL, "listMySpot", arguments);
+}
+Kokorahen.listMySpotAsync = function(_callback ,map){
+	return JSRPC.callAsync(Kokorahen.__URL, "listMySpot", arguments);
+}
 Kokorahen.listNearSpot = function(lat,lng,limit){
 	return JSRPC.call(Kokorahen.__URL, "listNearSpot", arguments);
 }
@@ -136,6 +142,18 @@ Kokorahen.logout = function(provider){
 Kokorahen.logoutAsync = function(_callback ,provider){
 	return JSRPC.callAsync(Kokorahen.__URL, "logout", arguments);
 }
+Kokorahen.recommand = function(){
+	return JSRPC.call(Kokorahen.__URL, "recommand", arguments);
+}
+Kokorahen.recommandAsync = function(_callback ){
+	return JSRPC.callAsync(Kokorahen.__URL, "recommand", arguments);
+}
+Kokorahen.recommandMySpotTask = function(userId,spotId,appraise){
+	return JSRPC.call(Kokorahen.__URL, "recommandMySpotTask", arguments);
+}
+Kokorahen.recommandMySpotTaskAsync = function(_callback ,userId,spotId,appraise){
+	return JSRPC.callAsync(Kokorahen.__URL, "recommandMySpotTask", arguments);
+}
 Kokorahen.removeSpot = function(spotId){
 	return JSRPC.call(Kokorahen.__URL, "removeSpot", arguments);
 }
@@ -177,6 +195,12 @@ Kokorahen.writeMemo = function(map){
 }
 Kokorahen.writeMemoAsync = function(_callback ,map){
 	return JSRPC.callAsync(Kokorahen.__URL, "writeMemo", arguments);
+}
+Kokorahen.writeMySpot = function(map){
+	return JSRPC.call(Kokorahen.__URL, "writeMySpot", arguments);
+}
+Kokorahen.writeMySpotAsync = function(_callback ,map){
+	return JSRPC.callAsync(Kokorahen.__URL, "writeMySpot", arguments);
 }
 Kokorahen.writeReview = function(map){
 	return JSRPC.call(Kokorahen.__URL, "writeReview", arguments);

@@ -103,4 +103,10 @@ Class.delFollow = function(userId) {
 	Login.refresh();
 }
 
+Class.recommandMySpot = function() {
+	var cnt = Kokorahen.recommand();
+	alert(cnt+"件のマイスポット登録が予約されました。登録完了まで時間がかかる場合があります。");
+}
+
+
 });

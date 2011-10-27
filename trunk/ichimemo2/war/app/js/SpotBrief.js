@@ -35,6 +35,18 @@ var SpotBrief = Module.def(window, function SpotBrief(){}, function(Class){
 			$brief.find(".appraise").text("？");
 		}
 
+		if (data.myAppraise > 0) {
+			var label = data.checked ? "評価:" : "期待:";
+			$brief.find(".myAppraiseLabel").text(label);
+			$brief.find(".myAppraise").text(Math.floor(data.myAppraise*10)/10);
+		} else {
+			$brief.find(".myAppraiseLabel").text("");
+			$brief.find(".myAppraise").text("");
+		}
+	
+		
+		
+		
 		Class._setText($brief, data, "tags");
 		Class._setText($brief, data, "timeLunchMin");
 		Class._setText($brief, data, "timeLunchMax");

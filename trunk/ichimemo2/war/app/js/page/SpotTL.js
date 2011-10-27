@@ -60,5 +60,8 @@ Class.newTwit = function() {
 Class.goMemo = function() {
 	MemoInput.go(Class.current.data.id);
 }
+Class.goMySpot = function() {
+	MySpotInput.go(Class.current.data.id);
+}
 
 });

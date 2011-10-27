@@ -21,5 +21,7 @@ app/html/page/TwitInput.html
 app/html/page/MemoInput.html
 app/html/page/Login.html
 app/html/page/Info.html
+app/html/page/MySpotInput.html
+app/html/page/TagsConf.html
 app/html/SpotBrief.html
 app/html/index-f.html
