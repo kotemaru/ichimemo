@@ -134,7 +134,7 @@ Class.setCurrent = function(cur){
 		for (var i=0; i<spotForm.length; i++) {
 			spotForm[i].value = "";
 		}
-		SpotTags.setFormTags([]);
+		SpotTags.setValue("spot",[]);
 		ClosedDays.clear();
 		Class.setSpotPos(pos);
 
@@ -146,7 +146,7 @@ Class.setCurrent = function(cur){
 		for (var key in sd) {
 			if (spotForm[key]) spotForm[key].value = sd[key];
 		}
-		SpotTags.setFormTags(sd.tags);
+		SpotTags.setValue("spot",sd.tags);
 		if (sd.closedDay != null) {
 			ClosedDays.setValue(sd.closedDay.split(","));
 		}
@@ -172,7 +172,9 @@ Class.onShow = function(ev, info){
 	google.maps.event.trigger(Class.map, "resize");
 	Class.marker2.setVisible(true);
 	Class.map.setCenter(Class.marker2.getPosition());
-	SpotTags.setLabel($("#spotTags")[0],SpotTags.formTags,"ジャンル選択");
+
+	SpotTags.setLabel($("#spotTags")[0],SpotTags.getValue("spot"),"ジャンル選択");
+
 	ClosedDays.updateLabel();
 	Util.setNavbar(Class.PAGE);
 };
@@ -219,7 +221,7 @@ Class.write = function(){
 	params.image = $(Class.PAGE).find(".Thumbnail img").attr('src');
 	if (/^[/]images/.test(params.image)) params.image = null;
 	
-	params.tags = SpotTags.formTags;
+	params.tags = SpotTags.getValue("spot");
 	params.closedDay = ClosedDays.getValue().join(",");
 	var id = Kokorahen.writeSpot(params);
 	alert("登録しました。("+id+")");

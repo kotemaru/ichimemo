@@ -33,6 +33,7 @@ Module.def(window,function Selector(xpath, tree){
 	
 	Instance.setValue = function(list) {
 		this.values = {};
+		if (list == null) return;
 		for (var i=0; i<list.length; i++) {
 			var val = this.mapping[list[i]];
 			if (val != null) {

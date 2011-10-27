@@ -1,7 +1,7 @@
 function Page() {}
 Page.modules = {}
 Page.def = function(cls, defFunc) {
-	Module.def(Page.modules, cls, defFunc);
+	window[cls.name] = Module.def(Page.modules, cls, defFunc);
 	return cls;
 }
 
