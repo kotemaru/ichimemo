@@ -5,12 +5,19 @@ Module.def(window,function Selector(xpath, tree){
 	this.isSingle = false;
 
 	var sel = $(xpath);
-	var html = this.tree2html(tree,"",0);
+	var html = this.toHtml(tree);
 	sel.html(html);
 	sel.data("Selector", this);
+	//sel.find("ul").listview();
 },function(Class) {
 	var Instance = Class.prototype;
-	
+
+	Instance.toHtml = function(tree) {
+		var html = '<ul data-role="listview" data-inset="true" >'
+			+ this.tree2html(tree, "", 0)
+			'</ul>';
+		return html;
+	}
 	Instance.tree2html = function(tree, parent, indent) {
 		var html = "";
 		for (var i=0; i<tree.length; i++) {
@@ -26,7 +33,6 @@ Module.def(window,function Selector(xpath, tree){
 				html += this.tree2html(tree[++i], val, indent+1);
 			}
 			this.mapping[key] = val;
-			//this.values[val] = false;
 		}
 		return html;
 	}
@@ -59,6 +65,7 @@ Module.def(window,function Selector(xpath, tree){
 		var lis = sel.find("li");
 		var values = this.values;
 
+		sel.find("ul").listview();
 		sel.find("li[parent!='']").hide();
 		lis.each(function(){
 			var li = $(this).removeClass( "ui-btn-active");
