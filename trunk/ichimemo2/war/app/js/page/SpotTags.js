@@ -49,7 +49,7 @@ Page.def(function SpotTags(){}, function(Class){
 			      "耳鼻科",
 			      "眼科",
 			      "皮膚科",
-			],
+			]
 	];
 	Class.MYSPOT = "myspot";
 	Class.SEARCH = "search";
@@ -97,6 +97,10 @@ Page.def(function SpotTags(){}, function(Class){
 	}
 	Class.getValue = function(mode) {
 		return values[mode];
+	}
+	
+	Class.refresh = function() {
+		selectorMy = null;
 	}
 
 	function getSelector(mode) {

@@ -1,4 +1,4 @@
-var TagsConf = Page.def(function TagsConf(){}, function(Class){
+Page.def(function TagsConf(){}, function(Class){
 	
 	var LIST_ID = ".TagList";
 	var LIST_ITEM = null;
@@ -22,6 +22,7 @@ var TagsConf = Page.def(function TagsConf(){}, function(Class){
 			Login.user.tags.push(tagName);
 			Kokorahen.writeUser(Login.user);
 			Login.refresh();
+			SpotTags.refresh();
 			alert("ジャンルを追加しました。");
 		}
 		Util.backPage();
@@ -33,6 +34,7 @@ var TagsConf = Page.def(function TagsConf(){}, function(Class){
 		Login.user.tags.splice(idx, 1);
 		Kokorahen.writeUser(Login.user);
 		Login.refresh();
+		SpotTags.refresh();
 		alert("'"+tagName+"' を削除しました。");
 		Util.backPage();
 	}	
