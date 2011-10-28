@@ -9,6 +9,7 @@
 		<div class="SpotBrief" ></div>
 		
 		<form>
+		<div>ジャンル：</div>
 		<div data-role=“fieldcontain”>
 				<a class="tags" data-role="button"
 					data-iconpos="right" 
@@ -17,7 +18,10 @@
 					onclick="SpotTags.open(this,'ジャンル選択(複数可)',SpotTags.MYSPOT)" 
 				>ジャンル選択(複数可)</a>
 		</div>
+		<div class="Small">※ユーザ定義のジャンルを追加できます。</div>
 
+		<br/>
+		<div>評価／期待：</div>
 		<div  data-role="fieldcontain" align="center"> 
 			<fieldset data-type="horizontal" data-role="controlgroup" align="center"> 
 		  		<input type="radio" name="todo" value="checked" id="MySpotIn-checked" class="custom" checked="checked"/> 
@@ -26,11 +30,11 @@
 				<label for="MySpotIn-todo">行きたい</label> 
 			</fieldset> 
 		</div>
-
+<!--
 		<div class="FullSizeInput">
 			<textarea name="comment"  cols="100%" rows="10" placeholder="コメント" ></textarea>
 		</div>
-
+-->
 		<input type="hidden" name="appraise" />
 		<div class="Faces" align="center">
 			<span><img class="FaceMark" src="/images/face-1.png" onclick="MySpotInput.onFaceClick(1)"/></span>
@@ -40,7 +44,9 @@
 			<span><img class="FaceMark" src="/images/face-5.png" onclick="MySpotInput.onFaceClick(5)"/></span>
 			<div class="FaceMarkText"></div>
 		</div>
+
 		</form>
+		<hr/>
 		<a data-role="button" data-icon="submit" data-iconpos="right"
 				href="javascript:MySpotInput.write()">登録</a>
 	</div>

@@ -28,6 +28,7 @@ import org.kotemaru.kokorahen.logic.TwitterLogic;
 import org.kotemaru.kokorahen.logic.UserLogic;
 import org.kotemaru.kokorahen.meta.SpotModelMeta;
 import org.kotemaru.kokorahen.model.MemoModel;
+import org.kotemaru.kokorahen.model.MySpotModel;
 import org.kotemaru.kokorahen.model.ReviewModel;
 import org.kotemaru.kokorahen.model.SpotModel;
 import org.kotemaru.kokorahen.model.UserModel;
@@ -222,8 +223,16 @@ public class Kokorahen implements JsrpcEnvironment {
 	
 	//------------------------------------------------------------------------------
 	// Spot管理
-	public SpotModel getSpot(Long id){
-		return spotLogic.getSpot(id);
+	public SpotModel getSpot(Long id) throws Exception{
+		checkLogin();
+		SpotModel spot = spotLogic.getSpot(id);
+		if (spot != null) {
+			MySpotModel mySpot = mySpotLogic.getMySpot(loginUser.getUserId(), id);
+			if (mySpot != null) {
+				mySpotLogic.toSpotModel(mySpot, spot);
+			}
+		}
+		return spot;
 	}
 	public List<SpotModel> getSpots(Map map){
 		return spotLogic.listSpot(map);

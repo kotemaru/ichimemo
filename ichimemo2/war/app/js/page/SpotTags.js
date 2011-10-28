@@ -126,7 +126,7 @@ Page.def(function SpotTags(){}, function(Class){
 		}
 	}
 	function setLabel(btn, list, placeMsg) {
-		var label = list.join(",");
+		var label = (list==null) ? "" : list.join(",");
 		if (label == "") label = placeMsg;
 		$(btn).each(function(){
 			var span = $(this).find(".ui-btn-text");

@@ -5,6 +5,9 @@
 		<span class="Thumbnail" ><div><div>
 			<img src="/images/Home.png" onerror='SpotInfo.setDefaultPhoto(this)' />
 		</div></div></span>
+		<img class='MySpotMark' src='/images/star.png' />
+		<img class='FaceMark' src='/images/face-0.png' />
+
 		<div class="Title">Title</div>
 		<div class="SubTitle">SubTitle</div>
 		<div class="Small">距離:<span class="Distance">999m</span>
@@ -30,6 +33,9 @@
 </div>
 
 <style>
+.SpotBrief {
+	position: relative;;
+}
 
 .SpotBrief > a {
 	float: right;
@@ -45,6 +51,16 @@
 }
 .SpotBrief > div.SpotDetailKnob > img{
 	vertical-align: top;
+}
+.SpotBrief > img.FaceMark{
+	position: absolute;
+	top:-7px;
+	left:-7px;
+}
+.SpotBrief > img.MySpotMark{
+	position: absolute;
+	top:-7px;
+	left:3px;
 }
 
 

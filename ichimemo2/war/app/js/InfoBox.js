@@ -23,6 +23,11 @@ InfoBox.prototype.close = function() {
 		this.box.style.visibility = "hidden";
 	}
 }
+InfoBox.prototype.isVisible = function() {
+	if (this.box) {
+		return this.box.style.display != "none";
+	}
+}
 
 InfoBox.prototype.addEventListener = function(type, func, cap) {
 	if (this.innerBox) {
