@@ -25,10 +25,10 @@ if (undefined === window.console) {
 	<link rel="stylesheet" href="jq/jqm/jquery.mobile-1.0rc2.css" />
 	<script src="jq/jquery-1.6.2.min.js"></script>
 	
-	<link rel="stylesheet" href="app/min/all-min.css?v=20111027_1810" />
+	<link rel="stylesheet" href="app/min/all-min.css?v=20111028_1414" />
 	<script src="http://maps.google.com/maps/api/js?libraries=geometry&amp;sensor=true"></script>
 	<script src="jq/jqm/jquery.mobile-1.0rc2.min.js"></script>
-	<script src="app/min/all-min.js?v=20111027_1810"></script>
+	<script src="app/min/all-min.js?v=20111028_1414"></script>
 
 	<style>
 		body>div {
@@ -99,7 +99,7 @@ Please wait...
 		<h1>情報</h1>
 	</div>
 	<div data-role="content">
-		<h3>ここらへん Ver:SNAP-20111027-1810</h3>
+		<h3>ここらへん Ver:SNAP-20111028-1414</h3>
 		<hr/>
 		<div>Google Place連係:</div>
 		<a data-role="button" href="javascript:Info.fromGooglePlace()">周辺のスポットを取得する</a>
@@ -156,7 +156,9 @@ Please wait...
 						<span class="Thumbnail" ><div><div>
 							<img src="${photo}" onerror='SpotInfo.setDefaultPhoto(this)' />
 						</div></div></span>
+						<img class='${MySpotMark}' src='/images/star.png' />
 						<img class='FaceMark' src='/images/face-${appraise}.png' />
+
 						<div class="Title">${name}</div>
 						<div class="SubTitle">${address}</div>
 						<div class="Small">${distance}m</div>
@@ -188,6 +190,27 @@ Please wait...
 
 .SpotList .Thumbnail {
 	margin-left: -56px;
+}
+.SpotList .ui-link-inherit {
+	min-height: 10px!important;
+	padding-left: 65px!important;	
+	padding-right: 40px!important;	
+	padding-top: 8px!important;	
+	padding-bottom: 4px!important;	
+}
+.SpotList .UserPhoto {
+	padding-top: 6px!important;	
+	padding-left: 6px!important;	
+}
+.SpotList .FaceMark{
+	position: absolute;
+	top:3px;
+	left:3px;
+}
+.SpotList .MySpotMark{
+	position: absolute;
+	top:3px;
+	left:13px;
 }
 
 </style>
@@ -300,6 +323,7 @@ body {
 		<div class="SpotBrief" ></div>
 		
 		<form>
+		<div>ジャンル：</div>
 		<div data-role=“fieldcontain”>
 				<a class="tags" data-role="button"
 					data-iconpos="right" 
@@ -308,7 +332,10 @@ body {
 					onclick="SpotTags.open(this,'ジャンル選択(複数可)',SpotTags.MYSPOT)" 
 				>ジャンル選択(複数可)</a>
 		</div>
+		<div class="Small">※ユーザ定義のジャンルを追加できます。</div>
 
+		<br/>
+		<div>評価／期待：</div>
 		<div  data-role="fieldcontain" align="center"> 
 			<fieldset data-type="horizontal" data-role="controlgroup" align="center"> 
 		  		<input type="radio" name="todo" value="checked" id="MySpotIn-checked" class="custom" checked="checked"/> 
@@ -317,11 +344,11 @@ body {
 				<label for="MySpotIn-todo">行きたい</label> 
 			</fieldset> 
 		</div>
-
+<!--
 		<div class="FullSizeInput">
 			<textarea name="comment"  cols="100%" rows="10" placeholder="コメント" ></textarea>
 		</div>
-
+-->
 		<input type="hidden" name="appraise" />
 		<div class="Faces" align="center">
 			<span><img class="FaceMark" src="/images/face-1.png" onclick="MySpotInput.onFaceClick(1)"/></span>
@@ -331,7 +358,9 @@ body {
 			<span><img class="FaceMark" src="/images/face-5.png" onclick="MySpotInput.onFaceClick(5)"/></span>
 			<div class="FaceMarkText"></div>
 		</div>
+
 		</form>
+		<hr/>
 		<a data-role="button" data-icon="submit" data-iconpos="right"
 				href="javascript:MySpotInput.write()">登録</a>
 	</div>
@@ -482,6 +511,25 @@ body {
 .ReviewListItem .Thumbnail {
 	margin-left: -56px;
 }
+/**
+ * リストの左側の写真と顔マーク調整。
+ */
+.ReviewList .ui-link-inherit {
+	min-height: 10px!important;
+	padding-left: 65px!important;	
+	padding-right: 40px!important;	
+}
+.ReviewList .UserPhoto {
+	padding-top: 6px!important;	
+	padding-left: 6px!important;	
+}
+.ReviewList .FaceMark{
+	position: absolute;
+	top:3px;
+	left:3px;
+}
+
+
 
 .ThumbnailM {
 	width: 144px;
@@ -734,20 +782,34 @@ body {
 	<div data-role="header" data-position="fixed" data-theme="a">
 		<h1>スポット</h1>
 		<a data-icon="back" href="javascript:Util.backPage()"></a>
-		<a data-icon="plus" href="javascript:SpotTL.goMySpot()" data-iconpos="right">マイスポ</a>
 	</div>
 	<div data-role="content" >
 		<div class="SpotBrief"></div>
 
-		<div class="ui-grid-b">
+		<div class="ui-grid-c ActionButtons">
 			<div class="ui-block-a" >
-				<a data-role="button"	href="javascript:SpotTL.newReview()" >レビュー</a>
+				<a data-role="button"	href="javascript:SpotTL.newReview()" >
+					<img src="/images/review.png" />
+					<div class="Small">Review</div>
+				</a>
 			</div>
 			<div class="ui-block-b">
-				<a data-role="button"	href="javascript:SpotTL.newTwit()" >つぶやく</a>
+				<a data-role="button"	href="javascript:SpotTL.newTwit()" >
+					<img src="/images/twit.png" />
+					<div class="Small">Twit</div>
+				</a>
 			</div>
 			<div class="ui-block-c">
-				<a data-role="button"	href="javascript:SpotTL.goMemo()" >メモ</a>
+				<a data-role="button"	href="javascript:SpotTL.goMemo()" >
+					<img src="/images/edit.png" />
+					<div class="Small">Memo</div>
+				</a>
+			</div>
+			<div class="ui-block-d">
+				<a data-role="button"	href="javascript:SpotTL.goMySpot()" >
+					<img src="/images/star-32mono.png" />
+					<div class="Small">mySpot</div>
+				</a>
 			</div>
 		</div>
 		<br/>
@@ -775,11 +837,15 @@ body {
 <style>
 
 /* 横並びボタンの余白削除 */
-#SpotTL .ui-grid-b .ui-btn-inner {
+#SpotTL .ActionButtons .ui-btn-inner {
 	padding-left: 0!important;
 	padding-right: 0!important;
+	padding-top: 4px!important;
+	padding-bottom: 0px!important;
 }
-
+#SpotTL .ActionButtons .Small {
+	margin-top: -8px;
+}
 </style>
 
 <div id="SpotTags" data-role="dialog"  >
@@ -1030,6 +1096,9 @@ body {
 		<span class="Thumbnail" ><div><div>
 			<img src="/images/Home.png" onerror='SpotInfo.setDefaultPhoto(this)' />
 		</div></div></span>
+		<img class='MySpotMark' src='/images/star.png' />
+		<img class='FaceMark' src='/images/face-0.png' />
+
 		<div class="Title">Title</div>
 		<div class="SubTitle">SubTitle</div>
 		<div class="Small">距離:<span class="Distance">999m</span>
@@ -1055,6 +1124,9 @@ body {
 </div>
 
 <style>
+.SpotBrief {
+	position: relative;;
+}
 
 .SpotBrief > a {
 	float: right;
@@ -1070,6 +1142,16 @@ body {
 }
 .SpotBrief > div.SpotDetailKnob > img{
 	vertical-align: top;
+}
+.SpotBrief > img.FaceMark{
+	position: absolute;
+	top:-7px;
+	left:-7px;
+}
+.SpotBrief > img.MySpotMark{
+	position: absolute;
+	top:-7px;
+	left:3px;
 }
 
 

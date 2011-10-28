@@ -2,20 +2,34 @@
 	<div data-role="header" data-position="fixed" data-theme="a">
 		<h1>スポット</h1>
 		<a data-icon="back" href="javascript:Util.backPage()"></a>
-		<a data-icon="plus" href="javascript:SpotTL.goMySpot()" data-iconpos="right">マイスポ</a>
 	</div>
 	<div data-role="content" >
 		<div class="SpotBrief"></div>
 
-		<div class="ui-grid-b">
+		<div class="ui-grid-c ActionButtons">
 			<div class="ui-block-a" >
-				<a data-role="button"	href="javascript:SpotTL.newReview()" >レビュー</a>
+				<a data-role="button"	href="javascript:SpotTL.newReview()" >
+					<img src="/images/review.png" />
+					<div class="Small">Review</div>
+				</a>
 			</div>
 			<div class="ui-block-b">
-				<a data-role="button"	href="javascript:SpotTL.newTwit()" >つぶやく</a>
+				<a data-role="button"	href="javascript:SpotTL.newTwit()" >
+					<img src="/images/twit.png" />
+					<div class="Small">Twit</div>
+				</a>
 			</div>
 			<div class="ui-block-c">
-				<a data-role="button"	href="javascript:SpotTL.goMemo()" >メモ</a>
+				<a data-role="button"	href="javascript:SpotTL.goMemo()" >
+					<img src="/images/edit.png" />
+					<div class="Small">Memo</div>
+				</a>
+			</div>
+			<div class="ui-block-d">
+				<a data-role="button"	href="javascript:SpotTL.goMySpot()" >
+					<img src="/images/star-32mono.png" />
+					<div class="Small">mySpot</div>
+				</a>
 			</div>
 		</div>
 		<br/>
@@ -43,10 +57,14 @@
 <style>
 
 /* 横並びボタンの余白削除 */
-#SpotTL .ui-grid-b .ui-btn-inner {
+#SpotTL .ActionButtons .ui-btn-inner {
 	padding-left: 0!important;
 	padding-right: 0!important;
+	padding-top: 4px!important;
+	padding-bottom: 0px!important;
 }
-
+#SpotTL .ActionButtons .Small {
+	margin-top: -8px;
+}
 </style>
 

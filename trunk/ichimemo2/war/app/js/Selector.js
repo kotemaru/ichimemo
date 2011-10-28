@@ -94,7 +94,7 @@ Module.def(window,function Selector(xpath, tree){
 	Class.onClick = function(ev, ui) {
 		//var li = $(ev.target).parents("li");
 		var li = $(ui);
-		var sel = li.parent("ul");
+		var sel = li.parent("ul").parent("div");
 		var val = li.attr("val");
 		var _this = sel.data("Selector");
 	

@@ -14,7 +14,8 @@ var MySpotInput = Page.def(function MySpotInput(){}, function(Class){
 	
 	var spotBrief = null;
 	var currentSpotId = null;
-	
+	var currentSpot = null;
+
 	Class.init = function() {
 		spotBrief = new SpotBrief().init(Class.PAGE);
 		var $page = $(Class.PAGE);
@@ -26,7 +27,16 @@ var MySpotInput = Page.def(function MySpotInput(){}, function(Class){
 	
 	Class.go = function(spotId) {
 		currentSpotId = spotId;
-		Class.onFaceClick(3);
+		currentSpot = Spot.getSpotForId(spotId);
+		var data = currentSpot.data;
+		var $page = $(Class.PAGE);
+
+		var tags = (data.myTags==null) ? data.tags : data.myTags;
+		SpotTags.setValue(SpotTags.MYSPOT, tags);
+		SpotTags.setLabel($page.find(".tags"), tags, "ジャンル選択(複数可)");
+		$page.find(TODO).val([data.checked?"checked":"todo"]);
+		Class.onFaceClick(data.myAppraise);
+		
 		Util.changePage(Class.ID);
 	}
 	
@@ -43,7 +53,7 @@ var MySpotInput = Page.def(function MySpotInput(){}, function(Class){
 			n = $form.find(APPRAISE).val();
 		}
 		
-		var faces = $page.find("img.FaceMark");
+		var faces = $page.find(".Faces img.FaceMark");
 		for (var i=0; i<faces.length; i++) {
 			$(faces[i]).width(16);
 		}
@@ -63,12 +73,13 @@ var MySpotInput = Page.def(function MySpotInput(){}, function(Class){
 		var params = {
 			spotId: currentSpotId,
 			appraise: $form.find(APPRAISE).val(),
-			checked: $form.find(TODO).filter(":checked") == "checked",
-			tags: SpotTags.formTags,
+			checked: $form.find(TODO).filter(":checked").val() == "checked",
+			tags: SpotTags.getValue(SpotTags.MYSPOT),
 			temporal: false
 		};
 		var id = Kokorahen.writeMySpot(params);
 		alert("マイスポットに登録しました。"+id);
+		Spot.clearCache();
 		Util.backPage();
 	}
 

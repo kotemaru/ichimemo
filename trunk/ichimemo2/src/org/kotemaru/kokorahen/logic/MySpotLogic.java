@@ -240,6 +240,9 @@ public class MySpotLogic  {
 	private SpotModel toSpotModel(MySpotModel mySpot) {
 		SpotModel spot = env.spotLogic.getSpot(mySpot.getSpotId());
 		if (spot == null) return null;
+		return toSpotModel(mySpot, spot);
+	}
+	public SpotModel toSpotModel(MySpotModel mySpot, SpotModel spot) {
 		spot.setMyAppraise(mySpot.getAppraise());
 		spot.setMyTags(mySpot.getTags());
 		spot.setChecked(mySpot.getChecked());
