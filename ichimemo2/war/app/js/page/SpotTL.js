@@ -1,23 +1,20 @@
 
 Page.def(function SpotTL(){}, function(Class){
 	
-	var ONLY = "input[name='SpotTL-only']";
 	var LIST_DIV = null;
 	var LIST_ITEM = null;
 	var currentSpotId = null;
 	var spotBrief = null;
-	
+	var radioOnly = null;
 	
 	Class.init = function() {
 		var $page = $(Class.PAGE)
 		LIST_DIV = $page.find(".ReviewList")[0];
 		LIST_ITEM = $page.find(".ReviewList ul").html();
 		spotBrief = new SpotBrief().init(Class.PAGE);
-		
-		$(Class.PAGE).find(ONLY).change(function(ev) {
+		radioOnly = new Radio($page.find(".Only"),function(ev) {
 			Class.load(currentSpotId);
 		});
-	
 	}
 	
 	Class.go = function(spotId){
@@ -33,11 +30,12 @@ Page.def(function SpotTL(){}, function(Class){
 		$brief.find(".Appraise").text(spot.data.appraise);
 	
 		Class.load(currentSpotId);
+		radioOnly.refresh();
 		Util.setNavbar(Class.PAGE);
 	}
 	Class.load = function(spotId) {
 		var follows = null;
-		var only = $(Class.PAGE).find(ONLY).filter(':checked').val();
+		var only = radioOnly.getValue();
 		if (only == "follow") {
 			follows = Login.user.follows;
 		}

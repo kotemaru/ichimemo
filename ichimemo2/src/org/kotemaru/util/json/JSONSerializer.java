@@ -159,7 +159,9 @@ public class JSONSerializer {
 	}
 
 	public void sNumber(Number num)  throws IOException {
-		append(num.toString());
+		String str = num.toString();
+		if ("NaN".equals(str)) str = "null";
+		append(str);
 	}
 
 	public void sBoolean(Boolean bool) throws IOException  {

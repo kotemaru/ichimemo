@@ -15,12 +15,12 @@ var MySpotInput = Page.def(function MySpotInput(){}, function(Class){
 	var spotBrief = null;
 	var currentSpotId = null;
 	var currentSpot = null;
+	var radioTodo = null;
 
 	Class.init = function() {
-		spotBrief = new SpotBrief().init(Class.PAGE);
 		var $page = $(Class.PAGE);
-		var $form = $page.find("form");
-		$form.find(TODO).live('change',function(){
+		spotBrief = new SpotBrief().init(Class.PAGE);
+		radioTodo = new Radio($page.find(".Todo")[0], function(){
 			Class.onFaceClick();
 		});
 	}
@@ -57,6 +57,7 @@ var MySpotInput = Page.def(function MySpotInput(){}, function(Class){
 			$page.find("a.UpdateBtn").hide();
 			$page.find("a.DeleteBtn").hide();
 		}
+		radioTodo.refresh();
 		Util.setNavbar(Class.PAGE);
 	}
 	

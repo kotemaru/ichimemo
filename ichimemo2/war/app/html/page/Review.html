@@ -6,23 +6,34 @@
 	<div data-role="content">
 		<div class="SpotBrief" ></div>
 		
-		<p/>
-		評価：<img class="FaceMark" src='/images/face-${appraise}.png' />
-		<span class="FaceMarkText"></span>
-
-		<div class="Comment">コメント</div>
-		<br/>
-		
-		<div class="ui-grid-a">
+		<div class="ui-grid-c ActionButtons">
 			<div class="ui-block-a" >
-				<a data-role="button"	href="javascript:Review.moreUser()" >このレビュアの情報</a>
+				<a data-role="button"	href="javascript:Review.moreUser()" >
+					<img src="/images/user.png" />
+					<div class="Small">Reviewer</div>
+				</a>
 			</div>
 			<div class="ui-block-b">
-				<a data-role="button"	href="javascript:Review.moreSpot()" >このスポットの情報</a>
+				<a data-role="button"	href="javascript:Review.moreSpot()" >
+					<img src="/images/location_pin.png" />
+					<div class="Small">Spot</div>
+				</a>
+			</div>
+			<div class="ui-block-c">
+			</div>
+			<div class="ui-block-d">
 			</div>
 		</div>
-		<p/>
 	
+		<p/>
+		<div class="TagHeader"><span>評価／コメント</span></div>
+		<div>
+			<img class="FaceMark" src='/images/face-${appraise}.png' />
+			<span class="FaceMarkText"></span>
+		</div>
+		<div><pre class="Comment ui-shadow-inset ui-btn-corner-all ui-btn-shadow ui-body-c"></pre></div>
+
+		<div class="TagHeader"><span>画像</span></div>
 		<img class="ThumbnailL" src="/images/noimage.gif" onerror="Util.setNoImage()"/>
 	</div>
 
@@ -89,6 +100,21 @@
 	/*height: 288px;*/
 }
 
+#Review .ActionButtons .ui-btn-inner {
+	padding-left: 0!important;
+	padding-right: 0!important;
+	padding-top: 4px!important;
+	padding-bottom: 0px!important;
+}
+#Review .ActionButtons .Small {
+	margin-top: -8px;
+}
+
+#Review pre.Comment {
+	background-color: white;
+	padding:8px;
+	margin-top: 0px;
+}
 
 </style>
 

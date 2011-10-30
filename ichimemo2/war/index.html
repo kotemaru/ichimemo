@@ -25,10 +25,10 @@ if (undefined === window.console) {
 	<link rel="stylesheet" href="jq/jqm/jquery.mobile-1.0rc2.css" />
 	<script src="jq/jquery-1.6.2.min.js"></script>
 	
-	<link rel="stylesheet" href="app/min/all-min.css?v=20111030_1201" />
+	<link rel="stylesheet" href="app/min/all-min.css?v=20111030_2318" />
 	<script src="http://maps.google.com/maps/api/js?libraries=geometry&amp;sensor=true"></script>
 	<script src="jq/jqm/jquery.mobile-1.0rc2.min.js"></script>
-	<script src="app/min/all-min.js?v=20111030_1201"></script>
+	<script src="app/min/all-min.js?v=20111030_2318"></script>
 
 	<style>
 		body>div {
@@ -65,7 +65,7 @@ $(function(){
 Please wait...
 </div>
 <div id="ClosedDays" data-role="dialog"   >
-	<div data-role="header" data-position="fixed"  data-theme="a">
+	<div data-role="header" data-position="fixed" >
 		<h1>定休日</h1>
 	</div>
 	
@@ -99,7 +99,7 @@ Please wait...
 		<h1>情報</h1>
 	</div>
 	<div data-role="content">
-		<h3>ここらへん Ver:SNAP-20111030-1201</h3>
+		<h3>ここらへん Ver:SNAP-20111030-2318</h3>
 		<hr/>
 		<div>Google Place連係:</div>
 		<a data-role="button" href="javascript:Info.fromGooglePlace()">周辺のスポットを取得する</a>
@@ -119,36 +119,27 @@ Please wait...
 		>ジャンル</a>
 	</div>
 	<div data-role="content">
-		<label>周辺のスポット:</label>
+		<div class="Sort" >
+			<a value="near" checked="true">&nbsp;周辺&nbsp;</a>
+			<a value="appraise">高評価</a>
+		</div>
 		
-		<div Class="Sort"  data-role="fieldcontain" align="center"> 
-			<fieldset data-type="horizontal" data-role="controlgroup"> 
-				<input type="radio" name="sort" value="near" id="sortNear"  checked="checked"/> 
-				<label for="sortNear">&nbsp;近辺&nbsp;</label> 
-		  		<input type="radio" name="sort" value="appraise" id="sortAppraise"  /> 
-				<label for="sortAppraise">高評価</label> 
-			</fieldset> 
-		</div> 
-		
-		<div Class="Radius" data-role="fieldcontain" align="center"> 
-			<fieldset data-type="horizontal" data-role="controlgroup"> 
-		  		<input type="radio" name="radius" value="1" id="listRadius01" /> 
-				<label for="listRadius01">1Km</label> 
-		  		<input type="radio" name="radius" value="3" id="listRadius03" /> 
-				<label for="listRadius03">3Km</label> 
-		  		<input type="radio" name="radius" value="5" id="listRadius05" checked /> 
-				<label for="listRadius05">5Km</label> 
-		  		<input type="radio" name="radius" value="10" id="listRadius10" /> 
-				<label for="listRadius10">10Km</label> 
-		  		<input type="radio" name="radius" value="30" id="listRadius30" /> 
-				<label for="listRadius30">30Km</label> 
-			</fieldset> 
-		</div> 
+		<div class="Radius" >
+			<a value="1">1Km</a>
+			<a value="3">3Km</a>
+			<a value="5" checked="true">5Km</a>
+			<a value="10">10Km</a>
+			<a value="30">30Km</a>
+		</div>
 		
 		<div align="center">
 			<input class="Search" type="search"  value="" style="width:100%;"/>
 		</div>
 
+		<div class="TagHeader">
+			<img src="/images/location_pin.png" width="16" />
+			<span>周辺のスポット</span>
+		</div>
 		<div class="SpotList">
 			<ul class="Template">
 				<li>
@@ -183,8 +174,8 @@ Please wait...
 }
 
 #List .Radius span.ui-btn-inner {
-	padding: 4px 0px;
-	min-width: 48px;
+	padding: 3px 0px;
+	min-width: 48px!important;
 	text-align: center;
 }
 
@@ -226,7 +217,7 @@ Please wait...
 </div>
 
 <div id="Map" data-role="page" >
-	<div data-role="header" data-position="fixed" data-theme="a">
+	<div data-role="header" data-position="fixed" >
 		<h1>地図</h1>
 		<a href="javascript:Map.setCenterFromGPS()" data-role="button" data-icon="home" data-iconpos="left">今ここ</a>
 <!--
@@ -323,7 +314,7 @@ body {
 		<div class="SpotBrief" ></div>
 		
 		<form>
-		<div>ジャンル：</div>
+		<div class="TagHeader"><span>ジャンル</span></div>
 		<div data-role=“fieldcontain”>
 				<a class="tags" data-role="button"
 					data-iconpos="right" 
@@ -335,14 +326,10 @@ body {
 		<div class="Small">※ユーザ定義のジャンルを追加できます。</div>
 
 		<br/>
-		<div>評価／期待：</div>
-		<div  data-role="fieldcontain" align="center"> 
-			<fieldset data-type="horizontal" data-role="controlgroup" align="center"> 
-		  		<input type="radio" name="todo" value="checked" id="MySpotIn-checked" class="custom" checked="checked"/> 
-				<label for="MySpotIn-checked">&nbsp;行った&nbsp;</label> 
-				<input type="radio" name="todo" value="todo" id="MySpotIn-todo" class="custom"/> 
-				<label for="MySpotIn-todo">行きたい</label> 
-			</fieldset> 
+		<div class="TagHeader"><span>評価／期待</span></div>
+		<div class="Todo" >
+			<a value="checked">&nbsp;行った&nbsp;</a>
+			<a value="todo">行きたい</a>
 		</div>
 <!--
 		<div class="FullSizeInput">
@@ -388,7 +375,7 @@ body {
 
 
 <div id="PicasaAlbum" data-role="dialog" >
-	<div data-role="header" data-position="fixed" data-theme="a">
+	<div data-role="header" data-position="fixed" >
 		<h1>画像選択</h1>
 		<a class="PicasaAlbumBack" data-icon="back" href="javascript:PicasaAlbum.showAlbums()" data-iconpos="notext"></a>
 	</div>
@@ -462,23 +449,34 @@ body {
 	<div data-role="content">
 		<div class="SpotBrief" ></div>
 		
-		<p/>
-		評価：<img class="FaceMark" src='/images/face-${appraise}.png' />
-		<span class="FaceMarkText"></span>
-
-		<div class="Comment">コメント</div>
-		<br/>
-		
-		<div class="ui-grid-a">
+		<div class="ui-grid-c ActionButtons">
 			<div class="ui-block-a" >
-				<a data-role="button"	href="javascript:Review.moreUser()" >このレビュアの情報</a>
+				<a data-role="button"	href="javascript:Review.moreUser()" >
+					<img src="/images/user.png" />
+					<div class="Small">Reviewer</div>
+				</a>
 			</div>
 			<div class="ui-block-b">
-				<a data-role="button"	href="javascript:Review.moreSpot()" >このスポットの情報</a>
+				<a data-role="button"	href="javascript:Review.moreSpot()" >
+					<img src="/images/location_pin.png" />
+					<div class="Small">Spot</div>
+				</a>
+			</div>
+			<div class="ui-block-c">
+			</div>
+			<div class="ui-block-d">
 			</div>
 		</div>
-		<p/>
 	
+		<p/>
+		<div class="TagHeader"><span>評価／コメント</span></div>
+		<div>
+			<img class="FaceMark" src='/images/face-${appraise}.png' />
+			<span class="FaceMarkText"></span>
+		</div>
+		<div><pre class="Comment ui-shadow-inset ui-btn-corner-all ui-btn-shadow ui-body-c"></pre></div>
+
+		<div class="TagHeader"><span>画像</span></div>
 		<img class="ThumbnailL" src="/images/noimage.gif" onerror="Util.setNoImage()"/>
 	</div>
 
@@ -545,6 +543,21 @@ body {
 	/*height: 288px;*/
 }
 
+#Review .ActionButtons .ui-btn-inner {
+	padding-left: 0!important;
+	padding-right: 0!important;
+	padding-top: 4px!important;
+	padding-bottom: 0px!important;
+}
+#Review .ActionButtons .Small {
+	margin-top: -8px;
+}
+
+#Review pre.Comment {
+	background-color: white;
+	padding:8px;
+	margin-top: 0px;
+}
 
 </style>
 
@@ -562,21 +575,7 @@ body {
 
 		<div class="SpotBrief" ></div>
 		
-<!--		
-		<div  data-role="fieldcontain" align="center"> 
-			<fieldset data-type="horizontal" data-role="controlgroup" align="center"> 
-		  		<input type="radio" name="only" value="follow" id="ReviewIn-checked" class="custom" checked="checked"/> 
-				<label for="ReviewIn-checked">&nbsp;行った&nbsp;</label> 
-				<input type="radio" name="only" value="near" id="ReviewIn-todo" class="custom"/> 
-				<label for="ReviewIn-todo">行きたい</label> 
-			</fieldset> 
-		</div>
--->
-		
-		<div class="FullSizeInput">
-			<textarea name="comment"  cols="100%" rows="10" placeholder="コメント" ></textarea>
-		</div>
-
+		<div class="TagHeader"><span>評価</span></div>
 		<div class="Faces" align="center">
 			<span><img class="FaceMark" src="/images/face-1.png" onclick="ReviewInput.onFaceClick(1)"/></span>
 			<span><img class="FaceMark" src="/images/face-2.png" onclick="ReviewInput.onFaceClick(2)"/></span>
@@ -585,7 +584,14 @@ body {
 			<span><img class="FaceMark" src="/images/face-5.png" onclick="ReviewInput.onFaceClick(5)"/></span>
 			<div class="FaceMarkText"></div>
 		</div>
+	
+		<div class="TagHeader"><span>コメント</span></div>
+		<div class="FullSizeInput">
+			<textarea name="comment"  cols="100%" rows="10" placeholder="コメント" ></textarea>
+		</div>
 
+
+		<div class="TagHeader"><span>画像</span></div>
 		<div align="center">
 			<img class="ReviewPhoto" border=1 src="/images/noimage.gif" width="144" onclick="PicasaAlbum.go(this)" />
 		</div>
@@ -616,7 +622,7 @@ body {
 
 
 <div id="SpotInfo" data-role="page" >
-	<div data-role="header" data-position="fixed" data-theme="a" data-add-back-btn="true">
+	<div data-role="header" data-position="fixed" data-add-back-btn="true">
 		<h1>スポット登録</h1>
 		<a data-icon="back" href="javascript:Util.backPage()" data-iconpos="left"></a>
 		<a data-icon="submit" href="javascript:SpotInfo.write()" data-iconpos="notext"></a>
@@ -643,9 +649,8 @@ body {
 				</tr>
 			</table>
 		
-		<div class="HalfLine"></div>
+		<div class="TagHeader"><span>ジャンル</span><span class="Require">(必須)</span></div>
 		<div data-role=“fieldcontain”>
-			<label for="tags">ジャンル:<span class="Require">(必須)</span></label>
 				<a id="spotTags" data-role="button"
 					data-iconpos="right" 
 					data-icon="arrow-d"
@@ -655,8 +660,8 @@ body {
 		</div>
 
 		<div class="HalfLine"></div>
+		<div class="TagHeader"><span>住所</span><span class="Require">(必須)</span></div>
 		<div data-role=“fieldcontain”>
-			<label>住所:<span class="Require">(必須)</span></label>
 			<div class="FullSizeInput">
 				<input type="text" name="address" placeholder="住所" />
 			</div>
@@ -665,8 +670,8 @@ body {
 		</div>
 
 
+		<div class="TagHeader"><span>営業時間</span></div>
 		<div data-role=“fieldcontain”>
-			<label>営業時間:</label>
 			<table width="100%" cellspacing="0">
 				<tr>
 					<td width="1%">昼</td>
@@ -696,20 +701,21 @@ body {
 				<input type="text" name="openHours" placeholder="営業時間注記"/>
 			</div>
 		</div>
+		
+		<div class="TagHeader"><span>Email</span></div>
 		<div data-role=“fieldcontain”>
-			<label>Email:</label>
 			<div class="FullSizeInput">
 				<input type="email" name="email" placeholder="E-Mail"/>
 			</div>
 		</div>
+		<div class="TagHeader"><span>URL</span></div>
 		<div data-role=“fieldcontain”>
-			<label>URL:</label>
 			<div class="FullSizeInput">
 				<input type="url" name="url" placeholder="URL"/>
 			</div>
 		</div>
+		<div class="TagHeader"><span>備考</span></div>
 		<div data-role=“fieldcontain”>
-			<label>備考:</label>
 			<div class="FullSizeInput">
 				<input type="text" name="comment" placeholder="備考"/>
 			</div>
@@ -783,7 +789,7 @@ body {
 
 
 <div id="SpotTL" data-role="page"  >
-	<div data-role="header" data-position="fixed" data-theme="a">
+	<div data-role="header" data-position="fixed" >
 		<h1>スポット</h1>
 		<a data-icon="back" href="javascript:Util.backPage()"></a>
 	</div>
@@ -816,20 +822,24 @@ body {
 				</a>
 			</div>
 		</div>
-		<br/>
-		<label>このスポットへのレビュー:</label>
-		<div  data-role="fieldcontain" align="center"> 
-			<fieldset data-type="horizontal" data-role="controlgroup" align="center"> 
-		  		<input type="radio" name="SpotTL-only" value="follow" id="SpotTL-onlyFollow" class="custom" /> 
-				<label for="SpotTL-onlyFollow">フォロー</label> 
-				<input type="radio" name="SpotTL-only" value="all" id="SpotTL-onlyAll" class="custom" checked="checked"/> 
-				<label for="SpotTL-onlyAll">　全体　</label> 
-			</fieldset> 
+		
+		<hr/>
+
+		<div class="Only" >
+			<a value="follow">フォロー</a>
+			<a value="all">　全体　</a>
 		</div>
+	
+
 		<div align="center">
 			<input class="Search" type="search"  value="" style="width:100%;"/>
 		</div>
 	
+		<div class="HalfLine"></div>
+		<div class="TagHeader">
+			<img src="/images/review.png" width="16" /><img src="/images/twit.png" width="16" />
+			<span>このスポットへのレビューとつぶやき</span>
+		</div>
 		<div class="ReviewList" >
 		</div>
 	</div>
@@ -853,7 +863,7 @@ body {
 </style>
 
 <div id="SpotTags" data-role="dialog"  >
-	<div data-role="header"  data-position="fixed"  data-theme="a">
+	<div data-role="header"  data-position="fixed" >
 		<h1>ジャンル</h1>
 		<a data-icon="plus" href="javascript:TagsConf.go()" data-iconpos="right">ユーザ定義</a>
 	</div>
@@ -897,18 +907,18 @@ body {
 		>ジャンル</a>
 	</div>
 	<div data-role="content"  >	
-		<label>最近のレビュー:</label>
-		
-		<div  data-role="fieldcontain" align="center"> 
-			<fieldset data-type="horizontal" data-role="controlgroup"> 
-		  		<input Class="Only" type="radio" name="only" value="follow" id="tlFollowOnly" class="custom" /> 
-				<label for="tlFollowOnly">フォロー</label> 
-				<input Class="Only" type="radio" name="only" value="near" id="tlNearOnly" class="custom" checked="checked"/> 
-				<label for="tlNearOnly">　周辺　</label> 
-			</fieldset> 
-		</div> 
+	
+		<div class="Only" >
+			<a value="near">　周辺　</a>
+			<a value="follow">フォロー</a>
+		</div>
 		<div align="center">
 			<input Class="Search" type="search" name="search" value="" style="width:100%;"/>
+		</div>
+		<div class="HalfLine"></div>
+		<div class="TagHeader">
+			<img src="/images/review.png" width="16" /><img src="/images/twit.png" width="16" />
+			<span>最近のレビューとつぶやき</span>
 		</div>
 		<div class="ReviewList">
 		</div>
@@ -930,12 +940,14 @@ body {
 
 		<div class="SpotBrief" ></div>
 		
+		<div class="TagHeader"><span>コメント</span></div>
 		<div class="FullSizeInput">
 			<textarea name="comment"  cols="100%" rows="10" placeholder="コメント" ></textarea>
 		</div>
 
 		
 	</form>
+	<hr/>
 		<a data-role="button" data-icon="submit" data-iconpos="right"
 				href="javascript:TwitInput.write()">つぶやく</a>
 	</div>
@@ -967,7 +979,10 @@ body {
 			<br clear="all" />
 		</div>
 
-		<label>あなたのレビューとつぶやき:</label>
+		<div class="TagHeader">
+			<img src="/images/review.png" width="16" /><img src="/images/twit.png" width="16" />
+			<span>あなたのレビューとつぶやき</span>
+		</div>
 		<div class="ReviewList" >
 		</div>
 
@@ -997,27 +1012,27 @@ body {
 					</div></div></span>
 					<br clear="both"/>
 
-					<label ><nobr>Twitterアカウント:</nobr></label><br/>
+					<div class="TagHeader"><span>Twitterアカウント</span></div>
 					<div class="FullSizeInput">
 						<input  name="twitterUser" type="text" />
 					</div>
 
-					<label ><nobr>Googleアカウント:</nobr></label><br/>
+					<div class="TagHeader"><span>Googleアカウント</span></div>
 					<div class="FullSizeInput">
 						<input  name="googleUser" type="text" />
 					</div>
 
-					<label ><nobr>ニックネーム:</nobr></label><br/>
+					<div class="TagHeader"><span>ニックネーム</span></div>
 					<div class="FullSizeInput">
 						<input name="nickname" type="text" />
 					</div>
 
-					<label ><nobr>自己紹介:</nobr></label><br/>
+					<div class="TagHeader"><span>自己紹介</span></div>
 					<div class="FullSizeInput">
 						<textarea name="comment"  cols="100%" rows="10" placeholder="自己紹介"  ></textarea>
 					</div>
 
-					<label><nobr style="vertical-align:top;">自動でつぶやく:</nobr></label>
+					<div class="TagHeader"><span>自動でつぶやく</span></div>
 					<div class="FullSizeInput">
 						<select  name="autoTwit" data-role="slider">
 							<option value="false">Off</option>
@@ -1028,7 +1043,7 @@ body {
 					<br clear="all"/>
 					
 					
-					<label ><nobr>フォローユーザ:</nobr></label><br/>
+					<div class="TagHeader"><span>フォローユーザ</span></div>
 					<div id="userFollowList" >
 					</div>
 					<a data-role="button" data-icon="grid" data-iconpos="right" 
@@ -1058,7 +1073,7 @@ body {
 			<br clear="all" />
 		</div>
 
-		<label>自己紹介:</label>
+		<div class="TagHeader"><span>自己紹介</span></div>
 		<div><pre class="Comment ui-shadow-inset ui-btn-corner-all ui-btn-shadow ui-body-c"></pre></div>
 
 		<a class="AddFollow" data-role="button" data-iconpos="right" data-icon="plus" 
@@ -1070,12 +1085,15 @@ body {
 				このレビュアのフォローを止める
 		</a>
 		
-		<br/>
-		<label>このレビュアのレビュー:</label>
+		<hr/>
 		<div align="center">
 			<input Class="Search" type="search" name="search" value="" style="width:100%;"/>
 		</div>
 
+		<div class="TagHeader">
+			<img src="/images/review.png" width="16" /><img src="/images/twit.png" width="16" />
+			<span>このレビュアのレビュー</span>
+		</div>
 		<div class="ReviewList" >
 		</div>
 
@@ -1218,5 +1236,7 @@ span.Thumbnail  img{
 	<script>
 		Module.onload();
 		Page.onload();
+		var divs = $("div[data-role='header']");
+		divs.attr("data-theme","b");
 	</script>
 </html>

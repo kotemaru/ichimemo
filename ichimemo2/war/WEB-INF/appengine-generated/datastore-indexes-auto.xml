@@ -1,40 +1,40 @@
-<!-- Indices written at Sun, 30 Oct 2011 06:56:12 UTC -->
+<!-- Indices written at Sun, 30 Oct 2011 14:06:19 UTC -->
 
 <datastore-indexes>
 
-    <!-- Used 3078 times in query history -->
+    <!-- Used 4534 times in query history -->
     <datastore-index kind="MySpotModel" ancestor="false" source="auto">
         <property name="areas" direction="asc"/>
         <property name="appraise" direction="desc"/>
     </datastore-index>
 
-    <!-- Used 806 times in query history -->
+    <!-- Used 962 times in query history -->
     <datastore-index kind="SpotModel" ancestor="false" source="auto">
         <property name="areas" direction="asc"/>
         <property name="invalid" direction="asc"/>
         <property name="appraise" direction="desc"/>
     </datastore-index>
 
-    <!-- Used 216 times in query history -->
+    <!-- Used 828 times in query history -->
     <datastore-index kind="ReviewModel" ancestor="false" source="auto">
         <property name="areas" direction="asc"/>
         <property name="updateDate" direction="desc"/>
     </datastore-index>
 
-    <!-- Used 5 times in query history -->
+    <!-- Used 60 times in query history -->
     <datastore-index kind="ReviewModel" ancestor="false" source="auto">
         <property name="userId" direction="asc"/>
         <property name="updateDate" direction="desc"/>
     </datastore-index>
 
-    <!-- Used 16 times in query history -->
+    <!-- Used 76 times in query history -->
     <datastore-index kind="MySpotModel" ancestor="false" source="auto">
         <property name="areas" direction="asc"/>
         <property name="tags" direction="asc"/>
         <property name="appraise" direction="desc"/>
     </datastore-index>
 
-    <!-- Used 16 times in query history -->
+    <!-- Used 76 times in query history -->
     <datastore-index kind="SpotModel" ancestor="false" source="auto">
         <property name="areas" direction="asc"/>
         <property name="invalid" direction="asc"/>
@@ -42,9 +42,16 @@
         <property name="appraise" direction="desc"/>
     </datastore-index>
 
-    <!-- Used 3 times in query history -->
+    <!-- Used 39 times in query history -->
     <datastore-index kind="ReviewModel" ancestor="false" source="auto">
         <property name="spotId" direction="asc"/>
+        <property name="updateDate" direction="desc"/>
+    </datastore-index>
+
+    <!-- Used 1 time in query history -->
+    <datastore-index kind="ReviewModel" ancestor="false" source="auto">
+        <property name="spotId" direction="asc"/>
+        <property name="userId" direction="asc"/>
         <property name="updateDate" direction="desc"/>
     </datastore-index>
 
