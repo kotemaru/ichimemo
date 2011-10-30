@@ -35,14 +35,28 @@ var MySpotInput = Page.def(function MySpotInput(){}, function(Class){
 		SpotTags.setValue(SpotTags.MYSPOT, tags);
 		SpotTags.setLabel($page.find(".tags"), tags, "ジャンル選択(複数可)");
 		$page.find(TODO).val([data.checked?"checked":"todo"]);
-		Class.onFaceClick(data.myAppraise);
+		if (data.myAppraise) {
+			Class.onFaceClick(data.myAppraise);
+		} else {
+			Class.onFaceClick(3);
+		}
 		
 		Util.changePage(Class.ID);
 	}
 	
 	Class.onBeforeShow = function() {
+		var $page = $(Class.PAGE);
 		var spot = Spot.getSpotForId(currentSpotId);
 		spotBrief.setSpot(spot);
+		if (spot.data.myAppraise) {
+			$page.find("a.WriteBtn").hide();
+			$page.find("a.UpdateBtn").show();
+			$page.find("a.DeleteBtn").show();
+		} else {
+			$page.find("a.WriteBtn").show();
+			$page.find("a.UpdateBtn").hide();
+			$page.find("a.DeleteBtn").hide();
+		}
 		Util.setNavbar(Class.PAGE);
 	}
 	
@@ -79,8 +93,17 @@ var MySpotInput = Page.def(function MySpotInput(){}, function(Class){
 		};
 		var id = Kokorahen.writeMySpot(params);
 		alert("マイスポットに登録しました。"+id);
-		Spot.clearCache();
+		Map.clear();
 		Util.backPage();
 	}
-
+	Class.del = function() {
+		var id = Kokorahen.removeMySpot(currentSpotId);
+		if (id>0) {
+			alert("マイスポットから削除しました。"+id);
+		} else {
+			alert("削除に失敗しました。"+id);
+		}
+		Map.clear();
+		Util.backPage();
+	}
 });

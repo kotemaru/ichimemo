@@ -89,6 +89,9 @@ Spot.clearCache= function() {
 	Spot.list = [];
 	Spot.areaFlags = {};
 }
+Spot.isClean= function() {
+	return Spot.list.length == 0;
+}
 Spot.onZoomChanged = function(zoom) {
 	Spot.currentZoom = zoom;
 	Spot.currentAreas = null;

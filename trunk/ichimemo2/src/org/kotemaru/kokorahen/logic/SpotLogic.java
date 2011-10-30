@@ -388,8 +388,15 @@ public class SpotLogic  {
 		}
 	}
 
-	public List<SpotModel> listNearSpot(double lat, double lng, int limit){
-		return listNear100mSpot(lat, lng, limit);
+	public List<SpotModel> listNearSpot(Map map) {
+		Params params = new Params(map);
+		return listNear100mSpot(
+			params.toDouble("lat"),
+			params.toDouble("lng"),
+			params.toInteger("limit"),
+			params.toString("tag"),
+			params.toString("search")
+		);
 	}
 	private static class DistComparator implements Comparator<SpotModel> {
 		public int compare(SpotModel a, SpotModel b) {
@@ -397,7 +404,8 @@ public class SpotLogic  {
 		}
 	};
 	
-	private List<SpotModel> listNear100mSpot(double lat, double lng, int limit){
+	private List<SpotModel> listNear100mSpot(double lat, double lng, int limit,
+			String tag, String search){
 	
 		// 現在値を中心とする策的半径内の3x3ブロック。
 		final double r100m = 0.001;
@@ -419,10 +427,10 @@ public class SpotLogic  {
 		List<SpotModel> list = new ArrayList<SpotModel>(32);
 		HashSet<Long> exists = new HashSet<Long>(32);
 		for (int i=0; i<areas.length; i++) {
-			takeSpots(list, areas[i], lat, lng, exists);
+			takeSpots(list, areas[i], lat, lng, tag, search, exists);
 		}
 		if (list.size() < limit) {
-			return listNear1kSpot(lat, lng, limit, list, exists);
+			return listNear1kSpot(lat, lng, limit, tag, search, list, exists);
 		}
 		
 		Collections.sort(list, new DistComparator());
@@ -434,6 +442,7 @@ public class SpotLogic  {
 
 	
 	private List<SpotModel> listNear1kSpot(double lat, double lng, int limit,
+			String tag, String search,
 			List<SpotModel> list, HashSet<Long> exists) {
 
 		// 現在値を中心とする策的半径内の2x2ブロック。
@@ -446,7 +455,7 @@ public class SpotLogic  {
 		};
 
 		for (int i=0; i<areas.length; i++) {
-			takeSpots(list, areas[i], lat, lng, exists);
+			takeSpots(list, areas[i], lat, lng, tag, search, exists);
 		}
 		
 		Collections.sort(list, new DistComparator());
@@ -457,17 +466,23 @@ public class SpotLogic  {
 	}
 
 	public void takeSpots(List<SpotModel> list, String area,
-			double lat, double lng, HashSet<Long> exists){
+			double lat, double lng, 
+			String tag, String search,
+			HashSet<Long> exists){
 		SpotModelMeta e = SpotModelMeta.get();
 		ModelQuery q = Datastore.query(e);
 		q.filter(e.invalid.equal(false));
 		q.filter(e.areas.equal(area));
+		if (tag != null) q.filter(e.tags.in(tag));
 		q.limit(999);
 
 		Iterator<SpotModel> ite = q.asIterator();
 		while (ite.hasNext()) {
 			SpotModel model = ite.next();
 			if (exists.contains(model.getId())) {
+				continue;
+			}
+			if (search != null && !isSearch(model, search)) {
 				continue;
 			}
 
@@ -479,9 +494,15 @@ public class SpotLogic  {
 			exists.add(model.getId());
 		}
 	}
-
-
 	
+	private boolean isSearch(SpotModel model, String search) {
+		String name = model.getName();
+		String kana = model.getFurikana();
+		if (name != null && name.indexOf(search)>=0) return true;
+		if (kana != null && kana.indexOf(search)>=0) return true;
+		return false;
+	}
+
 	// for debug
 	public List<SpotModel> listAllSpot(){
 		SpotModelMeta e = SpotModelMeta.get();
@@ -507,5 +528,6 @@ public class SpotLogic  {
 		}
 		return null;
 	}
+
 
 }

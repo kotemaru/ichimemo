@@ -1,40 +1,48 @@
 Page.def(function List(){}, function(Class){
 	
-	Class.LIST_DIV = null;
-	Class.LIST_ITEM = null;
-	Class.RADIUS = "input[name='radius']";
-	Class.SORT = "input[name='sort']";
-	
+	var ACTIVE_BTN = "ui-btn-active";
+	var LIST_DIV = null;
+	var LIST_ITEM = null;
+	var sortMode = "near";
+	var radius = "5";
+	var radioSort = null;
+	var radioRadius = null;
+
 	Class.init = function()  {
 		var $page = $(Class.PAGE)
-		Class.LIST_DIV = $page.find(".SpotList")[0];
-		Class.LIST_ITEM = $page.find(".SpotList ul").html();
+		LIST_DIV = $page.find(".SpotList")[0];
+		LIST_ITEM = $page.find(".SpotList ul").html();
 		$page.find(".Search").live('keypress', function(ev){
 			if (ev.which === 13) {
-				Class.load();
+				load();
 			}
 		});
-		$page.find(".Search").live('blur', Class.load);
-	
-		$(Class.PAGE).find(Class.RADIUS).change(function(ev) {
-			Class.load();
-		});
-		$(Class.PAGE).find(Class.SORT).change(function(ev) {
-			Class.load();
-		});
-	
+		$page.find(".Search").live('blur', load);
+
+		//$page.find(".Sort").find("a[value='"+sortMode+"']").addClass(ACTIVE_BTN);
+		radioSort = new Radio($page.find(".Sort")[0],
+			["near","appraise"],
+			["&nbsp;周辺&nbsp;","高評価"],
+			{default:"near", callback:load}
+		);
+		radioRadius = new Radio($page.find(".Radius")[0],
+			[1,3,5,10,30],
+			["1Km","3Km","5Km","10Km","30Km"],
+			{default:5, callback:load}
+		);
 	}
 	
-	Class.load = function() {
-		var div = $(Class.LIST_DIV);
+
+	function load() {
+		var div = $(LIST_DIV);
 		div.html("Please wait...");
 		
 		var curPos = Map.marker.getPosition();
-		var sort = $(Class.PAGE).find(Class.SORT).filter(':checked').val();
-	
+		var sort = radioSort.getValue();
+
 		if (sort == "appraise") {
 			$(Class.PAGE).find(".Radius").show();
-			var range = $(Class.PAGE).find(Class.RADIUS).filter(':checked').val()/100;
+			var range = radioRadius.getValue()/100;
 			var params =  {
 				tag: SpotTags.getSearchTag(), 
 				limit: Spot.LIMIT,
@@ -49,8 +57,14 @@ Page.def(function List(){}, function(Class){
 			//Kokorahen.getSpotsAsync(Class.onloadGetSpots, params);
 		} else { // near
 			$(Class.PAGE).find(".Radius").hide();
-			Kokorahen.listNearSpotAsync(Class.onloadGetSpots,
-				curPos.lat(),curPos.lng(),Spot.LIMIT);
+			var params =  {
+					tag: SpotTags.getSearchTag(), 
+					limit: Spot.LIMIT,
+					lat : curPos.lat(),
+					lng : curPos.lng(),
+					search : $(Class.PAGE).find(".Search").val()
+				};
+			Kokorahen.listNearSpotAsync(Class.onloadGetSpots, params);
 		}
 	}
 	
@@ -76,12 +90,14 @@ Page.def(function List(){}, function(Class){
 	
 	Class.onBeforeShow = function() {
 		Map.onTagChange();
-		Class.load();
+		load();
+		radioSort.refresh();
+		radioRadius.refresh();
 		Util.setNavbar(Class.ID);
 	}
-	
+
 	Class.listview = function(spots) {
-		var div = $(Class.LIST_DIV);
+		var div = $(LIST_DIV);
 	
 		if (spots.length == 0) {
 			div.html("周辺にSpotは有りません。");
@@ -101,19 +117,23 @@ Page.def(function List(){}, function(Class){
 	}
 	Class.getListItem = function(spot) {
 		var data = spot.data;
-		var appraise = Math.floor(data.appraise);
+		var appraise = 
+			Math.floor(data.myAppraise ? data.myAppraise : data.appraise);
 		if (appraise<0) appraise = 0;
 		var photo = data.image;
 		if (photo == null || photo == "") photo = "/images/noimage.gif";
 	
-		var html = Class.LIST_ITEM
+		var star = data.checked ? "/images/star.png" : "/images/star-blue.png";
+		var html = LIST_ITEM
 		.replace(/[$][{]id[}]/g, data.id)
 		.replace(/[$][{]photo[}]/g, photo)
 		.replace(/[$][{]name[}]/g, data.name)
 		.replace(/[$][{]address[}]/g, data.address)
 		.replace(/[$][{]appraise[}]/g, appraise)
 		.replace(/[$][{]distance[}]/g, Math.floor(spot._distance))
-		.replace(/[$][{]MySpotMark[}]/g, (data.myAppraise ? "MySpotMark":"Hide"));
+		.replace(/[$][{]MySpotMark[}]/g, (data.myAppraise ? "MySpotMark":"Hide"))
+		.replace(/[$][{]mySpotMark[}]/g, star)
+		;
 		return html;
 	}
 	

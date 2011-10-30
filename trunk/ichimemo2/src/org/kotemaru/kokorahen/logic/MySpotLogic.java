@@ -249,6 +249,15 @@ public class MySpotLogic  {
 		spot.setTemporal(mySpot.getTemporal());
 		return spot;
 	}
+	public List<SpotModel> margeMySpot(Long userId, List<SpotModel> spots) throws Exception {
+		for (SpotModel spot : spots) {
+			MySpotModel mySpot = getMySpot(userId, spot.getId());
+			if (mySpot != null) {
+				toSpotModel(mySpot, spot);
+			}
+		}
+		return spots;
+	}
 
 	private boolean isMatch(MySpotModel spot, String search, 
 			double latMin, double lngMin, double latMax, double lngMax) {
@@ -267,5 +276,13 @@ public class MySpotLogic  {
 		double lat = spot.getLat();
 		double lng = spot.getLng();
 		return latMin<=lat && lat<=latMax && lngMin<=lng && lng<=lngMax;
+	}
+
+	public Long removeMySpot(Long userId, Long spotId) throws Exception {
+		MySpotModel model = getMySpot(userId, spotId);
+		if (model == null) return -1L;
+		Key key = model.getKey();
+		Datastore.delete(key);
+		return key.getId();
 	}
 }

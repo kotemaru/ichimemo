@@ -1,4 +1,4 @@
-var SpotBrief = Module.def(window, function SpotBrief(){}, function(Class){
+Module.def(window, function SpotBrief(){}, function(Class){
 
 	Class.TEMPL = $("#spotBrief").html();
 
@@ -42,7 +42,9 @@ var SpotBrief = Module.def(window, function SpotBrief(){}, function(Class){
 			var label = data.checked ? "評価:" : "期待:";
 			$brief.find(".myAppraiseLabel").text(label);
 			$brief.find(".myAppraise").text(Math.floor(data.myAppraise*10)/10);
-			$brief.find(".MySpotMark").show();
+			var star = data.checked ? "/images/star.png" : "/images/star-blue.png";
+			$brief.find(".MySpotMark").show().attr('src', star);
+			
 		} else {
 			$brief.find(".myAppraiseLabel").text("");
 			$brief.find(".myAppraise").text("");

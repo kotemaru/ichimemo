@@ -13,12 +13,13 @@ Oリスト
 - List
 -- 近辺 : 一般 (tag+search)
 --- 近辺リストの検索機能
+--- myspotサポート
 --o 高評価 : my+一般 (tag+search)
 
 - placeのURLを使う。
 - SpotクリアでMap再描画
 -- SPot情報は必ずgetする
-
+- 新橋バグ
 
 -o spot更新のログ機能
 -x list待ちのグルグル

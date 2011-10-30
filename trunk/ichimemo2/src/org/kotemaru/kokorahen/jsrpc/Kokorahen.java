@@ -108,18 +108,20 @@ public class Kokorahen implements JsrpcEnvironment {
 	public  UserModel getLoginUser() {
 		return loginUser;
 	}
-	private void checkLogin() throws JsrpcException {
+	private long checkLogin() throws JsrpcException {
 		if (loginUser == null) {
 			throw new JsrpcException("Not login.");
 		}
+		return loginUser.getUserId();
 	}
-	private void checkLogin(Long id) throws JsrpcException {
+	private long checkLogin(Long id) throws JsrpcException {
 		checkLogin();
 		long curId = loginUser.getUserId();
 //System.out.println("checkLogin:"+curId+":"+id);
 		if (curId != id) {
 			throw new JsrpcException("Not you.");
 		}
+		return curId;
 	}
 	private void checkAdmin() throws JsrpcException {
 		checkLogin();
@@ -224,10 +226,10 @@ public class Kokorahen implements JsrpcEnvironment {
 	//------------------------------------------------------------------------------
 	// Spot管理
 	public SpotModel getSpot(Long id) throws Exception{
-		checkLogin();
+		Long userId = checkLogin();
 		SpotModel spot = spotLogic.getSpot(id);
 		if (spot != null) {
-			MySpotModel mySpot = mySpotLogic.getMySpot(loginUser.getUserId(), id);
+			MySpotModel mySpot = mySpotLogic.getMySpot(userId, id);
 			if (mySpot != null) {
 				mySpotLogic.toSpotModel(mySpot, spot);
 			}
@@ -237,8 +239,10 @@ public class Kokorahen implements JsrpcEnvironment {
 	public List<SpotModel> getSpots(Map map){
 		return spotLogic.listSpot(map);
 	}
-	public List<SpotModel> listNearSpot(Double lat, Double lng, Long limit){
-		return spotLogic.listNearSpot(lat, lng, limit.intValue());
+	public List<SpotModel> listNearSpot(Map map) throws Exception{
+		Long userId = checkLogin();
+		List<SpotModel> list = spotLogic.listNearSpot(map);
+		return mySpotLogic.margeMySpot(userId, list);
 	}
 	public List<SpotModel> listFollowSpot(Map map){
 		return spotLogic.listFollowSpot2(map);
@@ -263,7 +267,12 @@ public class Kokorahen implements JsrpcEnvironment {
 		checkLogin();
 		return mySpotLogic.writeMySpot(map);
 	}
+	public  Long removeMySpot(long spotId) throws Exception {
+		checkLogin();
+		return mySpotLogic.removeMySpot(loginUser.getUserId(), spotId);
+	}
 	public List<SpotModel> listMySpot(Map map){
+		checkLogin();
 		return mySpotLogic.listSpot(map);
 	}
 
