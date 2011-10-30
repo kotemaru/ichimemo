@@ -7,31 +7,14 @@
 		>ジャンル</a>
 	</div>
 	<div data-role="content">
-		<label>周辺のスポット:</label>
-		
-		<div Class="Sort"  data-role="fieldcontain" align="center"> 
-			<fieldset data-type="horizontal" data-role="controlgroup"> 
-				<input type="radio" name="sort" value="near" id="sortNear"  checked="checked"/> 
-				<label for="sortNear">&nbsp;近辺&nbsp;</label> 
-		  		<input type="radio" name="sort" value="appraise" id="sortAppraise"  /> 
-				<label for="sortAppraise">高評価</label> 
-			</fieldset> 
-		</div> 
-		
-		<div Class="Radius" data-role="fieldcontain" align="center"> 
-			<fieldset data-type="horizontal" data-role="controlgroup"> 
-		  		<input type="radio" name="radius" value="1" id="listRadius01" /> 
-				<label for="listRadius01">1Km</label> 
-		  		<input type="radio" name="radius" value="3" id="listRadius03" /> 
-				<label for="listRadius03">3Km</label> 
-		  		<input type="radio" name="radius" value="5" id="listRadius05" checked /> 
-				<label for="listRadius05">5Km</label> 
-		  		<input type="radio" name="radius" value="10" id="listRadius10" /> 
-				<label for="listRadius10">10Km</label> 
-		  		<input type="radio" name="radius" value="30" id="listRadius30" /> 
-				<label for="listRadius30">30Km</label> 
-			</fieldset> 
-		</div> 
+<!--
+		<div Class="Sort" data-role="controlgroup" data-type="horizontal"  align="center"> 
+			<a href="#" onclick="List.sort(this)" value="near" data-role="button">&nbsp;周辺&nbsp;</a>
+			<a href="#" onclick="List.sort(this)" value="appraise" data-role="button">高評価</a>
+		</div>
+-->
+		<div Class="Sort" > </div>
+		<div Class="Radius" > </div>
 		
 		<div align="center">
 			<input class="Search" type="search"  value="" style="width:100%;"/>
@@ -44,7 +27,7 @@
 						<span class="Thumbnail" ><div><div>
 							<img src="${photo}" onerror='SpotInfo.setDefaultPhoto(this)' />
 						</div></div></span>
-						<img class='${MySpotMark}' src='/images/star.png' />
+						<img class='${MySpotMark}' src='${mySpotMark}' />
 						<img class='FaceMark' src='/images/face-${appraise}.png' />
 
 						<div class="Title">${name}</div>
@@ -71,8 +54,8 @@
 }
 
 #List .Radius span.ui-btn-inner {
-	padding: 4px 0px;
-	min-width: 48px;
+	padding: 3px 0px;
+	min-width: 48px!important;
 	text-align: center;
 }
 

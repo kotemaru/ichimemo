@@ -6,6 +6,7 @@ Class.markers = null;
 Class.DEFAULT_CENTER = new google.maps.LatLng(35.684699,139.753897);
 Class.searchTag = null;
 Class.initFlag = true;
+Class.isClean = false;
 
 Class.options = {
 	zoom: 14,
@@ -108,11 +109,18 @@ Class.onTagChange = function() {
 		$(".TagSelectBtn .ui-btn-text").text(label);
 	}
 }
+Class.clear = function(ev, info){
+	Spot.clearCache();
+	Class.isClean = true;
+}
 
 Class.onShow = function(ev, info){
 	if (Class.initFlag) {
 		Class.setCenterFromGPS();
 		Class.initFlag = false;
+	}
+	if (Class.isClean) {
+		Class.onMapIdol();
 	}
 	// Note: 地図が初期状態で非表示だと誤動作するのでその対処。
 	google.maps.event.trigger(Class.map, "resize");
@@ -126,6 +134,7 @@ Class.onMapIdol = function(ev) {
 	Spot.load(Class.map);
 	Class.infobox.close();
 	Class.autoMoveMarker();
+	Class.isClean = false
 }
 Class.autoMoveMarker = function() {
 	var r = Util.getBounds(Class.map);

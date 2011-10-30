@@ -25,10 +25,10 @@ if (undefined === window.console) {
 	<link rel="stylesheet" href="jq/jqm/jquery.mobile-1.0rc2.css" />
 	<script src="jq/jquery-1.6.2.min.js"></script>
 	
-	<link rel="stylesheet" href="app/min/all-min.css?v=20111028_1414" />
+	<link rel="stylesheet" href="app/min/all-min.css?v=20111030_1201" />
 	<script src="http://maps.google.com/maps/api/js?libraries=geometry&amp;sensor=true"></script>
 	<script src="jq/jqm/jquery.mobile-1.0rc2.min.js"></script>
-	<script src="app/min/all-min.js?v=20111028_1414"></script>
+	<script src="app/min/all-min.js?v=20111030_1201"></script>
 
 	<style>
 		body>div {
@@ -99,7 +99,7 @@ Please wait...
 		<h1>情報</h1>
 	</div>
 	<div data-role="content">
-		<h3>ここらへん Ver:SNAP-20111028-1414</h3>
+		<h3>ここらへん Ver:SNAP-20111030-1201</h3>
 		<hr/>
 		<div>Google Place連係:</div>
 		<a data-role="button" href="javascript:Info.fromGooglePlace()">周辺のスポットを取得する</a>
@@ -156,7 +156,7 @@ Please wait...
 						<span class="Thumbnail" ><div><div>
 							<img src="${photo}" onerror='SpotInfo.setDefaultPhoto(this)' />
 						</div></div></span>
-						<img class='${MySpotMark}' src='/images/star.png' />
+						<img class='${MySpotMark}' src='${mySpotMark}' />
 						<img class='FaceMark' src='/images/face-${appraise}.png' />
 
 						<div class="Title">${name}</div>
@@ -361,8 +361,12 @@ body {
 
 		</form>
 		<hr/>
-		<a data-role="button" data-icon="submit" data-iconpos="right"
+		<a Class="WriteBtn" data-role="button" data-icon="submit" data-iconpos="right"
 				href="javascript:MySpotInput.write()">登録</a>
+		<a Class="UpdateBtn" data-role="button" data-icon="submit" data-iconpos="right"
+				href="javascript:MySpotInput.write()">更新</a>
+		<a Class="DeleteBtn" data-role="button" data-icon="delete" data-iconpos="right"
+				href="javascript:MySpotInput.del()">解除</a>
 	</div>
 	<div data-role="footer"  data-position="fixed" >
 	</div>

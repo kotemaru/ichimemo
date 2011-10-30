@@ -41,7 +41,7 @@ Class.addFollow = function() {
 }
 Class.onFaceClick = function(n) {
 	var $page = $(Class.PAGE);
-	var faces = $page.find("img.FaceMark");
+	var faces = $page.find(".Faces img.FaceMark");
 	for (var i=0; i<faces.length; i++) {
 		$(faces[i]).width(16);
 	}
