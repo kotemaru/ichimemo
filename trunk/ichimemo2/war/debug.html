@@ -7,7 +7,7 @@
 		content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
 	<title>Page Title</title> 
 	<!-- This apps Server -->
-	<script src="app/js/Jsrpc.js?v=1" ></script>
+	<script src="app/js/pre/Jsrpc.js?v=1" ></script>
 	<script src="app/js/Kokorahen.js?v=2" ></script>
 	<script src="/data1.js" ></script>
 
@@ -192,7 +192,46 @@ function setInvalid(){
 	}
 };
 
-
+var testdata =[
+43171
+,46050
+,43285
+,46008
+,43188
+,46097
+,45194
+,59051
+,47051
+,43174
+,60152
+,60151
+,43150
+,45176
+,43152
+,47217
+,49122
+,43161
+,45193
+,46318
+,46073
+,46074
+,47224
+,47225
+,47228
+,46065
+,46084
+];
+function doGetSpot() {
+	//var id = parseInt(document.getSpot.id.value);
+	for (var i = 0; i<testdata.length; i++) {
+try {
+		var spot = Kokorahen.getSpot(testdata[i]);
+		console.log(spot);
+} catch (e){
+	alert(e+"\n"+testdata[i]);
+}
+	}
+}
 
 </script>
 </head>
@@ -205,6 +244,13 @@ function setInvalid(){
 <br/><button type="button" onclick="createTestRevires()">Create Reviews</button>
 <br/><button type="button" onclick="createData1()">Create Data1</button>
 <br/><button type="button" onclick="setInvalid()">setpup invalid flag</button>
+<br/>
+<form acrion="" name="getSpot">
+	<input name="id" />
+</form>
+<button type="button" onclick="doGetSpot()">doGetSpot</button>
+
+
 </body>
 
 </html>

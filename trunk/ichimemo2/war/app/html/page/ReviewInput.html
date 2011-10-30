@@ -12,21 +12,7 @@
 
 		<div class="SpotBrief" ></div>
 		
-<!--		
-		<div  data-role="fieldcontain" align="center"> 
-			<fieldset data-type="horizontal" data-role="controlgroup" align="center"> 
-		  		<input type="radio" name="only" value="follow" id="ReviewIn-checked" class="custom" checked="checked"/> 
-				<label for="ReviewIn-checked">&nbsp;行った&nbsp;</label> 
-				<input type="radio" name="only" value="near" id="ReviewIn-todo" class="custom"/> 
-				<label for="ReviewIn-todo">行きたい</label> 
-			</fieldset> 
-		</div>
--->
-		
-		<div class="FullSizeInput">
-			<textarea name="comment"  cols="100%" rows="10" placeholder="コメント" ></textarea>
-		</div>
-
+		<div class="TagHeader"><span>評価</span></div>
 		<div class="Faces" align="center">
 			<span><img class="FaceMark" src="/images/face-1.png" onclick="ReviewInput.onFaceClick(1)"/></span>
 			<span><img class="FaceMark" src="/images/face-2.png" onclick="ReviewInput.onFaceClick(2)"/></span>
@@ -35,7 +21,14 @@
 			<span><img class="FaceMark" src="/images/face-5.png" onclick="ReviewInput.onFaceClick(5)"/></span>
 			<div class="FaceMarkText"></div>
 		</div>
+	
+		<div class="TagHeader"><span>コメント</span></div>
+		<div class="FullSizeInput">
+			<textarea name="comment"  cols="100%" rows="10" placeholder="コメント" ></textarea>
+		</div>
 
+
+		<div class="TagHeader"><span>画像</span></div>
 		<div align="center">
 			<img class="ReviewPhoto" border=1 src="/images/noimage.gif" width="144" onclick="PicasaAlbum.go(this)" />
 		</div>

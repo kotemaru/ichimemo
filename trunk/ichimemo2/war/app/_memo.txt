@@ -2,7 +2,7 @@
 -mylist
 --o一般とマージ
 --oリスト系
---マイスポット管理
+--oマイスポット管理
 --oマイスポット表示復元
 --oマイ評価表示
 -タグ
@@ -10,16 +10,19 @@
 
 Oリスト
 -o Map : my+一般 (tag)
-- List
--- 近辺 : 一般 (tag+search)
---- 近辺リストの検索機能
---- myspotサポート
+-o List
+--o 近辺 : 一般 (tag+search)
+---o 近辺リストの検索機能
+---o myspotサポート
 --o 高評価 : my+一般 (tag+search)
 
 - placeのURLを使う。
-- SpotクリアでMap再描画
--- SPot情報は必ずgetする
+-o SpotクリアでMap再描画
+--o SPot情報は必ずgetする
 - 新橋バグ
+- Radio適用
+- 顔マーク
+- タイムライン／リストの再描画最適化
 
 -o spot更新のログ機能
 -x list待ちのグルグル

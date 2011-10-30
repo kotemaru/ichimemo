@@ -9,7 +9,7 @@
 		<div class="SpotBrief" ></div>
 		
 		<form>
-		<div>ジャンル：</div>
+		<div class="TagHeader"><span>ジャンル</span></div>
 		<div data-role=“fieldcontain”>
 				<a class="tags" data-role="button"
 					data-iconpos="right" 
@@ -21,14 +21,10 @@
 		<div class="Small">※ユーザ定義のジャンルを追加できます。</div>
 
 		<br/>
-		<div>評価／期待：</div>
-		<div  data-role="fieldcontain" align="center"> 
-			<fieldset data-type="horizontal" data-role="controlgroup" align="center"> 
-		  		<input type="radio" name="todo" value="checked" id="MySpotIn-checked" class="custom" checked="checked"/> 
-				<label for="MySpotIn-checked">&nbsp;行った&nbsp;</label> 
-				<input type="radio" name="todo" value="todo" id="MySpotIn-todo" class="custom"/> 
-				<label for="MySpotIn-todo">行きたい</label> 
-			</fieldset> 
+		<div class="TagHeader"><span>評価／期待</span></div>
+		<div class="Todo" >
+			<a value="checked">&nbsp;行った&nbsp;</a>
+			<a value="todo">行きたい</a>
 		</div>
 <!--
 		<div class="FullSizeInput">

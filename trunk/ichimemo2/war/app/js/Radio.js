@@ -1,9 +1,7 @@
-Module.def(window,function Radio(xpath, vals, labels, opts){
+Module.def(window,function Radio(xpath, callback){
 	this.xpath = xpath;
-	this.values = vals;
-	this.labels = labels
-	this.opts = opts;
-	this.init(vals, labels);
+	this.callback = callback;
+	this.init();
 },function(Class) {
 	var ACTIVE_BTN = "ui-btn-active";
 	var Instance = Class.prototype;
@@ -17,34 +15,26 @@ Module.def(window,function Radio(xpath, vals, labels, opts){
 			"align":"center"
 		});
 
-		var html = "";
-		for (var i=0; i<this.values.length; i++) {
-			html += "<a href='#' data-role='button' "
-					+"style='margin-right:0;' "
-					+"value='"
-					+this.values[i]+"' >"
-					+this.labels[i]+"</a>";
-		}
-		div.html(html);
 		var _this = this;
-		div.find("a").live('click', function(ev) {
+		div.find("a").attr({
+			href:"#", "data-role":"button",
+		}).live('click', function(ev) {
 			_this.onclick(ev, this);
 		});
 
-		if (this.opts.default) {
-			this.value = this.opts.default;
+		
+		var defo = div.find("a[checked='true']");
+		if (defo.length > 0) {
+			this.value = defo.attr('value');
 		} else {
-			this.value = this.values[0];
+			this.value = div.find("a:first").attr('value');
 		}
-
 	}
 	Instance.onclick = function(ev, ui) {
 		var val = $(ui).attr('value');
 		if (this.value != val) {
 			this.value = val;
-			if (this.opts.callback) {
-				this.opts.callback(val, this);
-			}
+			if (this.callback) this.callback(val, this);
 		} 
 		this.refresh();
 	}
@@ -53,6 +43,9 @@ Module.def(window,function Radio(xpath, vals, labels, opts){
 		var div = $(this.xpath);
 		div.find("a").removeClass(ACTIVE_BTN);
 		div.find("a[value='"+this.value+"']").addClass(ACTIVE_BTN);
+	}
+	Instance.setValue = function(val) {
+		this.value = val;
 	}
 	Instance.getValue = function() {
 		return this.value;

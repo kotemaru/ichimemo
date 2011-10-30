@@ -3,8 +3,6 @@ Page.def(function List(){}, function(Class){
 	var ACTIVE_BTN = "ui-btn-active";
 	var LIST_DIV = null;
 	var LIST_ITEM = null;
-	var sortMode = "near";
-	var radius = "5";
 	var radioSort = null;
 	var radioRadius = null;
 
@@ -20,16 +18,8 @@ Page.def(function List(){}, function(Class){
 		$page.find(".Search").live('blur', load);
 
 		//$page.find(".Sort").find("a[value='"+sortMode+"']").addClass(ACTIVE_BTN);
-		radioSort = new Radio($page.find(".Sort")[0],
-			["near","appraise"],
-			["&nbsp;周辺&nbsp;","高評価"],
-			{default:"near", callback:load}
-		);
-		radioRadius = new Radio($page.find(".Radius")[0],
-			[1,3,5,10,30],
-			["1Km","3Km","5Km","10Km","30Km"],
-			{default:5, callback:load}
-		);
+		radioSort = new Radio($page.find(".Sort")[0], load);
+		radioRadius = new Radio($page.find(".Radius")[0], load);
 	}
 	
 

@@ -7,19 +7,27 @@
 		>ジャンル</a>
 	</div>
 	<div data-role="content">
-<!--
-		<div Class="Sort" data-role="controlgroup" data-type="horizontal"  align="center"> 
-			<a href="#" onclick="List.sort(this)" value="near" data-role="button">&nbsp;周辺&nbsp;</a>
-			<a href="#" onclick="List.sort(this)" value="appraise" data-role="button">高評価</a>
+		<div class="Sort" >
+			<a value="near" checked="true">&nbsp;周辺&nbsp;</a>
+			<a value="appraise">高評価</a>
 		</div>
--->
-		<div Class="Sort" > </div>
-		<div Class="Radius" > </div>
+		
+		<div class="Radius" >
+			<a value="1">1Km</a>
+			<a value="3">3Km</a>
+			<a value="5" checked="true">5Km</a>
+			<a value="10">10Km</a>
+			<a value="30">30Km</a>
+		</div>
 		
 		<div align="center">
 			<input class="Search" type="search"  value="" style="width:100%;"/>
 		</div>
 
+		<div class="TagHeader">
+			<img src="/images/location_pin.png" width="16" />
+			<span>周辺のスポット</span>
+		</div>
 		<div class="SpotList">
 			<ul class="Template">
 				<li>
