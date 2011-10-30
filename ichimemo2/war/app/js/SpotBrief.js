@@ -32,13 +32,16 @@ Module.def(window, function SpotBrief(){}, function(Class){
 		if (data.appraise > 0) {
 			$brief.find(".appraise").text(Math.floor(data.appraise*10)/10);
 			$brief.find(".FaceMark").attr('src',
-					"/images/face-"+Math.floor(data.appraise+1)+".png");
+					"/images/face-"+Math.floor(data.appraise+0.9999999)+".png");
 		} else {
 			$brief.find(".appraise").text("？");
 			$brief.find(".FaceMark").attr('src',"/images/face-0.png");
 		}
 
 		if (data.myAppraise > 0) {
+			$brief.find(".FaceMark").attr('src',
+					"/images/face-"+Math.floor(data.myAppraise)+".png");
+			
 			var label = data.checked ? "評価:" : "期待:";
 			$brief.find(".myAppraiseLabel").text(label);
 			$brief.find(".myAppraise").text(Math.floor(data.myAppraise*10)/10);
