@@ -25,9 +25,7 @@
 			<div>(<font color="red">※</font>未登録項目への<a class="Edit" href="#">記入</a>に御協力下さい。)</div>
 			<div class="GoogleLogo" align="right"></div>
 		</div>
-		<div class="SpotDetailKnob">
-			<img src="/images/pulldown.gif" onclick="SpotBrief.toggleDetail(event,this)">
-		</div>
+		<div class="SpotDetailKnob"><div></div><span onclick="SpotBrief.toggleDetail(event,this)"><img src="/images/pulldown.png" /></span></div>
 	</div>
 
 </div>
@@ -115,6 +113,67 @@ span.Thumbnail  img{
 	display: block;
 	margin: auto auto;
 }
+
+.SpotDetailKnob {
+	text-align: center;
+}
+.SpotDetailKnob > div {
+	height: 0px;
+	border-top: 1px solid #d0d0d0;
+	border-bottom: 1px solid white;
+	margin: 0;
+	padding: 0;
+	vertical-align: text-bottom;
+}
+.SpotDetailKnob > span {
+	vertical-align: top;
+	height: 14px;
+	line-height: 12px;
+	width: 48px;
+	display: inline-block;
+	font-size: 12px;
+	color: black;
+	margin: 0;
+	padding: 0;
+	overflow:hidden;
+	
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#FFFFFF /*{b-bar-background-start}*/), to(#e0e0e0 /*{b-bar-background-end}*/)); /* Saf4+, Chrome */
+    background-image: -webkit-linear-gradient(top, #FFFFFF /*{b-bar-background-start}*/, #e0e0e0 /*{b-bar-background-end}*/); /* Chrome 10+, Saf5.1+ */
+    background-image:    -moz-linear-gradient(top, #FFFFFF /*{b-bar-background-start}*/, #e0e0e0 /*{b-bar-background-end}*/); /* FF3.6 */
+    background-image:     -ms-linear-gradient(top, #FFFFFF /*{b-bar-background-start}*/, #e0e0e0 /*{b-bar-background-end}*/); /* IE10 */
+    background-image:      -o-linear-gradient(top, #FFFFFF /*{b-bar-background-start}*/, #e0e0e0 /*{b-bar-background-end}*/); /* Opera 11.10+ */
+    background-image:         linear-gradient(top,  /*{b-bar-background-start}*/, #e0e0e0 /*{b-bar-background-end}*/);
+
+	-webkit-border-top-left-radius: 0px;
+	-khtml-border-radius-topleft: 0px;
+	-moz-border-radius-topleft: 0px;
+	border-top-left-radius: 0px;
+
+	-webkit-border-top-right-radius: 0px;
+	-khtml-border-radius-topright: 0px;
+	-moz-border-radius-topright: 0px;
+	border-top-right-radius: 0px;
+
+	-webkit-border-bottom-left-radius: 10px;
+	-khtml-border-radius-bottomleft: 10px;
+	-moz-border-radius-bottomleft: 10px;
+	border-bottom-left-radius: 10px;
+
+	-webkit-border-bottom-right-radius: 10px;
+	-khtml-border-radius-bottomright: 10px;
+	-moz-border-radius-bottomright: 10px;
+	border-bottom-right-radius: 10px;
+
+	/*border: 1px outset #fff;*/
+	border-top: none;
+
+    -moz-box-shadow: 1px 1px 2px /*{global-box-shadow-size}*/           rgba(0,0,0,.3) /*{global-box-shadow-color}*/;
+    -webkit-box-shadow: 1px 1px 2px /*{global-box-shadow-size}*/        rgba(0,0,0,.3) /*{global-box-shadow-color}*/;
+    box-shadow: 1px 1px 2px /*{global-box-shadow-size}*/                rgba(0,0,0,.3) /*{global-box-shadow-color}*/;
+
+}
+
+
 
 </style>
 
