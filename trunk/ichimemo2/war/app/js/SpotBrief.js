@@ -92,11 +92,11 @@ Module.def(window, function SpotBrief(){}, function(Class){
 
 	Class.prototype.showDetail = function() { 
 		$(this.brief).find(".SpotDetail").show();
-		$(this.brief).find(".SpotDetailKnob img").attr('src',"/images/pushup.gif");
+		$(this.brief).find(".SpotDetailKnob img").attr('src',"/images/pullup.png");
 	}
 	Class.prototype.hideDetail = function() { 
 		$(this.brief).find(".SpotDetail").hide();
-		$(this.brief).find(".SpotDetailKnob img").attr('src',"/images/pulldown.gif");
+		$(this.brief).find(".SpotDetailKnob img").attr('src',"/images/pulldown.png");
 	}
 
 
