@@ -45,7 +45,7 @@ Module.def(window, function SpotBrief(){}, function(Class){
 			var label = data.checked ? "評価:" : "期待:";
 			$brief.find(".myAppraiseLabel").text(label);
 			$brief.find(".myAppraise").text(Math.floor(data.myAppraise*10)/10);
-			var star = data.checked ? "/images/star.png" : "/images/star-blue.png";
+			var star = data.checked ? "/images/star.png" : "/images/flag-16.png";
 			$brief.find(".MySpotMark").show().attr('src', star);
 			
 		} else {
@@ -63,6 +63,7 @@ Module.def(window, function SpotBrief(){}, function(Class){
 		Class._setText($brief, data, "closedDays");
 		Class._setText($brief, data, "openHours");
 		Class._setText($brief, data, "comment");
+		Class._setText($brief, data, "myMemo");
 
 		if (data.placeId != null) {
 			$brief.find(".GoogleLogo").html(

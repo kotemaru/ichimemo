@@ -1,3 +1,9 @@
+
+-oTwit画面
+-oreviewリスト
+- mySpot管理画面
+
+
 -o住所引き
 -mylist
 --o一般とマージ

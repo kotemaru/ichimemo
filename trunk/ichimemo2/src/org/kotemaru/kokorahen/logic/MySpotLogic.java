@@ -64,17 +64,43 @@ public class MySpotLogic  {
 			params.toLong("spotId"),
 			params.toFloat("appraise"),
 			(List<String>)params.get("tags"),
+			null, //memo
 			params.toBoolean("checked"),
 			params.toBoolean("temporal")
 		);
 	}
-	
+	public  Long writeMySpotFromMemo(Map map) throws Exception {
+		Params params = new Params(map);
+		return writeMySpot(
+			env.getLoginUser().getUserId(),
+			params.toLong("spotId"),
+			null, // appraise
+			(List<String>)params.get("tags"),
+			params.toString("comment"),
+			null, // checked
+			null  // temporal
+		);
+	}
+	public  Long writeMySpotFromReview(Map map) throws Exception {
+		Params params = new Params(map);
+		return writeMySpot(
+			env.getLoginUser().getUserId(),
+			params.toLong("spotId"),
+			params.toFloat("appraise"),
+			null, // tags
+			null, // memo
+			params.toBoolean("checked"),
+			false // temporal
+		);
+	}
+
 	public  Long recommandMySpot(Long userId, Long spotId, double appraise
 			) throws Exception {
-		return writeMySpot(userId, spotId, (float)appraise, null, false, true);
+		return writeMySpot(userId, spotId, (float)appraise, null, null, false, true);
 	}
 	public  Long writeMySpot(Long userId, Long spotId, Float appraise,
-			List<String> tags, Boolean checked, Boolean temporal) throws Exception {
+			List<String> tags, String memo,
+			Boolean checked, Boolean temporal) throws Exception {
 		SpotModel spot = env.spotLogic.getSpot(spotId);
 		if (spot == null) {
 			throw new RuntimeException("Not found spot "+spotId);
@@ -96,10 +122,11 @@ public class MySpotLogic  {
 		
 		if (tags == null) tags = spot.getTags();
 		model.setTags(tags);
-		
-		model.setAppraise(appraise);
-		model.setChecked(checked);
-		model.setTemporal(temporal);
+		if (memo != null) model.setMemo(memo);
+
+		if (appraise != null) model.setAppraise(appraise);
+		if (checked != null) model.setChecked(checked);
+		if (temporal != null) model.setTemporal(temporal);
 		
 		Key key = Datastore.put(model);
 		return key.getId();
@@ -245,6 +272,7 @@ public class MySpotLogic  {
 	public SpotModel toSpotModel(MySpotModel mySpot, SpotModel spot) {
 		spot.setMyAppraise(mySpot.getAppraise());
 		spot.setMyTags(mySpot.getTags());
+		spot.setMyMemo(mySpot.getMemo());
 		spot.setChecked(mySpot.getChecked());
 		spot.setTemporal(mySpot.getTemporal());
 		return spot;

@@ -294,9 +294,14 @@ public class Kokorahen implements JsrpcEnvironment {
 	public  ReviewModel getReview(long id) throws Exception{
 		return reviewLogic.getReviewModel(id);
 	}
+	public  ReviewModel getTodo(long spotId) throws Exception{
+		Long userId = checkLogin();
+		return reviewLogic.getTodo(userId, spotId);
+	}
 
 	public  Long writeReview(Map map) throws Exception {
 		checkLogin();
+		mySpotLogic.writeMySpotFromReview(map);
 		return reviewLogic.writeReview(map);
 	}
 
@@ -315,7 +320,7 @@ public class Kokorahen implements JsrpcEnvironment {
 
 	public  Long writeMemo(Map map) throws Exception {
 		checkLogin();
-		return memoLogic.writeMemo(map);
+		return mySpotLogic.writeMySpotFromMemo(map);
 	}
 	//------------------------------------------------------------------------------
 	// Google Place連係

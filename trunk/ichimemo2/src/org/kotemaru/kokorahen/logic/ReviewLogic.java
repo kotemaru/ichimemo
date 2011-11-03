@@ -71,6 +71,7 @@ public class ReviewLogic  {
 		model.setAppraise(params.toFloat("appraise"));
 		model.setComment(params.toString("comment"));
 		model.setPhotoUrl(params.toString("photoUrl"));
+		model.setChecked(params.toBoolean("checked"));
 		Key key = Datastore.put(model);
 
 		env.twitterLogic.twit(params.toString("comment")+"@"+params.toString("name"));
@@ -319,11 +320,23 @@ public class ReviewLogic  {
 	}
 	public  List<ReviewModel> listReviewForUser(Long userId, int limit){
 		ReviewModelMeta e = ReviewModelMeta.get();
-		ModelQuery q = Datastore.query(e);
+		ModelQuery<ReviewModel> q = Datastore.query(e);
 		q.filter(e.userId.equal(userId));
 		q.sort(e.appraise.desc);
 		q.sort(e.updateDate.desc);
 		q.limit(limit);
 		return q.asList();
+	}
+
+	public ReviewModel getTodo(Long userId, Long spotId) {
+		ReviewModelMeta e = ReviewModelMeta.get();
+		ModelQuery<ReviewModel> q = Datastore.query(e);
+		q.filter(e.userId.equal(userId));
+		q.filter(e.spotId.equal(spotId));
+		Iterator<ReviewModel> ite = q.asIterator();
+		if (ite.hasNext()) {
+			return ite.next();
+		}
+		return null;
 	}
 }

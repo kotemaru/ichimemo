@@ -28,6 +28,7 @@ public class ReviewModel extends ModelBase {
 	private Double lat;
 	private Double lng;
 	private List<String> areas;
+	private Boolean checked;
 
 	@Attribute(persistent = false)
 	private String nickname;
@@ -167,6 +168,16 @@ public class ReviewModel extends ModelBase {
 
 	public void setAreas(List<String> areas) {
 		this.areas = areas;
+	}
+
+
+	public Boolean getChecked() {
+		return checked;
+	}
+
+
+	public void setChecked(Boolean checked) {
+		this.checked = checked;
 	}
 
 

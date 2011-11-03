@@ -1,74 +1,106 @@
 var ReviewInput = Page.def(function ReviewInput(){}, function(Class){
 
-
-Class.all = {};
-Class.current = null;
-Class.spotBrief = null;
-
-Class.init = function() {
-	Class.spotBrief = new SpotBrief().init(Class.PAGE);
-}
-
-Class.go = function(id, spotId) {
-	if (id === undefined) {
-		Class.current = {
-				id: "", spotId: spotId, appraise: 3, comment: "",
-				nickname: Login.user.nickname, isNewReview:true,
-				photoUrl: "/images/noimage.gif"
-		};
-	} else {
-		Class.current = Review.getReview(id);
-	}
-
-	Class.onFaceClick(Class.current.appraise);
-	$(Class.PAGE).find(".ReviewPhoto")
-		.attr("src",Util.correctImg(Class.current.photoUrl));
-	$(document.review.comment).val(Class.current.comment);
+	var LIST_DIV = null;
+	var LIST_ITEM = null;
+	var LIMIT = 30;
 	
-	Util.changePage(Class.ID);
-}
-
-
-
-Class.onBeforeShow = function() {
-	var spot = Spot.getSpotForId(Class.current.spotId);
-	Class.spotBrief.setSpot(spot);
-	Util.setNavbar(Class.PAGE);
-}
-
-Class.addFollow = function() {
-	UserConf.addFollow(Class.current.userId);
-}
-Class.onFaceClick = function(n) {
-	var $page = $(Class.PAGE);
-	var faces = $page.find(".Faces img.FaceMark");
-	for (var i=0; i<faces.length; i++) {
-		$(faces[i]).width(16);
+	var current = {
+			review: null,
+			checked: null,
+	};
+	var spotBrief = null;
+	var faceMarkTex = null;
+	
+	
+	Class.init = function() {
+		var $page = $(Class.PAGE)
+		LIST_DIV = $page.find(".ReviewList")[0];
+		LIST_ITEM = $page.find(".ReviewList ul").html();
+		
+		spotBrief = new SpotBrief().init(Class.PAGE);
 	}
-	if (n>0) $(faces[n-1]).width(32);
-	$page.find(".FaceMarkText").text(Review.FACE_MARK_TEXT[n]);
-	$page.find("form")[0].appraise.value = n;
-}
-
-Class.write = function() {
-	var params = {};
-	var elems = document.review.elements;
-	for (var i=0; i<elems.length; i++) {
-		params[elems[i].name] = elems[i].value;
+	
+	Class.go = function(id, spotId, checked) {
+		var $page = $(Class.PAGE);
+		current.checked = checked;
+		if (current.checked) { // rewview mode
+			if (id === undefined) {
+				current.review = {
+					id: null, spotId: spotId, appraise: 3, comment: "",
+					nickname: Login.user.nickname, isNewReview:true,
+					photoUrl: "/images/noimage.gif"
+				};
+			} else {
+				current.review = Review.getReview(id);
+			}
+			$page.find(".Header").text("レビュー登録");
+			faceMarkText = Review.FACE_MARK_TEXT.checked;
+		} else { // todo mode
+			current.review = Kokorahen.getTodo(spotId);
+			$page.find(".Header").text("TODO登録");
+			faceMarkText = Review.FACE_MARK_TEXT.todo;
+		}
+		
+		
+		Class.onFaceClick(current.review.appraise);
+		$page.find(".ReviewPhoto")
+			.attr("src",Util.correctImg(current.review.photoUrl));
+		$page.find(".Comment").val(current.review.comment);
+		
+		Util.changePage(Class.ID);
 	}
-	var sd = Spot.getSpotForId(Class.current.spotId).data;
-
-	params.spotId = sd.id;
-	params.spotName = sd.name;
-	params.lat = sd.lat;
-	params.lng = sd.lng;
-	params.tags = sd.tags;
-	params.photoUrl = $(Class.PAGE).find(".ReviewPhoto").attr("src");
-	if (params.photoUrl.match(/^[/]images/)) params.photoUrl = null;
-
-	var id = Kokorahen.writeReview(params);
-	alert("レビュー登録しました。("+id+")");
-	Timeline.go();
-}
-
+	
+	Class.onBeforeShow = function() {
+		var spot = Spot.getSpotForId(current.review.spotId);
+		spotBrief.setSpot(spot);
+		reload();
+		Util.setNavbar(Class.PAGE);
+	}
+	
+	Class.addFollow = function() {
+		UserConf.addFollow(current.review.userId);
+	}
+	Class.onFaceClick = function(n) {
+		var $page = $(Class.PAGE);
+		var faces = $page.find(".Faces img.FaceMark");
+		for (var i=0; i<faces.length; i++) {
+			$(faces[i]).width(16);
+		}
+		if (n>0) $(faces[n-1]).width(32);
+		$page.find(".FaceMarkText").text(faceMarkText[n]);
+		current.review.appraise = n;
+	}
+	
+	Class.write = function() {
+		var $page = $(Class.PAGE);
+		var sd = Spot.getSpotForId(current.review.spotId).data;
+		var params = {};
+		
+		params.id = current.review.id;
+		params.spotId = sd.id;
+		params.spotName = sd.name;
+		params.lat = sd.lat;
+		params.lng = sd.lng;
+		params.tags = sd.tags;
+		params.appraise = current.review.appraise;
+		params.comment = $page.find(".Comment").val();
+		params.photoUrl = $page.find(".ReviewPhoto").attr("src");
+		params.checked = current.checked;
+		if (params.photoUrl.match(/^\/images/)) params.photoUrl = null;
+	
+		var id = Kokorahen.writeReview(params);
+		alert("レビュー登録しました。("+id+")");
+		Timeline.go();
+	}
+	
+	function reload() {
+		$(LIST_DIV).html("Please wait...");
+	
+		Kokorahen.listTimelineAsync({
+			success: function(list) {
+				Review.makeList(LIST_DIV, null, list);
+				Util.setNavbar(Class.PAGE);
+			}
+		}, Login.user.userId, current.review.spotId, LIMIT);
+	}
 });

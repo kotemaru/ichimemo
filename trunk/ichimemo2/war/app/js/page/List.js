@@ -5,6 +5,7 @@ Page.def(function List(){}, function(Class){
 	var LIST_ITEM = null;
 	var radioSort = null;
 	var radioRadius = null;
+	var LIMIT = 30;
 
 	Class.init = function()  {
 		var $page = $(Class.PAGE)
@@ -35,7 +36,7 @@ Page.def(function List(){}, function(Class){
 			var range = radioRadius.getValue()/100;
 			var params =  {
 				tag: SpotTags.getSearchTag(), 
-				limit: Spot.LIMIT,
+				limit: LIMIT,
 				latMin : curPos.lat()-range,
 				lngMin : curPos.lng()-range,
 				latMax : curPos.lat()+range,
@@ -49,7 +50,7 @@ Page.def(function List(){}, function(Class){
 			$(Class.PAGE).find(".Radius").hide();
 			var params =  {
 					tag: SpotTags.getSearchTag(), 
-					limit: Spot.LIMIT,
+					limit: LIMIT,
 					lat : curPos.lat(),
 					lng : curPos.lng(),
 					search : $(Class.PAGE).find(".Search").val()
@@ -113,7 +114,7 @@ Page.def(function List(){}, function(Class){
 		var photo = data.image;
 		if (photo == null || photo == "") photo = "/images/noimage.gif";
 	
-		var star = data.checked ? "/images/star.png" : "/images/star-blue.png";
+		var star = data.checked ? "/images/star.png" : "/images/flag-16.png";
 		var html = LIST_ITEM
 		.replace(/[$][{]id[}]/g, data.id)
 		.replace(/[$][{]photo[}]/g, photo)
