@@ -5,23 +5,22 @@
 		<a data-icon="submit" href="javascript:TwitInput.write()" data-iconpos="notext"></a>
 	</div>
 	<div data-role="content">
-	<form action="" name="twit">
-		<input name="id" type="hidden"/>
-		<input name="spotId" type="hidden"/>
-		<input name="appraise" type="hidden"/>
-
 		<div class="SpotBrief" ></div>
 		
-		<div class="TagHeader"><span>コメント</span></div>
+		<div class="TagHeader"><span>つぶやき</span></div>
 		<div class="FullSizeInput">
 			<textarea name="comment"  cols="100%" rows="10" placeholder="コメント" ></textarea>
 		</div>
-
 		
-	</form>
-	<hr/>
+		<hr/>
 		<a data-role="button" data-icon="submit" data-iconpos="right"
 				href="javascript:TwitInput.write()">つぶやく</a>
+
+		<br/><hr/>
+		<div class="TagHeader"><span>あなたの過去のレビューとつぶやき</span></div>
+		<div class="ReviewList">
+		</div>
+
 	</div>
 
 	<div data-role="footer"  data-position="fixed" >

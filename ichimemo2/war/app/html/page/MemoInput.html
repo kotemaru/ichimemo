@@ -5,24 +5,31 @@
 		<a data-icon="submit" href="javascript:MemoInput.write()" data-iconpos="notext"></a>
 	</div>
 	<div data-role="content">
-	<form action="" name="memo">
-		<input name="id" type="hidden"/>
-		<input name="spotId" type="hidden"/>
-		<input name="appraise" type="hidden"/>
-
 		<div class="SpotBrief" ></div>
 		
+		<div class="TagHeader"><span>メモ</span></div>
 		<div class="FullSizeInput">
-			<textarea name="comment"  cols="100%" rows="10" placeholder="コメント" ></textarea>
+			<textarea class="Comment"  cols="100%" rows="10" placeholder="コメント" ></textarea>
 		</div>
 
+		<div class="TagHeader"><span>ジャンル</span></div>
+		<div data-role=“fieldcontain”>
+				<a class="tags" data-role="button"
+					data-iconpos="right" 
+					data-icon="arrow-d"
+					href="#"
+					onclick="SpotTags.open(this,'ジャンル選択(複数可)',SpotTags.MYSPOT)" 
+				>ジャンル選択(複数可)</a>
+		</div>
+		<div class="Small">※ユーザ定義のジャンルを追加できます。</div>
+
+		<hr/>
 		<a data-role="button" data-icon="submit" data-iconpos="right"
 				href="javascript:MemoInput.write()">保存</a>
 		<br/>
 		<div class="ReviewList">
 		</div>
 
-	</form>
 	</div>
 	<div data-role="footer"  data-position="fixed" >
 	</div>

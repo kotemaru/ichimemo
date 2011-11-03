@@ -53,6 +53,8 @@ public class SpotModel extends ModelBase {
 	private Float myAppraise;
 	@Attribute(persistent = false)
 	private List<String> myTags; 
+	@Attribute(persistent = false)
+	private String myMemo; 
 
 	public long getId() {
 		return getKey().getId();
@@ -360,6 +362,14 @@ public class SpotModel extends ModelBase {
 
 	public void setMyTags(List<String> myTags) {
 		this.myTags = myTags;
+	}
+
+	public String getMyMemo() {
+		return myMemo;
+	}
+
+	public void setMyMemo(String myMemo) {
+		this.myMemo = myMemo;
 	}
 
 

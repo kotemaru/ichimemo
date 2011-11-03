@@ -1,6 +1,9 @@
 <div id="Review"  data-role="page">
 	<div data-role="header" data-position="fixed">
-		<h1>レビュー</h1>
+		<h1>
+			<span if="(mode==M_REVIEW)">レビュー</span>
+			<span if="(mode==M_TODO)">TODO</span>
+		</h1>
 		<a data-icon="back" href="javascript:Util.backPage()" data-iconpos="left"></a>
 	</div>
 	<div data-role="content">
@@ -35,6 +38,9 @@
 
 		<div class="TagHeader"><span>画像</span></div>
 		<img class="ThumbnailL" src="/images/noimage.gif" onerror="Util.setNoImage()"/>
+
+	
+
 	</div>
 
 	<div data-role="footer" data-position="fixed" ></div>
@@ -47,7 +53,8 @@
 				<span class="Thumbnail" ><div><div>
 					<img src="${photo}" onerror='SpotInfo.setDefaultPhoto(this)' />
 				</div></div></span>
-				<img class='FaceMark' src='/images/face-${appraise}.png' />
+				<img class='MySpotMark' src='${mySpotMark}' />
+				<img class='FaceMark' src='${faceMark}' />
 				<span style='font-size:50%;'>${nickname}@${spotname}</span>
 				<br/><span>${comment}</span>
 			</a>
@@ -82,12 +89,16 @@
 	padding-top: 6px!important;	
 	padding-left: 6px!important;	
 }
-.ReviewList .FaceMark{
+.ReviewList img.FaceMark{
 	position: absolute;
 	top:3px;
 	left:3px;
 }
-
+.ReviewList img.MySpotMark{
+	position: absolute;
+	top: 3px;
+	left: 13px;
+}
 
 
 .ThumbnailM {
@@ -114,6 +125,8 @@
 	background-color: white;
 	padding:8px;
 	margin-top: 0px;
+	white-space: pre-wrap; 
+
 }
 
 </style>

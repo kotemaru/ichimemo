@@ -1,15 +1,10 @@
 <div id="ReviewInput"  data-role="page">
 	<div data-role="header" data-position="fixed">
-		<h1>レビュー登録</h1>
+		<h1 class="Header">レビュー登録</h1>
 		<a data-icon="back" href="javascript:Util.backPage()" data-iconpos="left"></a>
 		<a data-icon="submit" href="javascript:ReviewInput.write()" data-iconpos="notext"></a>
 	</div>
 	<div data-role="content">
-	<form action="" name="review">
-		<input name="id" type="hidden"/>
-		<input name="spotId" type="hidden"/>
-		<input name="appraise" type="hidden"/>
-
 		<div class="SpotBrief" ></div>
 		
 		<div class="TagHeader"><span>評価</span></div>
@@ -24,7 +19,7 @@
 	
 		<div class="TagHeader"><span>コメント</span></div>
 		<div class="FullSizeInput">
-			<textarea name="comment"  cols="100%" rows="10" placeholder="コメント" ></textarea>
+			<textarea class="Comment"  cols="100%" rows="10" placeholder="コメント" ></textarea>
 		</div>
 
 
@@ -32,11 +27,15 @@
 		<div align="center">
 			<img class="ReviewPhoto" border=1 src="/images/noimage.gif" width="144" onclick="PicasaAlbum.go(this)" />
 		</div>
-
 		
-	</form>
 		<a data-role="button" data-icon="submit" data-iconpos="right"
 				href="javascript:ReviewInput.write()">登録</a>
+
+		<br/><hr/>
+		<div class="TagHeader"><span>あなたの過去のレビューとつぶやき</span></div>
+		<div class="ReviewList">
+		</div>
+
 	</div>
 	<div data-role="footer"  data-position="fixed" >
 	</div>

@@ -58,6 +58,12 @@ Kokorahen.getSpots = function(map){
 Kokorahen.getSpotsAsync = function(_callback ,map){
 	return JSRPC.callAsync(Kokorahen.__URL, "getSpots", arguments);
 }
+Kokorahen.getTodo = function(spotId){
+	return JSRPC.call(Kokorahen.__URL, "getTodo", arguments);
+}
+Kokorahen.getTodoAsync = function(_callback ,spotId){
+	return JSRPC.callAsync(Kokorahen.__URL, "getTodo", arguments);
+}
 Kokorahen.getUserModelPublic = function(id){
 	return JSRPC.call(Kokorahen.__URL, "getUserModelPublic", arguments);
 }

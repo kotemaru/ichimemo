@@ -26,6 +26,7 @@ public class MySpotModel extends ModelBase {
 	private List<String> areas;
 	private List<String> tags;
 	private Float appraise = 0.0F;
+	private String memo = null;
 
 	private Boolean temporal;  // true=フォロイーの推薦
 	private Boolean checked; // true=確認済み
@@ -165,6 +166,16 @@ public class MySpotModel extends ModelBase {
 
 	public void setChecked(Boolean checked) {
 		this.checked = checked;
+	}
+
+
+	public String getMemo() {
+		return memo;
+	}
+
+
+	public void setMemo(String memo) {
+		this.memo = memo;
 	}
 
 

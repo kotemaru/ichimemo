@@ -51,7 +51,10 @@ Page.def(function SpotTL(){}, function(Class){
 	
 	
 	Class.newReview = function() {
-		ReviewInput.go(undefined, currentSpotId);
+		ReviewInput.go(undefined, currentSpotId, true);
+	}
+	Class.newTodo = function() {
+		ReviewInput.go(undefined, currentSpotId, false);
 	}
 	Class.newTwit = function() {
 		TwitInput.go(undefined, currentSpotId);
@@ -59,8 +62,13 @@ Page.def(function SpotTL(){}, function(Class){
 	Class.goMemo = function() {
 		MemoInput.go(currentSpotId);
 	}
-	Class.goMySpot = function() {
-		MySpotInput.go(currentSpotId);
+	Class.checkIn = function() {
+		// TODO:
+	}
+	Class.goMap = function() {
+		var spot = Spot.getSpotForId(currentSpotId);
+		Map.setCenter(spot.marker.getPosition(), 17);
+		Map.go();
 	}
 
 });
