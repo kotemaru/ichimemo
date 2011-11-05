@@ -25,14 +25,16 @@ Page.def(function List(){}, function(Class){
 	
 
 	function load() {
+		Util.procIf(Class.PAGE, function(c){return eval(c)});
+
 		var div = $(LIST_DIV);
 		div.html("Please wait...");
 		
-		var curPos = Map.marker.getPosition();
+		var curPos = Map.getPosition();
 		var sort = radioSort.getValue();
+		var $page = $(Class.PAGE);
 
 		if (sort == "appraise") {
-			$(Class.PAGE).find(".Radius").show();
 			var range = radioRadius.getValue()/100;
 			var params =  {
 				tag: SpotTags.getSearchTag(), 
@@ -41,19 +43,18 @@ Page.def(function List(){}, function(Class){
 				lngMin : curPos.lng()-range,
 				latMax : curPos.lat()+range,
 				lngMax : curPos.lng()+range,
-				search : $(Class.PAGE).find(".Search").val()
+				search : $page.find(".Search").val()
 			};
 			params.areas = Class.getAreas(params);
 			Kokorahen.listMySpotAsync(Class.onloadGetSpots, params);
 			//Kokorahen.getSpotsAsync(Class.onloadGetSpots, params);
-		} else { // near
-			$(Class.PAGE).find(".Radius").hide();
+		} else { //ねあr
 			var params =  {
 					tag: SpotTags.getSearchTag(), 
 					limit: LIMIT,
 					lat : curPos.lat(),
 					lng : curPos.lng(),
-					search : $(Class.PAGE).find(".Search").val()
+					search : $page.find(".Search").val()
 				};
 			Kokorahen.listNearSpotAsync(Class.onloadGetSpots, params);
 		}
@@ -61,7 +62,7 @@ Page.def(function List(){}, function(Class){
 	
 	Class.onloadGetSpots = {
 		success: function(list, args){
-			var curPos = Map.marker.getPosition();
+			var curPos = Map.getPosition();
 			var spots = [];
 			for (var i=0; i<list.length; i++) {
 				var spot = Spot.getSpot(list[i]);

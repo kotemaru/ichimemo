@@ -12,7 +12,7 @@ Module.def(window, function Util(){}, function(Class) {
 	
 	Class.compDistance = google.maps.geometry.spherical.computeDistanceBetween;
 	Class.spotDistance = function(spot) {
-		var curPos = Map.marker.getPosition();
+		var curPos = Map.getPosition();
 		return Math.floor(Class.compDistance(curPos, spot.marker.getPosition()));
 	}
 	

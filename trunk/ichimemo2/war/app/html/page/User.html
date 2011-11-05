@@ -15,13 +15,39 @@
 			<br clear="all" />
 		</div>
 
-		<div class="TagHeader">
-			<img src="/images/review.png" width="16" /><img src="/images/twit.png" width="16" />
-			<span>あなたのレビューとつぶやき</span>
-		</div>
-		<div class="ReviewList" >
+		<div class="ui-grid-c ActionButtons">
+			<div class="ui-block-a" >
+				<a data-role="button"	href="javascript:User.showList('review')" >
+					<img src="/images/review.png" />
+					<div class="Small">Review</div>
+				</a>
+			</div>
+			<div class="ui-block-b" >
+				<a data-role="button"	href="javascript:User.showList('follow')" >
+					<img src="/images/users.png" />
+					<div class="Small">Follow</div>
+				</a>
+			</div>
 		</div>
 
+		<div if="(listMode=='review')" >
+			<div class="TagHeader">
+				<img src="/images/review.png" width="16" /><img src="/images/twit.png" width="16" />
+				<span>あなたのレビューとつぶやき</span>
+			</div>
+			<div class="ReviewList" >
+			</div>
+		</div>
+		
+		<div if="(listMode=='follow')">
+			<div class="TagHeader"><span>フォローユーザ</span></div>
+			<div class="FollowList" >
+			</div>
+			<a data-role="button" data-icon="grid" data-iconpos="right" 
+				href="javascript:UserConf.recommandMySpot()">高評価をマイスポットに自動追加</a>
+			<div class="Small">フォローユーザが高評価しているスポットをあなたのマイスポットに追加します。
+			※マイスポットの登録には時間がかかる場合があります。</div>
+		</div>
 	</div>
 	<div data-role="footer"  data-position="fixed" >
 	</div>
@@ -32,4 +58,18 @@
 .UserBrief > a {
 	float: right;
 }
+
+/* 横並びボタンの余白削除 */
+#User .ActionButtons .ui-btn-inner {
+	padding-left: 0!important;
+	padding-right: 0!important;
+	padding-top: 4px!important;
+	padding-bottom: 0px!important;
+}
+#User .ActionButtons .Small {
+	margin-top: -8px;
+}
+
+
+
 </style>

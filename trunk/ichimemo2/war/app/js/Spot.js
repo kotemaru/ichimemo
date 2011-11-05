@@ -18,10 +18,10 @@ Module.def(window, function Spot(data) {
 	];
 	//ピンの影イメージ
 	var PIN_SHADOW = new google.maps.MarkerImage(
-	 "/images/pin-shadow.png", // url
-	 new google.maps.Size(40,24), // size
-	 new google.maps.Point(0,0),  // origin
-	 new google.maps.Point(14,24) // anchor
+		"/images/pin-shadow.png", // url
+		new google.maps.Size(40,24), // size
+		new google.maps.Point(0,0),  // origin
+		new google.maps.Point(14,24) // anchor
 	);
 
 	Class.prototype.init = function(data) {
@@ -100,7 +100,7 @@ Module.def(window, function Spot(data) {
 		currentAreas = null;
 	}
 	
-	Class.load = function(map) {
+	Class.load = function(map, opts) {
 		if (Login.user == null) return;
 		
 		var areas = Class.getAreas(map);
@@ -139,8 +139,14 @@ Module.def(window, function Spot(data) {
 			var params =  {
 					areas: areas, tag: SpotTags.getSearchTag(), 
 					follows: Login.user.follows,
-					limit: LIMIT, range: currentRange
+					limit: LIMIT, range: currentRange,
+					general: true
 			};
+			if (opts) {
+				params.general = opts.general;
+				params.checked = opts.checked;
+				params.limit = opts.limit;
+			}
 			Class.getBounds(Map.map, params);
 			Kokorahen.listMySpotAsync(Class.onloadGetSpots, params);
 			//Kokorahen.getSpotsAsync(Class.onloadGetSpots, params);

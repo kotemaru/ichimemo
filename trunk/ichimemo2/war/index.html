@@ -25,10 +25,10 @@ if (undefined === window.console) {
 	<link rel="stylesheet" href="jq/jqm/jquery.mobile-1.0rc2.css" />
 	<script src="jq/jquery-1.6.2.min.js"></script>
 	
-	<link rel="stylesheet" href="app/min/all-min.css?v=20111103_1916" />
+	<link rel="stylesheet" href="app/min/all-min.css?v=20111105_2202" />
 	<script src="http://maps.google.com/maps/api/js?libraries=geometry&amp;sensor=true"></script>
 	<script src="jq/jqm/jquery.mobile-1.0rc2.min.js"></script>
-	<script src="app/min/all-min.js?v=20111103_1916"></script>
+	<script src="app/min/all-min.js?v=20111105_2202"></script>
 
 	<style>
 		body>div {
@@ -99,7 +99,7 @@ Please wait...
 		<h1>情報</h1>
 	</div>
 	<div data-role="content">
-		<h3>ここらへん Ver:SNAP-20111103-1916</h3>
+		<h3>ここらへん Ver:SNAP-20111105-2202</h3>
 		<hr/>
 		<div>Google Place連係:</div>
 		<a data-role="button" href="javascript:Info.fromGooglePlace()">周辺のスポットを取得する</a>
@@ -120,11 +120,11 @@ Please wait...
 	</div>
 	<div data-role="content">
 		<div class="Sort" >
-			<a value="near" checked="true">&nbsp;周辺&nbsp;</a>
+			<a value="near" checked="true">周辺</a>
 			<a value="appraise">高評価</a>
 		</div>
 		
-		<div class="Radius" >
+		<div class="Radius" if="(radioSort.getValue()=='appraise')">
 			<a value="1">1Km</a>
 			<a value="3">3Km</a>
 			<a value="5" checked="true">5Km</a>
@@ -132,6 +132,7 @@ Please wait...
 			<a value="30">30Km</a>
 		</div>
 		
+	
 		<div align="center">
 			<input class="Search" type="search"  value="" style="width:100%;"/>
 		</div>
@@ -168,7 +169,11 @@ Please wait...
 #List .Title {
 	padding-top: 0px;
 }
-
+#List .Sort span.ui-btn-inner {
+	padding: 5px 0px;
+	min-width: 90px!important;
+	text-align: center;
+}
 #List .Radius{
 	margin-top: 0px!important;	
 }
@@ -178,6 +183,7 @@ Please wait...
 	min-width: 48px!important;
 	text-align: center;
 }
+
 
 .SpotList .Thumbnail {
 	margin-left: -56px;
@@ -244,6 +250,24 @@ Please wait...
 </div>
 
 
+<div class="Template" >
+	<div id="MapButton" class="MapButton" data-role="none">スポット
+		<form name="mapMenu">
+		<div class="MapMenu">
+			<div>絞り込み</div>
+			<div><input value="all"    name="filter" type="radio" checked/><label >全て</label></div>
+			<div><input value="mySpot" name="filter" type="radio" /><label>マイスポットのみ</label></div>
+			<div><input value="todo"   name="filter" type="radio" /><label>TODOのみ</label></div>
+			<hr/>
+			<div>表示件数</div>
+			<div><input value="10" name="limit" type="radio" /><label>上位10件</label></div>
+			<div><input value="20" name="limit" type="radio" /><label>上位20件</label></div>
+			<div><input value="30" name="limit" type="radio" checked/><label>上位30件</label></div>
+		</div>
+		</form>
+	</div>
+</div>
+
 <style>
 #mapCanvas {
 	height: 1000px;
@@ -251,6 +275,61 @@ Please wait...
 body {
 	height: 1000px;
 }
+
+.MapButton {
+	font-family: Arial, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	line-height: 160%;
+	color: white;
+	background-color: white;
+	text-align: center;
+	cursor: pointer;
+
+	margin: 5px;
+	padding: 4px 8px; 
+	border: 1px solid rgb(103, 138, 199); 
+
+	border-radius: 2px;
+	-webkit-border-radius: 2px;
+	box-shadow: rgba(0, 0, 0, 0.347656) 2px 2px 3px; 
+	-webkit-box-shadow: rgba(0, 0, 0, 0.347656) 2px 2px 3px; 
+	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgb(109, 138, 204)), to(rgb(123, 152, 217))); 
+}
+.MapButton .MapMenu {
+	display: none;
+	z-index: -1; 
+	position: absolute;
+	padding: 0;
+	margin: 0;
+	right: 0px;
+	top: 28px;
+	line-height: 160%;
+	font-size: 14px;
+	font-family: Arial, sans-serif;
+	color: black;
+	font-weight: normal;
+	text-align: left;
+
+	background-color: white; 
+	padding-top: 1px; 
+	border: 1px solid rgb(169, 187, 223); 
+	border-top: none; 
+
+	-webkit-box-shadow: rgba(0, 0, 0, 0.347656) 2px 2px 3px; 
+	box-shadow: rgba(0, 0, 0, 0.347656) 2px 2px 3px; 
+}
+.MapButton .MapMenu>div {
+	white-space: nowrap;
+	padding-right: 8px; 
+}
+.MapButton .MapMenu>div>label {
+	vertical-align: middle;
+}
+.MapButton .MapMenu>div>input {
+	vertical-align: middle;
+}
+
 /**
  * Spotポップアップの１行目(Spot名)
  */
@@ -273,7 +352,7 @@ body {
 
 <!-- EOF --><div id="MemoInput"  data-role="page">
 	<div data-role="header" data-position="fixed">
-		<h1>自分メモ</h1>
+		<h1>マイスポット</h1>
 		<a data-icon="back" href="javascript:Util.backPage()" data-iconpos="left"></a>
 		<a data-icon="submit" href="javascript:MemoInput.write()" data-iconpos="notext"></a>
 	</div>
@@ -836,22 +915,24 @@ body {
 			</div>
 			<div class="ui-block-d">
 				<a data-role="button"	href="javascript:SpotTL.goMemo()" >
-					<img src="/images/edit.png" />
-					<div class="Small">Memo</div>
+					<img src="/images/star-32mono.png" />
+					<div class="Small">mySpot</div>
 				</a>
 			</div>
 			<div class="ui-block-a">
-				<a data-role="button"	href="javascript:alert('カウントするだけ？')" >
-					<img src="/images/foot.png" />
-					<div class="Small">CheckIn</div>
-				</a>
-			</div>
-			<div class="ui-block-b">
 				<a data-role="button"	href="javascript:SpotTL.goMap()" >
 					<img src="/images/location_pin.png" />
 					<div class="Small">Map</div>
 				</a>
 			</div>
+			<!--
+			<div class="ui-block-b">
+				<a data-role="button"	href="javascript:alert('カウントするだけ？')" >
+					<img src="/images/foot.png" />
+					<div class="Small">CheckIn</div>
+				</a>
+			</div>
+			-->
 		</div>
 		
 		<hr/>
@@ -1026,7 +1107,7 @@ body {
 		
 		<div class="TagHeader"><span>つぶやき</span></div>
 		<div class="FullSizeInput">
-			<textarea name="comment"  cols="100%" rows="10" placeholder="コメント" ></textarea>
+			<textarea class="Comment"  cols="100%" rows="10" placeholder="コメント" ></textarea>
 		</div>
 		
 		<hr/>
@@ -1067,13 +1148,39 @@ body {
 			<br clear="all" />
 		</div>
 
-		<div class="TagHeader">
-			<img src="/images/review.png" width="16" /><img src="/images/twit.png" width="16" />
-			<span>あなたのレビューとつぶやき</span>
-		</div>
-		<div class="ReviewList" >
+		<div class="ui-grid-c ActionButtons">
+			<div class="ui-block-a" >
+				<a data-role="button"	href="javascript:User.showList('review')" >
+					<img src="/images/review.png" />
+					<div class="Small">Review</div>
+				</a>
+			</div>
+			<div class="ui-block-b" >
+				<a data-role="button"	href="javascript:User.showList('follow')" >
+					<img src="/images/users.png" />
+					<div class="Small">Follow</div>
+				</a>
+			</div>
 		</div>
 
+		<div if="(listMode=='review')" >
+			<div class="TagHeader">
+				<img src="/images/review.png" width="16" /><img src="/images/twit.png" width="16" />
+				<span>あなたのレビューとつぶやき</span>
+			</div>
+			<div class="ReviewList" >
+			</div>
+		</div>
+		
+		<div if="(listMode=='follow')">
+			<div class="TagHeader"><span>フォローユーザ</span></div>
+			<div class="FollowList" >
+			</div>
+			<a data-role="button" data-icon="grid" data-iconpos="right" 
+				href="javascript:UserConf.recommandMySpot()">高評価をマイスポットに自動追加</a>
+			<div class="Small">フォローユーザが高評価しているスポットをあなたのマイスポットに追加します。
+			※マイスポットの登録には時間がかかる場合があります。</div>
+		</div>
 	</div>
 	<div data-role="footer"  data-position="fixed" >
 	</div>
@@ -1084,6 +1191,20 @@ body {
 .UserBrief > a {
 	float: right;
 }
+
+/* 横並びボタンの余白削除 */
+#User .ActionButtons .ui-btn-inner {
+	padding-left: 0!important;
+	padding-right: 0!important;
+	padding-top: 4px!important;
+	padding-bottom: 0px!important;
+}
+#User .ActionButtons .Small {
+	margin-top: -8px;
+}
+
+
+
 </style>	<div id="UserConf" data-role="page">
 		<div data-role="header" data-position="fixed">
 			<h1>ユーザ設定</h1>
@@ -1131,13 +1252,6 @@ body {
 					<br clear="all"/>
 					
 					
-					<div class="TagHeader"><span>フォローユーザ</span></div>
-					<div id="userFollowList" >
-					</div>
-					<a data-role="button" data-icon="grid" data-iconpos="right" 
-						href="javascript:UserConf.recommandMySpot()">高評価をマイスポットに自動追加</a>
-					<div class="Small">フォローユーザが高評価しているスポットをあなたのマイスポットに追加します。
-					※マイスポットの登録には時間がかかる場合があります。</div>
 					<hr clear="all"/>
 					<a data-role="button" data-icon="submit" data-iconpos="right"
 						href="javascript:UserConf.write()">登録</a>

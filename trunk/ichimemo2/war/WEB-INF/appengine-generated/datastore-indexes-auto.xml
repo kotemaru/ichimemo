@@ -1,43 +1,25 @@
-<!-- Indices written at Thu, 3 Nov 2011 09:42:24 UTC -->
+<!-- Indices written at Sat, 5 Nov 2011 12:45:35 UTC -->
 
 <datastore-indexes>
 
-    <!-- Used 793 times in query history -->
+    <!-- Used 825 times in query history -->
     <datastore-index kind="MySpotModel" ancestor="false" source="auto">
         <property name="areas" direction="asc"/>
         <property name="appraise" direction="desc"/>
     </datastore-index>
 
-    <!-- Used 93 times in query history -->
+    <!-- Used 134 times in query history -->
     <datastore-index kind="SpotModel" ancestor="false" source="auto">
         <property name="areas" direction="asc"/>
         <property name="invalid" direction="asc"/>
         <property name="appraise" direction="desc"/>
     </datastore-index>
 
-    <!-- Used 144 times in query history -->
-    <datastore-index kind="ReviewModel" ancestor="false" source="auto">
+    <!-- Used 172 times in query history -->
+    <datastore-index kind="MySpotModel" ancestor="false" source="auto">
         <property name="areas" direction="asc"/>
-        <property name="updateDate" direction="desc"/>
-    </datastore-index>
-
-    <!-- Used 20 times in query history -->
-    <datastore-index kind="ReviewModel" ancestor="false" source="auto">
-        <property name="spotId" direction="asc"/>
-        <property name="updateDate" direction="desc"/>
-    </datastore-index>
-
-    <!-- Used 41 times in query history -->
-    <datastore-index kind="ReviewModel" ancestor="false" source="auto">
-        <property name="userId" direction="asc"/>
-        <property name="updateDate" direction="desc"/>
-    </datastore-index>
-
-    <!-- Used 4 times in query history -->
-    <datastore-index kind="ReviewModel" ancestor="false" source="auto">
-        <property name="spotId" direction="asc"/>
-        <property name="userId" direction="asc"/>
-        <property name="updateDate" direction="desc"/>
+        <property name="checked" direction="asc"/>
+        <property name="appraise" direction="desc"/>
     </datastore-index>
 
 </datastore-indexes>

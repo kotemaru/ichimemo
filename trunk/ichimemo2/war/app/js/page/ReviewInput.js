@@ -86,10 +86,13 @@ var ReviewInput = Page.def(function ReviewInput(){}, function(Class){
 		params.comment = $page.find(".Comment").val();
 		params.photoUrl = $page.find(".ReviewPhoto").attr("src");
 		params.checked = current.checked;
+		params.twit = false;
 		if (params.photoUrl.match(/^\/images/)) params.photoUrl = null;
 	
 		var id = Kokorahen.writeReview(params);
 		alert("レビュー登録しました。("+id+")");
+		Map.clear();
+		Timeline.clear();
 		Timeline.go();
 	}
 	

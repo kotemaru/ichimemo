@@ -8,11 +8,11 @@
 	</div>
 	<div data-role="content">
 		<div class="Sort" >
-			<a value="near" checked="true">&nbsp;周辺&nbsp;</a>
+			<a value="near" checked="true">周辺</a>
 			<a value="appraise">高評価</a>
 		</div>
 		
-		<div class="Radius" >
+		<div class="Radius" if="(radioSort.getValue()=='appraise')">
 			<a value="1">1Km</a>
 			<a value="3">3Km</a>
 			<a value="5" checked="true">5Km</a>
@@ -20,6 +20,7 @@
 			<a value="30">30Km</a>
 		</div>
 		
+	
 		<div align="center">
 			<input class="Search" type="search"  value="" style="width:100%;"/>
 		</div>
@@ -56,7 +57,11 @@
 #List .Title {
 	padding-top: 0px;
 }
-
+#List .Sort span.ui-btn-inner {
+	padding: 5px 0px;
+	min-width: 90px!important;
+	text-align: center;
+}
 #List .Radius{
 	margin-top: 0px!important;	
 }
@@ -66,6 +71,7 @@
 	min-width: 48px!important;
 	text-align: center;
 }
+
 
 .SpotList .Thumbnail {
 	margin-left: -56px;
