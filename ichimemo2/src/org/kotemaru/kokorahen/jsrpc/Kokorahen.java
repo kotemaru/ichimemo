@@ -285,6 +285,11 @@ public class Kokorahen implements JsrpcEnvironment {
 	{
 		mySpotLogic.recommandMySpot(userId, spotId, appraise);
 	}
+	public long checkin(long spotId, double lat, double lng)
+		throws Exception
+	{
+		return mySpotLogic.checkin(spotId, lat, lng);
+	}
 
 	//------------------------------------------------------------------------------
 	// Review管理
@@ -381,6 +386,10 @@ public class Kokorahen implements JsrpcEnvironment {
 	public Long setInvalid(Long id) {
 		checkAdmin();
 		return spotLogic.setInvalid(id);
+	}
+	public void setupTwitFlag() {
+		checkAdmin();
+		reviewLogic.setupTwitFlag();
 	}
 
 }

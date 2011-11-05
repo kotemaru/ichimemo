@@ -83,10 +83,14 @@ public class MySpotLogic  {
 	}
 	public  Long writeMySpotFromReview(Map map) throws Exception {
 		Params params = new Params(map);
+		Float appraise = null;
+		if (!params.toBoolean("twit")) {
+			appraise = params.toFloat("appraise");
+		}
 		return writeMySpot(
 			env.getLoginUser().getUserId(),
 			params.toLong("spotId"),
-			params.toFloat("appraise"),
+			appraise,
 			null, // tags
 			null, // memo
 			params.toBoolean("checked"),
@@ -198,12 +202,15 @@ public class MySpotLogic  {
 		List<String> areas = (List<String>) params.get("areas");
 		String tag = params.toString("tag");
 		String search = params.toString("search");
+		Boolean checked = params.toBoolean("checked");
+		Boolean general = params.toBoolean("general");
 		
 		MySpotModelMeta e = MySpotModelMeta.get();
 		Iterator<MySpotModel>[] qs = new Iterator[areas.size()];
 		for (int i=0; i<qs.length; i++) {
 			ModelQuery q = Datastore.query(e);
 			q.filter(e.areas.in(areas.get(i)));
+			if (checked != null) q.filter(e.checked.equal(checked));
 			q.sort(e.appraise.desc);
 			if (tag != null) q.filter(e.tags.in(tag));
 			qs[i] = q.asIterator();
@@ -245,7 +252,7 @@ public class MySpotLogic  {
 			}
 		}
 		
-		if (list.size()<limit) {
+		if (true == general && list.size()<limit) {
 			env.spotLogic.listSpot(
 				latMin,
 				lngMin,
@@ -259,7 +266,7 @@ public class MySpotLogic  {
 			);
 		}
 		
-		System.out.println("spots="+list.size()+"\n"+params);
+		System.out.println("checked="+checked+",spots="+list.size()+"\n"+params);
 
 		return list;
 	}
@@ -312,5 +319,10 @@ public class MySpotLogic  {
 		Key key = model.getKey();
 		Datastore.delete(key);
 		return key.getId();
+	}
+
+	public long checkin(long spotId, double lat, double lng) {
+		// TODO:
+		return 0;
 	}
 }

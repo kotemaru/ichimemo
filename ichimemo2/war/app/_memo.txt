@@ -1,8 +1,11 @@
 
+- リストにTODOフィルタ、next機能
+
 -oTwit画面
 -oreviewリスト
-- mySpot管理画面
-
+-x mySpot管理画面
+-o Map,List.TL最適化
+-x 足跡
 
 -o住所引き
 -mylist

@@ -1,5 +1,4 @@
 /*!
- * jQuery Mobile v1.0rc2
  * http://jquerymobile.com/
  *
  * Copyright 2010, jQuery Project

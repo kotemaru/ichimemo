@@ -42,7 +42,7 @@ Page.def(function TwitInput(){}, function(Class){
 	
 	Class.write = function() {
 		var sd = Spot.getSpotForId(current.review.spotId).data;
-	
+		var params = {};
 		params.appraise = -1.0;
 		params.spotId = sd.id;
 		params.spotName = sd.name;
@@ -50,11 +50,13 @@ Page.def(function TwitInput(){}, function(Class){
 		params.lng = sd.lng;
 		params.tags = sd.tags;
 		params.comment = $(Class.PAGE).find(".Comment").val();
-		//params.photoUrl = $(Class.PAGE).find(".ReviewPhoto").attr("src");
-		//if (params.photoUrl.match(/^[/]images/)) params.photoUrl = null;
+		params.checked = false;
+		params.twit = true;
 	
 		var id = Kokorahen.writeReview(params);
 		alert("つぶやきました。("+id+")");
+		Map.clear();
+		Timeline.clear();
 		Timeline.go();
 	}
 	

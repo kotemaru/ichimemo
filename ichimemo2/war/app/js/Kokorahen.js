@@ -10,6 +10,12 @@ Kokorahen.appraiseTask = function(spotId){
 Kokorahen.appraiseTaskAsync = function(_callback ,spotId){
 	return JSRPC.callAsync(Kokorahen.__URL, "appraiseTask", arguments);
 }
+Kokorahen.checkin = function(spotId,lat,lng){
+	return JSRPC.call(Kokorahen.__URL, "checkin", arguments);
+}
+Kokorahen.checkinAsync = function(_callback ,spotId,lat,lng){
+	return JSRPC.callAsync(Kokorahen.__URL, "checkin", arguments);
+}
 Kokorahen.deleteDummyData = function(){
 	return JSRPC.call(Kokorahen.__URL, "deleteDummyData", arguments);
 }
@@ -195,6 +201,12 @@ Kokorahen.setLoginUser = function(name){
 }
 Kokorahen.setLoginUserAsync = function(_callback ,name){
 	return JSRPC.callAsync(Kokorahen.__URL, "setLoginUser", arguments);
+}
+Kokorahen.setupTwitFlag = function(){
+	return JSRPC.call(Kokorahen.__URL, "setupTwitFlag", arguments);
+}
+Kokorahen.setupTwitFlagAsync = function(_callback ){
+	return JSRPC.callAsync(Kokorahen.__URL, "setupTwitFlag", arguments);
 }
 Kokorahen.twitterCallback = function(){
 	return JSRPC.call(Kokorahen.__URL, "twitterCallback", arguments);

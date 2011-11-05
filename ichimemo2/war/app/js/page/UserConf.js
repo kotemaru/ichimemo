@@ -1,7 +1,4 @@
 Page.def(function UserConf(){}, function(Class){
-	// TODO:
-	var LIST_ID = "#userFollowList";
-	var PHOTO = "#userConfPhoto";
 	
 	Class.init = function()  {
 		// nop.
@@ -19,27 +16,8 @@ Page.def(function UserConf(){}, function(Class){
 		Util.changePage(Class.ID);
 	}
 	
-	Class.makeList = function()  {
-		var list = Login.user.follows;
-		var div = $(LIST_ID);
-		if (list == null || list.length == 0) {
-			div.html("フォローユーザはいません。");
-			return;
-		}
-	
-		var ul = $('<ul data-role="listview" data-inset="true" ></ul>');
-		div.html("");
-		div.append(ul);
-		
-		for (var i=0; i<list.length; i++) {
-			ul.append($(Class.getListItem(list[i])));
-		}
-		//jqt.setPageHeight();
-		ul.listview();
-	}
 	
 	Class.onBeforeShow = function() {
-		Class.makeList();
 		var form = document.userConf;
 		$(form.autoTwit).slider("refresh");
 		Util.setNavbar(Class.PAGE);
@@ -67,15 +45,7 @@ Page.def(function UserConf(){}, function(Class){
 		var $img = $(Class.PAGE).find(".Thumbnail img");
 		return $img;
 	}
-	
-	Class.getListItem = function(userId) {
-		var nickname = Login.user.followsNickname[userId];
-		var html =
-	"<li><a href='javascript:UserTL.go("+userId+")'"
-	+">"+nickname+"</a></li>";
-		return html;
-	}
-	
+
 	
 	Class.addFollow = function(userId) {
 		if (Login.user.userId == userId) {

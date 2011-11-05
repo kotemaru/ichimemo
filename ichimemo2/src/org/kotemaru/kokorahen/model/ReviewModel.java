@@ -29,6 +29,7 @@ public class ReviewModel extends ModelBase {
 	private Double lng;
 	private List<String> areas;
 	private Boolean checked;
+	private Boolean twit = false;
 
 	@Attribute(persistent = false)
 	private String nickname;
@@ -178,6 +179,16 @@ public class ReviewModel extends ModelBase {
 
 	public void setChecked(Boolean checked) {
 		this.checked = checked;
+	}
+
+
+	public Boolean getTwit() {
+		return twit;
+	}
+
+
+	public void setTwit(Boolean twit) {
+		this.twit = twit;
 	}
 
 

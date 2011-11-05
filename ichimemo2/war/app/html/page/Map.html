@@ -27,6 +27,24 @@
 </div>
 
 
+<div class="Template" >
+	<div id="MapButton" class="MapButton" data-role="none">スポット
+		<form name="mapMenu">
+		<div class="MapMenu">
+			<div>絞り込み</div>
+			<div><input value="all"    name="filter" type="radio" checked/><label >全て</label></div>
+			<div><input value="mySpot" name="filter" type="radio" /><label>マイスポットのみ</label></div>
+			<div><input value="todo"   name="filter" type="radio" /><label>TODOのみ</label></div>
+			<hr/>
+			<div>表示件数</div>
+			<div><input value="10" name="limit" type="radio" /><label>上位10件</label></div>
+			<div><input value="20" name="limit" type="radio" /><label>上位20件</label></div>
+			<div><input value="30" name="limit" type="radio" checked/><label>上位30件</label></div>
+		</div>
+		</form>
+	</div>
+</div>
+
 <style>
 #mapCanvas {
 	height: 1000px;
@@ -34,6 +52,60 @@
 body {
 	height: 1000px;
 }
+
+.MapButton {
+	font-family: Arial, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	line-height: 160%;
+	color: white;
+	background-color: white;
+	text-align: center;
+	cursor: pointer;
+
+	margin: 5px;
+	padding: 4px 8px; 
+	border: 1px solid rgb(103, 138, 199); 
+
+	border-radius: 2px;
+	-webkit-border-radius: 2px;
+	box-shadow: rgba(0, 0, 0, 0.347656) 2px 2px 3px; 
+	-webkit-box-shadow: rgba(0, 0, 0, 0.347656) 2px 2px 3px; 
+	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgb(109, 138, 204)), to(rgb(123, 152, 217))); 
+}
+.MapButton .MapMenu {
+	display: none;
+	z-index: -1; 
+	position: absolute;
+	padding: 0;
+	margin: 0;
+	right: 0px;
+	top: 28px;
+	line-height: 160%;
+	font-size: 14px;
+	font-family: Arial, sans-serif;
+	color: black;
+	font-weight: normal;
+	text-align: left;
+
+	background-color: white; 
+	padding-top: 1px; 
+	border: 1px solid rgb(169, 187, 223); 
+
+	-webkit-box-shadow: rgba(0, 0, 0, 0.347656) 2px 2px 3px; 
+	box-shadow: rgba(0, 0, 0, 0.347656) 2px 2px 3px; 
+}
+.MapButton .MapMenu>div {
+	white-space: nowrap;
+	padding-right: 8px; 
+}
+.MapButton .MapMenu>div>label {
+	vertical-align: middle;
+}
+.MapButton .MapMenu>div>input {
+	vertical-align: middle;
+}
+
 /**
  * Spotポップアップの１行目(Spot名)
  */

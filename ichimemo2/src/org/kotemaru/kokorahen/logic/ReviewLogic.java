@@ -72,6 +72,7 @@ public class ReviewLogic  {
 		model.setComment(params.toString("comment"));
 		model.setPhotoUrl(params.toString("photoUrl"));
 		model.setChecked(params.toBoolean("checked"));
+		model.setTwit(params.toBoolean("twit"));
 		Key key = Datastore.put(model);
 
 		env.twitterLogic.twit(params.toString("comment")+"@"+params.toString("name"));
@@ -299,8 +300,10 @@ public class ReviewLogic  {
 	public float calcAppraise(Long spotId){
 		ReviewModelMeta e = ReviewModelMeta.get();
 		ModelQuery q = Datastore.query(e);
-		q.filter(e.spotId.equal(spotId));
 		q.sort(e.updateDate.desc);
+		q.filter(e.spotId.equal(spotId));
+		//q.filter(e.twit.equal(false));
+		q.filter(e.checked.equal(true));
 		q.limit(100);
 
 		// TODO: 現状は単純平均値
@@ -339,4 +342,21 @@ public class ReviewLogic  {
 		}
 		return null;
 	}
+	
+	
+	// debug
+	public void setupTwitFlag(){
+		ReviewModelMeta e = ReviewModelMeta.get();
+		ModelQuery q = Datastore.query(e);
+		q.filter(e.twit.equal(null));
+		q.filter(e.appraise.lessThan(0.1F));
+
+		Iterator<ReviewModel> ite = q.asIterator();
+		while (ite.hasNext()) {
+			ReviewModel model = ite.next();
+			model.setTwit(true);
+			Datastore.put(model);
+		}
+	}
+
 }

@@ -2,16 +2,18 @@ Page.def(function User(){}, function(Class){
 	
 	var LIST_DIV = null;
 	var LIST_ITEM = null;
+	var	FOLLOWS_DIV = null;
 	var LIMIT = 30;
 	var memcache = {};
+	var listMode = 'review'
 	
 	Class.init = function()  {
 		var $page = $(Class.PAGE)
 		LIST_DIV = $page.find(".ReviewList")[0];
 		LIST_ITEM = $page.find(".ReviewList ul").html();
+		FOLLOWS_DIV = $page.find(".FollowList")[0];
 	}
 	Class.onBeforeShow = function() {
-		Util.setNavbar(Class.ID);
 	
 		if (Login.user == null) return;
 		var $brief = $(Class.PAGE).find(".UserBrief");
@@ -21,10 +23,13 @@ Page.def(function User(){}, function(Class){
 			? Login.user.twitterUser : Login.user.googleUser;
 		$brief.find(".SubTitle").text(email);
 	
-		Class.load(Login.user.userId);
+		loadReview(Login.user.userId);
+		loadFollow();
+		Class.showList(listMode);
+		Util.setNavbar(Class.ID);
 	}
 	
-	Class.load = function(userId) {
+	function loadReview(userId) {
 		$(LIST_DIV).html("Please wait...");
 		Kokorahen.listTimelineAsync({
 			success: function(list) {
@@ -33,8 +38,37 @@ Page.def(function User(){}, function(Class){
 			}
 		}, {userId:userId, limit:LIMIT});
 	}
+	function loadFollow()  {
+		var list = Login.user.follows;
+		var div = $(FOLLOWS_DIV);
+		if (list == null || list.length == 0) {
+			div.html("フォローユーザはいません。");
+			return;
+		}
 	
-	
+		var ul = $('<ul data-role="listview" data-inset="true" ></ul>');
+		div.html("");
+		div.append(ul);
+		
+		for (var i=0; i<list.length; i++) {
+			ul.append($(getFollowListItem(list[i])));
+		}
+		ul.listview();
+	}
+	function getFollowListItem(userId) {
+		var nickname = Login.user.followsNickname[userId];
+		var html =
+			"<li><a href='javascript:UserTL.go("+userId+")'"
+			+">"+nickname+"</a></li>";
+		return html;
+	}
+
+	Class.showList = function(mode) {
+		listMode = mode;
+		Util.procIf(Class.PAGE, function(c){return eval(c)});
+		Util.setNavbar(Class.ID);
+	}
+
 	Class.setDefaultPhoto = function(img)  {
 		img.src = "/images/user.png";
 	}

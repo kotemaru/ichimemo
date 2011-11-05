@@ -4,7 +4,7 @@ Page.def(function Timeline(){}, function(Class){
 	var LIST_ITEM = null;
 	var LIMIT = 30;
 	var radioOnly = null;
-	var firstFlag = true;
+	var reloadFlag = true;
 	
 	Class.init = function() {
 		var $page = $(Class.PAGE)
@@ -24,10 +24,13 @@ Page.def(function Timeline(){}, function(Class){
 	Class.onBeforeShow = function() {
 		Util.setNavbar(Class.ID);
 		radioOnly.refresh();
-		if (firstFlag) {
+		if (reloadFlag) {
 			reload();
-			firstFlag = false;
+			reloadFlag = false;
 		}
+	}
+	Class.clear = function(){
+		reloadFlag = true;
 	}
 	
 	function reload() {
@@ -40,7 +43,7 @@ Page.def(function Timeline(){}, function(Class){
 		if ($(Class.FOLLOW_ONLY).attr('checked') == "checked") {
 			params.follows = Login.user.follows;
 		} else {
-			var curPos = Map.marker.getPosition();
+			var curPos = Map.getPosition();
 			params.lat = curPos.lat();
 			params.lng = curPos.lng();
 		}

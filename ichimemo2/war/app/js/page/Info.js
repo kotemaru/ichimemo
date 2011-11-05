@@ -8,7 +8,7 @@ Page.def(function Info(){}, function(Class){
 	}
 	
 	Class.fromGooglePlace = function() {
-		var curPos = Map.marker.getPosition();
+		var curPos = Map.getPosition();
 		var count = Kokorahen.fromGooglePlace({
 			lat : curPos.lat(),
 			lng : curPos.lng(),

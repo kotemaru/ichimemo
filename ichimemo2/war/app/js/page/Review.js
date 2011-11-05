@@ -104,7 +104,7 @@ Page.def(function Review(){}, function closure(Class){
 			? "/images/face-"+appraise+".png"
 			: "/images/twit-16.png"
 		;
-		var mySpotMark = (data.checked && appraise > 0)
+		var mySpotMark = (!data.checked && appraise > 0)
 			? "/images/flag-16.png"
 			: "/images/null.png"
 		;

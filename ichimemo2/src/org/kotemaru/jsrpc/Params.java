@@ -41,7 +41,7 @@ public class Params  {
 	}
 	public Boolean toBoolean(String key) {
 		Object val = map.get(key);
-		if (val == null) return false;
+		if (val == null) return null;
 		if (val instanceof Boolean) return (Boolean) val;
 		String strVal = val.toString();
 		if (strVal.length() == 0) return false;
