@@ -64,6 +64,7 @@ public class SpotLogic  {
 		}
 
 		model.setUpdater(env.getLoginUser().getUserId());
+		model.setGenres((List<String>)map.get("genres"));
 		model.setName(params.toString("name"));
 		model.setFurikana(params.toString("furikana"));
 		model.setUpdateDate(new Date());
@@ -143,6 +144,7 @@ public class SpotLogic  {
 
 	public List<SpotModel> listSpot(Map map){
 		Params params = new Params(map);
+		String genre =  params.toString("genre");
 		double latMin =  params.toDouble("latMin");
 		double lngMin =  params.toDouble("lngMin");
 		double latMax =  params.toDouble("latMax");
@@ -152,6 +154,7 @@ public class SpotLogic  {
 		String tag = params.toString("tag");
 		String search = params.toString("search");
 		return listSpot(
+				genre,
 				latMin,
 				lngMin,
 				latMax,
@@ -164,6 +167,7 @@ public class SpotLogic  {
 		);
 	}
 	public List<SpotModel> listSpot(
+			String genre,
 			double latMin,
 			double lngMin,
 			double latMax,
@@ -178,9 +182,10 @@ public class SpotLogic  {
 		Iterator<SpotModel>[] qs = new Iterator[areas.size()];
 		for (int i=0; i<qs.length; i++) {
 			ModelQuery q = Datastore.query(e);
+			q.sort(e.appraise.desc);
+			q.filter(e.genres.in(genre));
 			q.filter(e.invalid.equal(false));
 			q.filter(e.areas.in(areas.get(i)));
-			q.sort(e.appraise.desc);
 			if (tag != null) q.filter(e.tags.in(tag));
 			qs[i] = q.asIterator();
 		}
@@ -271,6 +276,7 @@ public class SpotLogic  {
 		public float value;
 	}
 
+	//使って無い
 	public List<SpotModel> listFollowSpot(Map map){
 		Params params = new Params(map);
 		double latMin =  params.toDouble("latMin");
@@ -334,6 +340,7 @@ public class SpotLogic  {
 		}
 		return list;
 	}
+	//使って無い
 	public List<SpotModel> listFollowSpot2(Map map){
 		Params params = new Params(map);
 		double latMin =  params.toDouble("latMin");
@@ -391,6 +398,7 @@ public class SpotLogic  {
 	public List<SpotModel> listNearSpot(Map map) {
 		Params params = new Params(map);
 		return listNear100mSpot(
+			params.toString("genre"),
 			params.toDouble("lat"),
 			params.toDouble("lng"),
 			params.toInteger("limit"),
@@ -404,7 +412,9 @@ public class SpotLogic  {
 		}
 	};
 	
-	private List<SpotModel> listNear100mSpot(double lat, double lng, int limit,
+	private List<SpotModel> listNear100mSpot(
+			String genre,
+			double lat, double lng, int limit,
 			String tag, String search){
 	
 		// 現在値を中心とする策的半径内の3x3ブロック。
@@ -427,10 +437,10 @@ public class SpotLogic  {
 		List<SpotModel> list = new ArrayList<SpotModel>(32);
 		HashSet<Long> exists = new HashSet<Long>(32);
 		for (int i=0; i<areas.length; i++) {
-			takeSpots(list, areas[i], lat, lng, tag, search, exists);
+			takeSpots(list, genre, areas[i], lat, lng, tag, search, exists);
 		}
 		if (list.size() < limit) {
-			return listNear1kSpot(lat, lng, limit, tag, search, list, exists);
+			return listNear1kSpot(genre, lat, lng, limit, tag, search, list, exists);
 		}
 		
 		Collections.sort(list, new DistComparator());
@@ -441,7 +451,8 @@ public class SpotLogic  {
 	}
 
 	
-	private List<SpotModel> listNear1kSpot(double lat, double lng, int limit,
+	private List<SpotModel> listNear1kSpot(
+			String genre, double lat, double lng, int limit,
 			String tag, String search,
 			List<SpotModel> list, HashSet<Long> exists) {
 
@@ -455,7 +466,7 @@ public class SpotLogic  {
 		};
 
 		for (int i=0; i<areas.length; i++) {
-			takeSpots(list, areas[i], lat, lng, tag, search, exists);
+			takeSpots(list, genre, areas[i], lat, lng, tag, search, exists);
 		}
 		
 		Collections.sort(list, new DistComparator());
@@ -465,12 +476,14 @@ public class SpotLogic  {
 		return list;
 	}
 
-	public void takeSpots(List<SpotModel> list, String area,
+	public void takeSpots(List<SpotModel> list, 
+			String genre, String area,
 			double lat, double lng, 
 			String tag, String search,
 			HashSet<Long> exists){
 		SpotModelMeta e = SpotModelMeta.get();
 		ModelQuery q = Datastore.query(e);
+		q.filter(e.genres.in(genre));
 		q.filter(e.invalid.equal(false));
 		q.filter(e.areas.equal(area));
 		if (tag != null) q.filter(e.tags.in(tag));

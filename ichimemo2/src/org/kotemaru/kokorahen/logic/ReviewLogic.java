@@ -104,6 +104,7 @@ public class ReviewLogic  {
 		
 		ReviewModelMeta e = ReviewModelMeta.get();
 		ModelQuery q = Datastore.query(e);
+		// no genre filter
 		q.filter(e.spotId.equal(spotId));
 		q.sort(e.updateDate.desc);
 
@@ -134,6 +135,7 @@ public class ReviewLogic  {
 		return list;
 	}
 
+	// 使って無い
 	public List<ReviewModel> listFollowSpot(
 			Long userId,
 			List<String> areas,
@@ -197,6 +199,7 @@ public class ReviewLogic  {
 		public int total = 0;
 		public float value;
 	}
+	// 使って無い
 	public List<SpotModel> listFollowSpot2(
 			List<Long> follows,
 			List<String> areas,
@@ -321,10 +324,13 @@ public class ReviewLogic  {
 		float appraise = (float)(total/count);
 		return appraise;
 	}
+	
+	// MySpotLogicのrecommand専用。
 	public  List<ReviewModel> listReviewForUser(Long userId, int limit){
 		ReviewModelMeta e = ReviewModelMeta.get();
 		ModelQuery<ReviewModel> q = Datastore.query(e);
 		q.filter(e.userId.equal(userId));
+		// no genre filter;
 		q.sort(e.appraise.desc);
 		q.sort(e.updateDate.desc);
 		q.limit(limit);
@@ -334,6 +340,7 @@ public class ReviewLogic  {
 	public ReviewModel getTodo(Long userId, Long spotId) {
 		ReviewModelMeta e = ReviewModelMeta.get();
 		ModelQuery<ReviewModel> q = Datastore.query(e);
+		// no genre filter
 		q.filter(e.userId.equal(userId));
 		q.filter(e.spotId.equal(spotId));
 		Iterator<ReviewModel> ite = q.asIterator();

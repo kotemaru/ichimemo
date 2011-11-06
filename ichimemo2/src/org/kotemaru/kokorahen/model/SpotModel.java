@@ -15,6 +15,7 @@ import com.google.appengine.api.datastore.Key;
 public class SpotModel extends ModelBase {
 	private static final long serialVersionUID = 1L;
 
+	private List<String> genres;
 	private String name;
 	private String furikana;
 	private Date createDate;
@@ -62,11 +63,17 @@ public class SpotModel extends ModelBase {
 
 	//-------------------------------------------------
 	// Setter/Getter
+	public List<String> getGenres() {
+		return genres;
+	}
 
+	public void setGenres(List<String> genres) {
+		this.genres = genres;
+	}
+	
 	public String getName() {
 		return name;
 	}
-
 
 	public void setName(String name) {
 		this.name = name;

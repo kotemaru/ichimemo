@@ -19,7 +19,7 @@ Module.def(window, function Login(){}, function(Class){
 	
 	Class.login = function(provider) {
 		try {
-			location.href = Kokorahen.login(provider);
+			location.href = Kokorahen.login(provider, location.pathname);
 		} catch (err) {
 			alert(err);
 		}

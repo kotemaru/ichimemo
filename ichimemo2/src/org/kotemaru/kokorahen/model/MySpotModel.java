@@ -15,6 +15,7 @@ import com.google.appengine.api.datastore.Key;
 public class MySpotModel extends ModelBase {
 	private static final long serialVersionUID = 1L;
 
+	private List<String> genres;
 	private Long spotId;
 	private Long userId;
 	private String name;
@@ -37,6 +38,13 @@ public class MySpotModel extends ModelBase {
 	}
 	//-------------------------------------------------
 	// Setter/Getter
+	public List<String> getGenres() {
+		return genres;
+	}
+
+	public void setGenres(List<String> genres) {
+		this.genres = genres;
+	}
 
 
 	public Long getSpotId() {
