@@ -37,7 +37,9 @@ Page.def(function List(){}, function(Class){
 		if (sort == "appraise") {
 			var range = radioRadius.getValue()/100;
 			var params =  {
+				genre: Common.getGenre(),
 				tag: SpotTags.getSearchTag(), 
+				general: true,
 				limit: LIMIT,
 				latMin : curPos.lat()-range,
 				lngMin : curPos.lng()-range,
@@ -50,7 +52,9 @@ Page.def(function List(){}, function(Class){
 			//Kokorahen.getSpotsAsync(Class.onloadGetSpots, params);
 		} else { //ねあr
 			var params =  {
+					genre: Common.getGenre(),
 					tag: SpotTags.getSearchTag(), 
+					general: true,
 					limit: LIMIT,
 					lat : curPos.lat(),
 					lng : curPos.lng(),

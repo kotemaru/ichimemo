@@ -2,6 +2,8 @@ package org.kotemaru.kokorahen.jsrpc;
 
 import java.io.IOException;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -26,6 +28,8 @@ import org.kotemaru.kokorahen.logic.SpotLogic;
 import org.kotemaru.kokorahen.logic.TimelineLogic;
 import org.kotemaru.kokorahen.logic.TwitterLogic;
 import org.kotemaru.kokorahen.logic.UserLogic;
+import org.kotemaru.kokorahen.meta.MySpotModelMeta;
+import org.kotemaru.kokorahen.meta.ReviewModelMeta;
 import org.kotemaru.kokorahen.meta.SpotModelMeta;
 import org.kotemaru.kokorahen.model.MemoModel;
 import org.kotemaru.kokorahen.model.MySpotModel;
@@ -63,6 +67,7 @@ public class Kokorahen implements JsrpcEnvironment {
 	public TwitterLogic twitterLogic = TwitterLogic.getInstance(this);
 
 	private UserModel loginUser;
+	private String topPageUrl = "/";
 
 	public void init() {
 		userLogic = UserLogic.getInstance(this);
@@ -130,7 +135,8 @@ public class Kokorahen implements JsrpcEnvironment {
 		}
 	}
 
-	public  String login(String provider) throws Exception {
+	public  String login(String provider, String top) throws Exception {
+		topPageUrl = top;
 		String url = getServerUrl();
 		if (GOOGLE.equals(provider)) {
 			return loginGoogle(url);
@@ -151,14 +157,14 @@ public class Kokorahen implements JsrpcEnvironment {
 			user.setProvider(GOOGLE);
 			user.setAdmin(us.isUserAdmin());
 			this.loginUser = user;
-			return "/";
+			return topPageUrl;
 		}
 
 		String callback = url+ BASE_PATH+".googleCallback";
 		return us.createLoginURL(callback);
 	}
 	public  void googleCallback() throws Exception {
-		redirect(login(GOOGLE));
+		redirect(login(GOOGLE, topPageUrl));
 	}
 
 	private  String loginTwitter(String url) throws Exception {
@@ -172,7 +178,7 @@ public class Kokorahen implements JsrpcEnvironment {
 		if (twitterLogic.verify(verifier) == false) {
 			LOG.warning("Not twitter login");
 			getSession(true).invalidate();
-			redirect("/");
+			redirect(topPageUrl);
 			return;
 		}
 
@@ -181,7 +187,7 @@ public class Kokorahen implements JsrpcEnvironment {
 		userLogic.lastLogin(user);
 		this.loginUser = user;
 		user.setProvider(TWITTER);
-		redirect("/");
+		redirect(topPageUrl);
 		return;
 	}
 
@@ -390,6 +396,69 @@ public class Kokorahen implements JsrpcEnvironment {
 	public void setupTwitFlag() {
 		checkAdmin();
 		reviewLogic.setupTwitFlag();
+	}
+	public long setupGenre(long mode) {
+		checkAdmin();
+		List<String> genres = new ArrayList<String>(3);
+		genres.add("food");
+		genres.add("bar");
+		genres.add("restaurant");
+
+		java.util.Date date =  new java.util.Date();
+		long count = 0;
+	
+		if (mode == 1) {
+			SpotModelMeta e = SpotModelMeta.get();
+			ModelQuery<SpotModel> q = Datastore.query(e);
+			q.sort(e.updateDate.asc);
+			q.limit(1000);
+			Iterator<SpotModel> ite = q.asIterator();
+			while (ite.hasNext()) {
+				SpotModel model = ite.next();
+				if (model.getGenres().size() == 0) {
+					model.setGenres(genres);
+					model.setUpdateDate(date);
+					Datastore.put(model);
+					count++;
+				}
+			}
+			return count;
+		}
+		if (mode == 2) {
+			MySpotModelMeta e = MySpotModelMeta.get();
+			ModelQuery<MySpotModel> q = Datastore.query(e);
+			q.sort(e.updateDate.asc);
+			q.limit(1000);
+			Iterator<MySpotModel> ite = q.asIterator();
+			while (ite.hasNext()) {
+				MySpotModel model = ite.next();
+				if (model.getGenres().size() == 0) {
+					model.setGenres(genres);
+					model.setUpdateDate(date);
+					Datastore.put(model);
+					count++;
+				}
+			}
+			return count;
+		}
+		if (mode == 3) {
+			ReviewModelMeta e = ReviewModelMeta.get();
+			ModelQuery<ReviewModel> q = Datastore.query(e);
+			q.sort(e.updateDate.asc);
+			q.limit(1000);
+			Iterator<ReviewModel> ite = q.asIterator();
+			while (ite.hasNext()) {
+				ReviewModel model = ite.next();
+				if (model.getGenres().size() == 0) {
+					model.setGenres(genres);
+					model.setUpdateDate(date);
+					Datastore.put(model);
+					count++;
+				}
+			}
+			return count;
+		}
+		return -1;
 	}
 
 }

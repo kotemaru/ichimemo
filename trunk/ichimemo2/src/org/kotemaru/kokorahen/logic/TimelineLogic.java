@@ -35,6 +35,7 @@ public class TimelineLogic  {
 	
 	public  List<ReviewModel> listTimeline(Map map){
 		Params params = new Params(map);
+		String ganre = params.toString("ganre");
 		String tag = params.toString("tag");
 		Long userId = params.toLong("userId");
 		Integer limit = params.toInteger("limit");
@@ -49,10 +50,11 @@ public class TimelineLogic  {
 		ReviewModelMeta e = ReviewModelMeta.get();
 		if (lat == null && follows == null) {
 			ModelQuery q = Datastore.query(e);
+			q.filter(e.genres.in(ganre));
 			if (tag != null) q.filter(e.tags.in(tag));
 			if (userId != null) q.filter(e.userId.equal(userId));
-			q.sort(e.updateDate.desc);
 			if (limit != null) q.limit(limit);
+			q.sort(e.updateDate.desc);
 			List<ReviewModel> list = q.asList();
 			// TODO:searchフィルター
 			System.out.println("review=" + list);
@@ -69,6 +71,7 @@ public class TimelineLogic  {
 	private List<ReviewModel> listTimeline(Params params, 
 			Double lat, Double lng, List<Long> follows, 
 			Integer limit) {
+		String genre = params.toString("genre");
 		String tag = params.toString("tag");
 		List<String> areas = getAreas5km(lat,lng);
 
@@ -77,6 +80,7 @@ public class TimelineLogic  {
 		for (int i=0; i<areas.size(); i++) {
 			for (int j=0; j<follows.size(); j++) {
 				ModelQuery q = Datastore.query(e);
+				q.filter(e.genres.in(genre));
 				q.filter(e.areas.in(areas.get(i)));
 				q.filter(e.userId.equal(follows.get(j)));
 				if (tag != null) q.filter(e.tags.in(tag));
@@ -91,6 +95,7 @@ public class TimelineLogic  {
 			Double lat, Double lng,
 			Integer limit) {
 
+		String genre = params.toString("genre");
 		String tag = params.toString("tag");
 		List<String> areas = getAreas5km(lat,lng);
 		
@@ -98,6 +103,7 @@ public class TimelineLogic  {
 		Iterator<ReviewModel>[] qs = new Iterator[areas.size()];
 		for (int i=0; i<qs.length; i++) {
 			ModelQuery q = Datastore.query(e);
+			q.filter(e.genres.in(genre));
 			q.filter(e.areas.in(areas.get(i)));
 			if (tag != null) q.filter(e.tags.in(tag));
 			q.sort(e.updateDate.desc);
@@ -125,12 +131,14 @@ public class TimelineLogic  {
 	private List<ReviewModel> listTimeline(Params params, 
 			List<Long> follows, Integer limit) {
 		
+		String genre = params.toString("genre");
 		String tag = params.toString("tag");
 
 		ReviewModelMeta e = ReviewModelMeta.get();
 		Iterator<ReviewModel>[] qs = new Iterator[follows.size()];
 		for (int i=0; i<qs.length; i++) {
 			ModelQuery q = Datastore.query(e);
+			q.filter(e.genres.in(genre));
 			q.filter(e.userId.equal(follows.get(i)));
 			if (tag != null) q.filter(e.tags.in(tag));
 			q.sort(e.updateDate.desc);

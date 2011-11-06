@@ -177,6 +177,9 @@ Module.def(window, function Util(){}, function(Class) {
 		});
 	}
 
+	Class.goExt = function (url) {
+		location = url;
+	}
 
 
 

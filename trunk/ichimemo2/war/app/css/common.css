@@ -107,6 +107,9 @@ body>div {
 .Hide {
 	display: none;
 }
+.Disable {
+	color: #c0c0c0!important;
+}	
 
 
 /*

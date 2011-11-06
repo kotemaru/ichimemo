@@ -137,6 +137,7 @@ Module.def(window, function Spot(data) {
 			if (currentAreas != areas) return;
 	
 			var params =  {
+					genre: Common.getGenre(),
 					areas: areas, tag: SpotTags.getSearchTag(), 
 					follows: Login.user.follows,
 					limit: LIMIT, range: currentRange,
@@ -197,6 +198,7 @@ Module.def(window, function Spot(data) {
 		var limit = LIMIT;
 		if (currentRange >= 20) limit = 999;
 		Kokorahen.listSpotAsync(Class.onload, {
+			genre: Common.getGenre(),
 			areas: _areas, tag:Class.searchTag, 
 			limit: limit, range: currentRange
 		})

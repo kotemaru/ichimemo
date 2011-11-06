@@ -136,10 +136,10 @@ Kokorahen.listTimeline = function(userId,spotId,limit){
 Kokorahen.listTimelineAsync = function(_callback ,userId,spotId,limit){
 	return JSRPC.callAsync(Kokorahen.__URL, "listTimeline", arguments);
 }
-Kokorahen.login = function(provider){
+Kokorahen.login = function(provider,top){
 	return JSRPC.call(Kokorahen.__URL, "login", arguments);
 }
-Kokorahen.loginAsync = function(_callback ,provider){
+Kokorahen.loginAsync = function(_callback ,provider,top){
 	return JSRPC.callAsync(Kokorahen.__URL, "login", arguments);
 }
 Kokorahen.loginGoogle = function(url){
@@ -201,6 +201,12 @@ Kokorahen.setLoginUser = function(name){
 }
 Kokorahen.setLoginUserAsync = function(_callback ,name){
 	return JSRPC.callAsync(Kokorahen.__URL, "setLoginUser", arguments);
+}
+Kokorahen.setupGenre = function(mode){
+	return JSRPC.call(Kokorahen.__URL, "setupGenre", arguments);
+}
+Kokorahen.setupGenreAsync = function(_callback ,mode){
+	return JSRPC.callAsync(Kokorahen.__URL, "setupGenre", arguments);
 }
 Kokorahen.setupTwitFlag = function(){
 	return JSRPC.call(Kokorahen.__URL, "setupTwitFlag", arguments);

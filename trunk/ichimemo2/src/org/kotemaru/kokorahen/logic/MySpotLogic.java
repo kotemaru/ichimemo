@@ -117,6 +117,7 @@ public class MySpotLogic  {
 			model.setCreateDate(new Date());
 		}
 
+		model.setGenres(spot.getGenres());
 		model.setName(spot.getName());
 		model.setFurikana(spot.getFurikana());
 		model.setUpdateDate(new Date());
@@ -194,6 +195,7 @@ public class MySpotLogic  {
 	
 	public List<SpotModel> listSpot(Map map){
 		Params params = new Params(map);
+		String genre =  params.toString("genre");
 		double latMin =  params.toDouble("latMin");
 		double lngMin =  params.toDouble("lngMin");
 		double latMax =  params.toDouble("latMax");
@@ -209,9 +211,10 @@ public class MySpotLogic  {
 		Iterator<MySpotModel>[] qs = new Iterator[areas.size()];
 		for (int i=0; i<qs.length; i++) {
 			ModelQuery q = Datastore.query(e);
+			q.sort(e.appraise.desc);
+			q.filter(e.genres.in(genre));
 			q.filter(e.areas.in(areas.get(i)));
 			if (checked != null) q.filter(e.checked.equal(checked));
-			q.sort(e.appraise.desc);
 			if (tag != null) q.filter(e.tags.in(tag));
 			qs[i] = q.asIterator();
 		}
@@ -254,6 +257,7 @@ public class MySpotLogic  {
 		
 		if (true == general && list.size()<limit) {
 			env.spotLogic.listSpot(
+				genre,
 				latMin,
 				lngMin,
 				latMax,

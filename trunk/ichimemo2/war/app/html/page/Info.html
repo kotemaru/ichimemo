@@ -1,10 +1,16 @@
 
-<div id="Info" data-role="page" >
-	<div data-role="header" data-position="fixed">
-		<h1>情報</h1>
-	</div>
+<div id="Info" data-role="page" data-theme="e">
 	<div data-role="content">
-		<h3>ここらへん Ver:@VERSION@</h3>
+			<div align="center">
+				<img onclick="Util.goExt('../')" width="300px" src="/images/kokorahen-logo.png"/>
+				<div class="Small" align="right">Ver:@VERSION@</div>
+			</div>
+			<a href="javascript:Util.goExt('../food/')" data-ajax="false" data-role="button">食べに行きたい</a>
+			<a href="javascript:Util.goExt('../bar/')"  data-ajax="false" data-role="button">呑みに行きたい</a>
+			<a href="#" class="Disable" data-theme="c" data-role="button">一休みしたい</a>
+			<a href="#" class="Disable" data-theme="c" data-role="button">遊びに行きたい</a>
+			<a href="#" class="Disable" data-theme="c" data-role="button">買物したい</a>
+
 		<hr/>
 		<div>Google Place連係:</div>
 		<a data-role="button" href="javascript:Info.fromGooglePlace()">周辺のスポットを取得する</a>

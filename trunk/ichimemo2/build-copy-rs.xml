@@ -79,7 +79,22 @@
 	</target>
 	
 	<target name="index.html">
-		<concat destfile="war/index.html" encoding="utf-8">
+		<concat destfile="war/food/index.html" encoding="utf-8">
+			<filterchain>
+				<replacetokens>
+ 					<token key="date_time" value="${DSTAMP}_${TSTAMP}" />
+ 					<token key="VERSION" value="SNAP-${DSTAMP}-${TSTAMP}" />
+				</replacetokens>
+			</filterchain>
+			<fileset file="war/app/html/index-h1.html" />
+			<fileset file="war/app/html/index-h2-min.html" />
+			<fileset file="war/app/html/index-h3.html" />
+			<fileset dir="war/app/html/page" includes="*.html" />
+			<fileset file="war/app/html/SpotBrief.html" />
+			<fileset file="war/app/html/index-f.html" />
+		</concat>
+		
+		<concat destfile="war/bar/index.html" encoding="utf-8">
 			<filterchain>
 				<replacetokens>
  					<token key="date_time" value="${DSTAMP}_${TSTAMP}" />
