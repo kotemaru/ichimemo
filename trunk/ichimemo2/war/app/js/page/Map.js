@@ -7,6 +7,7 @@ Page.def(function Map(){}, function(Class){
 	var centerReserve = null;
 	var positionReserve = null;
 	var todoFlag = false;
+	var mapButton = null;
 
 	var gevent = google.maps.event;
 	
@@ -38,8 +39,23 @@ Page.def(function Map(){}, function(Class){
 			position: DEFAULT_CENTER, map: Class.map 
 		});
 
+
+		// マップ、バルーンのイベントハンドラ設定。
+		gevent.addListener(Class.map, 'click', Class.onMapClick);
+		gevent.addListener(Class.map, 'idle', Class.onMapIdol);
+		gevent.addListener(Class.map, 'zoom_changed', Class.onZoomChanged);
+		gevent.addListener(Class.map, 'center_changed', Class.onCenterChanged);
+		gevent.addListener(marker, 'click', Class.onMarkerClick);
+		Class.infobox.addEventListener('click', Class.onBalloonClick, false);
+
+	}
+	
+	function initMapButton() {
+		if (mapButton != null) return;
+		
 		// カスタムコントロール。
 		var $mapBtn = $("#MapButton");
+		mapButton = $mapBtn[0];
 		Class.map.controls[google.maps.ControlPosition.TOP_RIGHT].push($mapBtn[0]);
 		$mapBtn.find("input").bind('change', function() {
 			reload(true);
@@ -48,13 +64,6 @@ Page.def(function Map(){}, function(Class){
 			Map.onClickLabel(ev,ev.target);
 		});
 		
-
-		// マップ、バルーンのイベントハンドラ設定。
-		gevent.addListener(Class.map, 'click', Class.onMapClick);
-		gevent.addListener(Class.map, 'idle', Class.onMapIdol);
-		gevent.addListener(Class.map, 'zoom_changed', Class.onZoomChanged);
-		gevent.addListener(Class.map, 'center_changed', Class.onCenterChanged);
-		gevent.addListener(marker, 'click', Class.onMarkerClick);
 		gevent.addDomListener($mapBtn[0], 'click', function() {
 			var $mapMenu = $mapBtn.find(".MapMenu")
 			if ($mapMenu.is(':visible')) {
@@ -63,10 +72,11 @@ Page.def(function Map(){}, function(Class){
 				$mapMenu.fadeTo(0, 1);
 				$mapMenu.show();
 			}
-		});		
-  		Class.infobox.addEventListener('click', Class.onBalloonClick, false);
-
+		});
+		
 	}
+	
+	
 	/**
 	 * GPS取得イベント処理。
 	 * <li>navigator.geolocation.watchPosition()
@@ -141,6 +151,8 @@ Page.def(function Map(){}, function(Class){
 		Class.onTagChange();
 		//Spot.visible(Class.LIMIT);
 		Util.setNavbar(Class.PAGE);
+
+		initMapButton();
 	}
 	Class.onTagChange = function() {
 		var tag = SpotTags.getSearchTag();

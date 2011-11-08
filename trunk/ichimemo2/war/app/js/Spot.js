@@ -156,10 +156,6 @@ Module.def(window, function Spot(data) {
 			//Kokorahen.getSpotsAsync(Class.onloadGetSpots, params);
 			//Kokorahen.listFollowSpotAsync(Class.onloadGetSpots, params);
 		}, 200);
-		
-		
-		// TODO:なんだっけ？
-		//$("//a[target='_blank']").attr("href","#");
 	};
 	Class.onloadGetSpots = {
 			success: function(list, args) {

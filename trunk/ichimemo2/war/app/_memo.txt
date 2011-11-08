@@ -1,5 +1,7 @@
 
-- index最適化
+
+- 実機タグのバグ 
+-o index最適化
 -x リストにTODOフィルタ、next機能
 
 -oTwit画面

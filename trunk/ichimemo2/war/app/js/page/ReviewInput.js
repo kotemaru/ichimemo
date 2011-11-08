@@ -39,14 +39,20 @@ var ReviewInput = Page.def(function ReviewInput(){}, function(Class){
 			current.review = Kokorahen.getTodo(spotId);
 			$page.find(".Header").text("TODO登録");
 			faceMarkText = Review.FACE_MARK_TEXT.todo;
+			if (current.review == null) {
+				current.review = {
+					id: null, spotId: spotId, appraise: 3, comment: "",
+					nickname: Login.user.nickname, isNewReview:true,
+					photoUrl: "/images/noimage.gif"
+				};
+			}
 		}
-		
 		
 		Class.onFaceClick(current.review.appraise);
 		$page.find(".ReviewPhoto")
-			.attr("src",Util.correctImg(current.review.photoUrl));
+			.attr("src", Util.correctImg(current.review.photoUrl));
 		$page.find(".Comment").val(current.review.comment);
-		
+				
 		Util.changePage(Class.ID);
 	}
 	

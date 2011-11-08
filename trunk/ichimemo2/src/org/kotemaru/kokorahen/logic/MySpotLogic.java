@@ -211,11 +211,11 @@ public class MySpotLogic  {
 		Iterator<MySpotModel>[] qs = new Iterator[areas.size()];
 		for (int i=0; i<qs.length; i++) {
 			ModelQuery q = Datastore.query(e);
-			q.sort(e.appraise.desc);
 			q.filter(e.genres.in(genre));
 			q.filter(e.areas.in(areas.get(i)));
 			if (checked != null) q.filter(e.checked.equal(checked));
 			if (tag != null) q.filter(e.tags.in(tag));
+			q.sort(e.appraise.desc);
 			qs[i] = q.asIterator();
 		}
 		
@@ -326,7 +326,7 @@ public class MySpotLogic  {
 	}
 
 	public long checkin(long spotId, double lat, double lng) {
-		// TODO:
+		// TODO:checkin
 		return 0;
 	}
 }
