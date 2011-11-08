@@ -29,7 +29,6 @@ public class GPlaceLogic  {
 	private static final long serialVersionUID = 1L;
 	private static final Logger LOG = Logger.getLogger(GPlaceLogic.class.getName());
 	private static final String KEY = System.getProperty("kokorahen.GPlaceLogic.key");
-	//	"AIzaSyAvupK0sGEXAAu2FPi69iJZOasSXVtvF0c"; // TODO:->web.xml
 	private static final String URL_SEARCH =
 		"https://maps.googleapis.com/maps/api/place/search/json"
 		+"?location=${lat},${lng}"

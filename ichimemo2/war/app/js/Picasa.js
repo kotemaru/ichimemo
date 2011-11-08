@@ -11,7 +11,11 @@ Module.def(window, function Picasa(){}, function(Class){
 	{
 		var url = URL_ALBUM.replace(/[$][{]user[}]/,user);
 		$.getJSON(url, null, function(json, state) {
-			// TODO: error
+			if (state != "success") {
+				alert("Picasa access error.");
+				return;
+			}
+
 			var list = [];
 			for (var i=0; i<json.feed.entry.length; i++) {
 				var e = json.feed.entry[i];
@@ -32,7 +36,11 @@ Module.def(window, function Picasa(){}, function(Class){
 		url = url.replace(/[$][{]albumid[}]/,albumid);
 	
 		$.getJSON(url, null, function(json, state) {
-			// TODO: error
+			if (state != "success") {
+				alert("Picasa access error.");
+				return;
+			}
+
 			var list = [];
 			if (json.feed.entry == null) {
 				callback(list);

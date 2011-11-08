@@ -1,6 +1,7 @@
 
 Page.def(function SpotTags(){}, function(Class){
 	
+/* Genre.getTagTree()に移動
 	var TAG_TREE = [
 			"食事",[
 			      "和食",
@@ -52,6 +53,10 @@ Page.def(function SpotTags(){}, function(Class){
 			      "皮膚科",
 			]
 	];
+
+*/
+
+
 	Class.MYSPOT = "myspot";
 	Class.SEARCH = "search";
 	Class.SPOT = "spot";
@@ -108,7 +113,7 @@ Page.def(function SpotTags(){}, function(Class){
 		var isMy = (mode == Class.SEARCH || mode == Class.MYSPOT);
 		if (isMy) {
 			if (selectorMy == null) {
-				var tagTree = TAG_TREE;
+				var tagTree = Genre.getTagTree();
 				if (Login.user.tags != null) {
 					tagTree = tagTree.concat(Login.user.tags);
 				}
@@ -119,7 +124,8 @@ Page.def(function SpotTags(){}, function(Class){
 			return selectorMy;
 		} else {
 			if (selector == null) {
-				selector = new Selector($(Class.PAGE).find(".TagList")[0], TAG_TREE);
+				selector = new Selector($(Class.PAGE).find(".TagList")[0], 
+											Genre.getTagTree());
 			}
 			$(Class.PAGE).find(".TagList").show();
 			$(Class.PAGE).find(".TagListMy").hide();

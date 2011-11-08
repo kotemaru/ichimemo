@@ -359,7 +359,7 @@ public class Kokorahen implements JsrpcEnvironment {
 		Datastore.delete(list);
 		System.out.println("delete dummy");
 	}
-	// TODO: delete.
+	// 
 	public UserModel writeUserDebug(Map map) throws Exception {
 		checkAdmin();
 	

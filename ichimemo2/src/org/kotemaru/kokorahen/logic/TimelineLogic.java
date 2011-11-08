@@ -51,10 +51,10 @@ public class TimelineLogic  {
 		if (lat == null && follows == null) {
 			ModelQuery q = Datastore.query(e);
 			q.filter(e.genres.in(ganre));
-			if (tag != null) q.filter(e.tags.in(tag));
 			if (userId != null) q.filter(e.userId.equal(userId));
-			if (limit != null) q.limit(limit);
+			if (tag != null) q.filter(e.tags.in(tag));
 			q.sort(e.updateDate.desc);
+			if (limit != null) q.limit(limit);
 			List<ReviewModel> list = q.asList();
 			// TODO:searchフィルター
 			System.out.println("review=" + list);

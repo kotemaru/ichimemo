@@ -63,7 +63,7 @@ Page.def(function SpotTL(){}, function(Class){
 		MemoInput.go(currentSpotId);
 	}
 	Class.checkIn = function() {
-		// TODO:
+		// TODO:checkIn
 	}
 	Class.goMap = function() {
 		var spot = Spot.getSpotForId(currentSpotId);
