@@ -124,6 +124,12 @@ Kokorahen.listReview = function(spotId,follows){
 Kokorahen.listReviewAsync = function(_callback ,spotId,follows){
 	return JSRPC.callAsync(Kokorahen.__URL, "listReview", arguments);
 }
+Kokorahen.listSpotForAddr = function(map){
+	return JSRPC.call(Kokorahen.__URL, "listSpotForAddr", arguments);
+}
+Kokorahen.listSpotForAddrAsync = function(_callback ,map){
+	return JSRPC.callAsync(Kokorahen.__URL, "listSpotForAddr", arguments);
+}
 Kokorahen.listTimeline = function(map){
 	return JSRPC.call(Kokorahen.__URL, "listTimeline", arguments);
 }

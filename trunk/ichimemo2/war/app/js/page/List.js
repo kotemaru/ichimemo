@@ -37,7 +37,7 @@ Page.def(function List(){}, function(Class){
 		if (sort == "appraise") {
 			var range = radioRadius.getValue()/100;
 			var params =  {
-				genre: Common.getGenre(),
+				genre: Genre.getGenre(),
 				tag: SpotTags.getSearchTag(), 
 				general: true,
 				limit: LIMIT,
@@ -52,7 +52,7 @@ Page.def(function List(){}, function(Class){
 			//Kokorahen.getSpotsAsync(Class.onloadGetSpots, params);
 		} else { //ねあr
 			var params =  {
-					genre: Common.getGenre(),
+					genre: Genre.getGenre(),
 					tag: SpotTags.getSearchTag(), 
 					general: true,
 					limit: LIMIT,
@@ -66,22 +66,21 @@ Page.def(function List(){}, function(Class){
 	
 	Class.onloadGetSpots = {
 		success: function(list, args){
-			var curPos = Map.getPosition();
-			var spots = [];
-			for (var i=0; i<list.length; i++) {
-				var spot = Spot.getSpot(list[i]);
-				spot._distance =
-					Util.compDistance(curPos, spot.marker.getPosition());
-				spots.push(Spot.getSpot(list[i]));
-			}
-			
-			//spots.sort(function(a,b){
-			//	if (a._distance == b._distance) return 0;
-			//	return (a._distance > b._distance) ? 1 : -1;
-			//});
-			Class.listview(spots);
+			var spots = raw2spot(list);			
+			Class.listview(spots, LIST_DIV, LIST_ITEM);
 			Util.setNavbar(Class.PAGE);
 		}
+	}
+	function raw2spot(list) {
+		var curPos = Map.getPosition();
+		var spots = [];
+		for (var i=0; i<list.length; i++) {
+			var spot = Spot.newSpot(list[i]);
+			spot._distance =
+				Util.compDistance(curPos, spot.marker.getPosition());
+			spots.push(spot);
+		}
+		return spots;
 	}
 	
 	Class.onBeforeShow = function() {
@@ -92,8 +91,9 @@ Page.def(function List(){}, function(Class){
 		Util.setNavbar(Class.ID);
 	}
 
-	Class.listview = function(spots) {
-		var div = $(LIST_DIV);
+
+	Class.listview = function listview(spots, listDiv, listItem) {
+		var div = $(listDiv);
 	
 		if (spots.length == 0) {
 			div.html("周辺にSpotは有りません。");
@@ -105,13 +105,13 @@ Page.def(function List(){}, function(Class){
 		div.append(ul);
 	
 		for (var i=0; i<spots.length; i++) {
-			ul.append(Class.getListItem(spots[i]));
+			ul.append(Class.getListItem(spots[i], listItem));
 		}
 		
 		//jqt.setPageHeight();
 		ul.listview();
 	}
-	Class.getListItem = function(spot) {
+	Class.getListItem = function(spot, listItem) {
 		var data = spot.data;
 		var appraise = 
 			Math.floor(data.myAppraise ? data.myAppraise : data.appraise);
@@ -120,7 +120,7 @@ Page.def(function List(){}, function(Class){
 		if (photo == null || photo == "") photo = "/images/noimage.gif";
 	
 		var star = data.checked ? "/images/star.png" : "/images/flag-16.png";
-		var html = LIST_ITEM
+		var html = listItem
 		.replace(/[$][{]id[}]/g, data.id)
 		.replace(/[$][{]photo[}]/g, photo)
 		.replace(/[$][{]name[}]/g, data.name)

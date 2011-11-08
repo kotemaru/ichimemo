@@ -5,8 +5,11 @@ Page.def(function SpotInfo(){}, function(Class){
 	var HOME_IMG = "/images/Home.png";
 	Class.current = null;
 	
-	
+	var radioGenre = null;
+
 	Class.init = function() {
+		$page = $(Class.PAGE);
+		
 		var mapopts2 = {
 				zoom: 18, noClear: true,
 				center: Map.DEFAULT_CENTER,
@@ -84,7 +87,14 @@ Page.def(function SpotInfo(){}, function(Class){
 		$(form.timeLunchMax).html(lunch);
 		$(form.timeDinnerMin).html(dinner);
 		$(form.timeDinnerMax).html(dinner);
-	
+		
+		radioGenre = new Radio($page.find(".Genre"));
+	}
+	Class.go = function(id) {
+		if (id != undefined) {
+			Class.setCurrent(Spot.getSpotForId(id));
+		}
+		Util.changePage(Class.ID);
 	}
 	
 	Class.onClassMarkerClick = function(ev) {
@@ -134,6 +144,7 @@ Page.def(function SpotInfo(){}, function(Class){
 			for (var i=0; i<spotForm.length; i++) {
 				spotForm[i].value = "";
 			}
+			radioGenre.setValues([Genre.getGenre()]);
 			SpotTags.setValue("spot",[]);
 			ClosedDays.clear();
 			Class.setSpotPos(pos);
@@ -146,6 +157,7 @@ Page.def(function SpotInfo(){}, function(Class){
 			for (var key in sd) {
 				if (spotForm[key]) spotForm[key].value = sd[key];
 			}
+			radioGenre.setValues(sd.genres);
 			SpotTags.setValue("spot",sd.tags);
 			if (sd.closedDay != null) {
 				ClosedDays.setValue(sd.closedDay.split(","));
@@ -173,8 +185,9 @@ Page.def(function SpotInfo(){}, function(Class){
 		Class.marker2.setVisible(true);
 		Class.map.setCenter(Class.marker2.getPosition());
 	
-		SpotTags.setLabel($("#spotTags")[0],SpotTags.getValue("spot"),"ジャンル選択");
-	
+		SpotTags.setLabel($("#spotTags")[0],SpotTags.getValue("spot"),"タグ選択");
+
+		radioGenre.refresh();
 		ClosedDays.updateLabel();
 		Util.setNavbar(Class.PAGE);
 	};
@@ -206,12 +219,30 @@ Page.def(function SpotInfo(){}, function(Class){
 			if(status == google.maps.GeocoderStatus.OK){
 				addr = results[0].formatted_address;
 				addr = addr.replace(/^[^,]*[,][ ]/,"");
+				if (spotForm.address.value != addr) {
+					checkExistSpot(addr);
+				}
 			}
 			spotForm.address.value = addr;
 			spotForm.address.scrollLeft = 1000;
 		});
 	};
-	
+
+	function checkExistSpot(addr) {
+		Kokorahen.listSpotForAddrAsync(function(list){
+			if (list.length > 0) {
+				var msg = "住所: "+addr
+					+"\nこの住所にはスポットが "
+					+list.length+"件存在します。"
+					+"\n重複を確認しますか？"
+				if(confirm(msg)){
+					ExistSpot.go(addr, list);
+				}
+			}
+		}, {address:addr, genre:Genre.getGenre()});
+	} 
+
+
 	Class.write = function(){
 		var params = {};
 		var elems = document.spot.elements;
@@ -221,8 +252,20 @@ Page.def(function SpotInfo(){}, function(Class){
 		params.image = $(Class.PAGE).find(".Thumbnail img").attr('src');
 		if (/^\/images/.test(params.image)) params.image = null;
 		
+		params.genres = radioGenre.getValues();
 		params.tags = SpotTags.getValue("spot");
 		params.closedDay = ClosedDays.getValue().join(",");
+
+		if (params.name == null || params.name == ""
+			|| params.furikana == null || params.furikana == ""
+			|| params.address == null || params.address == ""
+			|| params.genres == null || params.genres.length == 0
+		) {
+			alert("必須項目が入力されていません。");
+			return;
+		}
+
+
 		var id = Kokorahen.writeSpot(params);
 		alert("登録しました。("+id+")");
 		Spot.clearCache();

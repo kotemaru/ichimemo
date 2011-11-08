@@ -281,6 +281,9 @@ public class Kokorahen implements JsrpcEnvironment {
 		checkLogin();
 		return mySpotLogic.listSpot(map);
 	}
+	public List<SpotModel> listSpotForAddr(Map map){
+		return spotLogic.listSpotForAddr(map);
+	}
 
 	public int recommand() throws Exception {
 		checkLogin();

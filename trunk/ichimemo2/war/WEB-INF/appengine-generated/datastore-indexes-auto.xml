@@ -1,15 +1,15 @@
-<!-- Indices written at Sun, 6 Nov 2011 07:38:17 UTC -->
+<!-- Indices written at Tue, 8 Nov 2011 02:52:10 UTC -->
 
 <datastore-indexes>
 
-    <!-- Used 171 times in query history -->
+    <!-- Used 2186 times in query history -->
     <datastore-index kind="MySpotModel" ancestor="false" source="auto">
         <property name="areas" direction="asc"/>
         <property name="genres" direction="asc"/>
         <property name="appraise" direction="desc"/>
     </datastore-index>
 
-    <!-- Used 47 times in query history -->
+    <!-- Used 1696 times in query history -->
     <datastore-index kind="SpotModel" ancestor="false" source="auto">
         <property name="areas" direction="asc"/>
         <property name="genres" direction="asc"/>
@@ -17,35 +17,9 @@
         <property name="appraise" direction="desc"/>
     </datastore-index>
 
-    <!-- Used 4 times in query history -->
-    <datastore-index kind="MySpotModel" ancestor="false" source="auto">
-        <property name="areas" direction="asc"/>
-        <property name="checked" direction="asc"/>
-        <property name="genres" direction="asc"/>
-        <property name="appraise" direction="desc"/>
-    </datastore-index>
-
-    <!-- Used 8 times in query history -->
-    <datastore-index kind="MySpotModel" ancestor="false" source="auto">
-        <property name="areas" direction="asc"/>
-        <property name="genres" direction="asc"/>
-        <property name="tags" direction="asc"/>
-        <property name="appraise" direction="desc"/>
-    </datastore-index>
-
-    <!-- Used 8 times in query history -->
-    <datastore-index kind="SpotModel" ancestor="false" source="auto">
-        <property name="areas" direction="asc"/>
-        <property name="genres" direction="asc"/>
-        <property name="invalid" direction="asc"/>
-        <property name="tags" direction="asc"/>
-        <property name="appraise" direction="desc"/>
-    </datastore-index>
-
-    <!-- Used 1 time in query history -->
+    <!-- Used 2 times in query history -->
     <datastore-index kind="ReviewModel" ancestor="false" source="auto">
-        <property name="genres" direction="asc"/>
-        <property name="userId" direction="asc"/>
+        <property name="spotId" direction="asc"/>
         <property name="updateDate" direction="desc"/>
     </datastore-index>
 

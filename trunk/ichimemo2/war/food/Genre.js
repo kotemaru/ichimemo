@@ -1,4 +1,4 @@
-Module.def(window, function Common(){}, function(Class) {
+Module.def(window, function Genre(){}, function(Class) {
 
 	var genre = "food";
 

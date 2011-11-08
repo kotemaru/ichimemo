@@ -57,7 +57,7 @@ Page.def(function UserTL(){}, function(Class){
 				Review.makeList(LIST_DIV, null, list);
 				Util.setNavbar(Class.PAGE);
 			}
-		}, {userId:userId, genre:Common.getGenre(), limit:LIMIT, search:search});
+		}, {userId:userId, genre:Genre.getGenre(), limit:LIMIT, search:search});
 	}
 	
 	Class.setDefaultPhoto = function(img)  {

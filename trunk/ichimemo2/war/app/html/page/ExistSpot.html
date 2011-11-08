@@ -1,0 +1,23 @@
+<div id="ExistSpot" data-role="dialog"  >
+	<div data-role="header"  data-position="fixed" >
+		<h4 style="font-size:80%;">既存スポット</h4>
+	</div>
+	
+	<div data-role="content">
+		<br/>
+		<div class="SpotList" >
+			<ul class="Template" data-role="none" >
+				<li>
+					<a href='javascript:ExistSpot.onItemClick(${id})'>
+						<span class="Thumbnail" ><div><div>
+							<img src="${photo}" onerror='SpotInfo.setDefaultPhoto(this)' />
+						</div></div></span>
+
+						<div class="Title">${name}</div>
+						<div class="SubTitle">${address}</div>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>

@@ -26,8 +26,17 @@
 					</td>
 				</tr>
 			</table>
+	
+		<div class="TagHeader"><span>ジャンル</span><span class="Small"><span class="Require">(必須)</span>複数可</span></div>
+		<div class="Genre" option="{multi:true}">
+			<a value="food" checked="true" >食</a>
+			<a value="bar" checked="true" >呑</a>
+			<a value="cafe">休</a>
+			<a value="play">遊</a>
+			<a value="shopping">買</a>
+		</div>
 		
-		<div class="TagHeader"><span>タグ</span><span class="Require">(必須)</span></div>
+		<div class="TagHeader"><span>タグ</span></div>
 		<div data-role=“fieldcontain”>
 				<a id="spotTags" data-role="button"
 					data-iconpos="right" 
@@ -161,6 +170,12 @@
 #SpotInfo span.Require {
 	color: red;
 	font-size: 8px;
+}
+
+#SpotInfo .Genre span.ui-btn-inner {
+	padding: 3px 0px;
+	min-width: 48px!important;
+	text-align: center;
 }
 
 </style>
