@@ -25,10 +25,11 @@ if (undefined === window.console) {
 	<link rel="stylesheet" href="../jq/jqm/jquery.mobile-1.0rc2.css" />
 	<script src="../jq/jquery-1.6.2.min.js"></script>
 	
-	<link rel="stylesheet" href="../app/min/all-min.css?v=20111106_1644" />
+	<link rel="stylesheet" href="../app/min/all-min.css?v=20111108_1144" />
 	<script src="http://maps.google.com/maps/api/js?libraries=geometry&amp;sensor=true"></script>
 	<script src="../jq/jqm/jquery.mobile-1.0rc2.min.js"></script>
-	<script src="../app/min/all-min.js?v=20111106_1644"></script>
+	<script src="../app/min/all-min.js?v=20111108_1144"></script>
+	<script src="Genre.js"></script>
 
 	<style>
 		body>div {
@@ -93,12 +94,35 @@ Please wait...
 	padding: 3px 1.5em;
 }
 
-</style>
+</style><div id="ExistSpot" data-role="dialog"  >
+	<div data-role="header"  data-position="fixed" >
+		<h1>既存スポット</h1>
+	</div>
+	
+	<div data-role="content">
+		<br/>
+		<div class="SpotList" >
+			<ul class="Template" data-role="none" >
+				<li>
+					<a href='javascript:ExistSpot.onItemClick(${id})'>
+						<span class="Thumbnail" ><div><div>
+							<img src="${photo}" onerror='SpotInfo.setDefaultPhoto(this)' />
+						</div></div></span>
+
+						<div class="Title">${name}</div>
+						<div class="SubTitle">${address}</div>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+
 <div id="Info" data-role="page" data-theme="e">
 	<div data-role="content">
 			<div align="center">
 				<img onclick="Util.goExt('../')" width="300px" src="/images/kokorahen-logo.png"/>
-				<div class="Small" align="right">Ver:SNAP-20111106-1644</div>
+				<div class="Small" align="right">Ver:SNAP-20111108-1144</div>
 			</div>
 			<a href="javascript:Util.goExt('../food/')" data-ajax="false" data-role="button">食べに行きたい</a>
 			<a href="javascript:Util.goExt('../bar/')"  data-ajax="false" data-role="button">呑みに行きたい</a>
@@ -148,7 +172,7 @@ Please wait...
 			<span>周辺のスポット</span>
 		</div>
 		<div class="SpotList">
-			<ul class="Template">
+			<ul class="Template" data-role="none" >
 				<li>
 					<a href='javascript:List.onItemClick(${id})'>
 						<span class="Thumbnail" ><div><div>
@@ -751,8 +775,17 @@ body {
 					</td>
 				</tr>
 			</table>
+	
+		<div class="TagHeader"><span>ジャンル</span><span class="Small"><span class="Require">(必須)</span>複数可</span></div>
+		<div class="Genre" option="{multi:true}">
+			<a value="food" checked="true" >食</a>
+			<a value="bar" checked="true" >呑</a>
+			<a value="cafe">休</a>
+			<a value="play">遊</a>
+			<a value="shopping">買</a>
+		</div>
 		
-		<div class="TagHeader"><span>タグ</span><span class="Require">(必須)</span></div>
+		<div class="TagHeader"><span>タグ</span></div>
 		<div data-role=“fieldcontain”>
 				<a id="spotTags" data-role="button"
 					data-iconpos="right" 
@@ -886,6 +919,12 @@ body {
 #SpotInfo span.Require {
 	color: red;
 	font-size: 8px;
+}
+
+#SpotInfo .Genre span.ui-btn-inner {
+	padding: 3px 0px;
+	min-width: 48px!important;
+	text-align: center;
 }
 
 </style>

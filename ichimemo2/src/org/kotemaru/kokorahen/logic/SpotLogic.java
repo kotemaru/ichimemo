@@ -515,6 +515,16 @@ public class SpotLogic  {
 		if (kana != null && kana.indexOf(search)>=0) return true;
 		return false;
 	}
+	public List<SpotModel> listSpotForAddr(Map map){
+		Params params = new Params(map);
+		String addr = params.toString("address");
+	
+		SpotModelMeta e = SpotModelMeta.get();
+		ModelQuery q = Datastore.query(e);
+		q.filter(e.invalid.equal(false));
+		q.filter(e.address.equal(addr));
+		return q.asList();
+	}
 
 	// for debug
 	public List<SpotModel> listAllSpot(){

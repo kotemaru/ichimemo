@@ -36,7 +36,7 @@ Page.def(function User(){}, function(Class){
 				Review.makeList(LIST_DIV, null, list);
 				Util.setNavbar(Class.PAGE);
 			}
-		}, {userId:userId, genre:Common.getGenre(), limit:LIMIT});
+		}, {userId:userId, genre:Genre.getGenre(), limit:LIMIT});
 	}
 	function loadFollow()  {
 		var list = Login.user.follows;

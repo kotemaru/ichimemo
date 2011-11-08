@@ -37,7 +37,7 @@ Page.def(function Timeline(){}, function(Class){
 		$(LIST_DIV).html("Please wait...");
 	
 		params = {
-			genre: Common.getGenre(),
+			genre: Genre.getGenre(),
 			tag: SpotTags.getSearchTag(), 
 			limit: LIMIT
 		};

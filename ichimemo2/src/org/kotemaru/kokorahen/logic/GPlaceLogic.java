@@ -145,6 +145,7 @@ public class GPlaceLogic  {
 		Double ratingD = (Double)data.get("result.rating");
 		Float rating = (ratingD == null) ? -1.0F : ratingD.floatValue();
 		
+		spot.setGenres((List<String>)data.get("result.types"));
 		spot.setLat((Double)data.get("result.geometry.location.lat"));
 		spot.setLng((Double)data.get("result.geometry.location.lng"));
 		spot.setAddress((String)data.get("result.vicinity"));
