@@ -117,7 +117,8 @@ Page.def(function SpotTags(){}, function(Class){
 				if (Login.user.tags != null) {
 					tagTree = tagTree.concat(Login.user.tags);
 				}
-				selectorMy = new Selector($(Class.PAGE).find(".TagListMy")[0], tagTree);
+				selectorMy = new Selector($(Class.PAGE).find(".TagListMy")[0], 
+							tagTree, onChange);
 			}
 			$(Class.PAGE).find(".TagListMy").show();
 			$(Class.PAGE).find(".TagList").hide();
@@ -125,13 +126,19 @@ Page.def(function SpotTags(){}, function(Class){
 		} else {
 			if (selector == null) {
 				selector = new Selector($(Class.PAGE).find(".TagList")[0], 
-											Genre.getTagTree());
+							Genre.getTagTree(), onChange);
 			}
 			$(Class.PAGE).find(".TagList").show();
 			$(Class.PAGE).find(".TagListMy").hide();
 			return selector;
 		}
 	}
+	
+	function onChange(_this) {
+		if (_this.isSingle) $(Class.PAGE).dialog('close');
+	}
+	
+	
 	function setLabel(btn, list, placeMsg) {
 		var label = (list==null) ? "" : list.join(",");
 		if (label == "") label = placeMsg;
