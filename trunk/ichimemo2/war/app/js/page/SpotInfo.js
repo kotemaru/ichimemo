@@ -130,6 +130,7 @@ Page.def(function SpotInfo(){}, function(Class){
 	}
 	
 	Class.setCurrent = function(cur){
+		var $page = $(Class.PAGE);
 		Class.current = cur;
 		var pos;
 	
@@ -148,9 +149,8 @@ Page.def(function SpotInfo(){}, function(Class){
 			SpotTags.setValue("spot",[]);
 			ClosedDays.clear();
 			Class.setSpotPos(pos);
-	
-			$("#spotReviewBtn").hide();
-	
+			$page.find(".Appraise").text("");
+			
 		} else {
 			pos = new google.maps.LatLng(sd.lat, sd.lng);
 	
@@ -166,7 +166,12 @@ Page.def(function SpotInfo(){}, function(Class){
 			if (sd.image != null && sd.image != "") {
 				spotImage.attr("src", sd.image);
 			}
-			$("#spotReviewBtn").show();
+			
+			$page.find(".Appraise").text(
+				(sd.appraise != null && sd.appraise>0.0) 
+					? (Math.floor(sd.appraise*10)/10)
+					: "?"
+			);
 		}
 	
 		Class.marker2.setPosition(pos);
