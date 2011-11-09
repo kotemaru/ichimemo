@@ -10,7 +10,7 @@ Page.def(function UserConf(){}, function(Class){
 		form.googleUser.value = Login.user.googleUser;
 		form.twitterUser.value = Login.user.twitterUser;
 		form.nickname.value = Login.user.nickname;
-		form.autoTwit.selectedIndex = Login.user.autoTwit ? 1 : 0;
+		//form.autoTwit.selectedIndex = Login.user.autoTwit ? 1 : 0;
 		Class.getThumbnailImg().attr("src", Util.correctImg(Login.user.photoUrl));
 	
 		Util.changePage(Class.ID);
@@ -29,7 +29,7 @@ Page.def(function UserConf(){}, function(Class){
 		Login.user.googleUser = form.googleUser.value;
 		Login.user.twitterUser = form.twitterUser.value;
 		Login.user.nickname = form.nickname.value;
-		Login.user.autoTwit = (form.autoTwit.selectedIndex != 0);
+		//Login.user.autoTwit = (form.autoTwit.selectedIndex != 0);
 		Login.user.comment = form.comment.value;
 	
 		var photo =  Class.getThumbnailImg().attr("src");

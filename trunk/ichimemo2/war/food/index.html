@@ -25,10 +25,10 @@ if (undefined === window.console) {
 	<link rel="stylesheet" href="../jq/jqm/jquery.mobile-1.0rc2.css" />
 	<script src="../jq/jquery-1.6.2.min.js"></script>
 	
-	<link rel="stylesheet" href="../app/min/all-min.css?v=20111109_1506" />
+	<link rel="stylesheet" href="../app/min/all-min.css?v=20111109_1633" />
 	<script src="http://maps.google.com/maps/api/js?libraries=geometry&amp;sensor=true"></script>
 	<script src="../jq/jqm/jquery.mobile-1.0rc2.min.js"></script>
-	<script src="../app/min/all-min.js?v=20111109_1506"></script>
+	<script src="../app/min/all-min.js?v=20111109_1633"></script>
 	<script src="Genre.js"></script>
 
 	<style>
@@ -122,7 +122,7 @@ Please wait...
 	<div data-role="content">
 			<div align="center">
 				<img onclick="Util.goExt('../')" width="300px" src="/images/kokorahen-logo.png"/>
-				<div class="Small" align="right">Ver:SNAP-20111109-1506</div>
+				<div class="Small" align="right">Ver:SNAP-20111109-1633</div>
 			</div>
 			<a href="javascript:Util.goExt('../food/')" data-ajax="false" data-role="button">食べに行きたい</a>
 			<a href="javascript:Util.goExt('../bar/')"  data-ajax="false" data-role="button">呑みに行きたい</a>
@@ -270,7 +270,7 @@ Please wait...
 		<div id="navbar" data-role="navbar" data-grid="d" class="Navbar" >
 			<ul>
 				<li><a href="#Map" class="tab-map ui-btn-active" myid="tab-map" data-icon="custom" data-transition="none">Map</a></li>
-				<li><a href="#Timeline" class="tab-timeline" myid="tab-timeline" data-icon="custom" data-transition="none" >TimeLine</a></li>
+				<li><a href="#Timeline" class="tab-timeline" myid="tab-timeline" data-icon="custom" data-transition="none" >Stream</a></li>
 				<li><a href="#List" class="tab-list" myid="tab-list" data-icon="custom" data-transition="none" >List</a></li>
 				<li><a href="#Info" class="tab-info" myid="tab-info" data-icon="custom" data-transition="none" >Info</a></li>
 				<li><a href="#User" class="tab-user" myid="tab-user" data-icon="custom" data-transition="none" >User</a></li>
@@ -581,6 +581,10 @@ body {
 				</a>
 			</div>
 			<div class="ui-block-c">
+				<a data-role="button"	href="javascript:Review.newTodo()" >
+					<img src="/images/flag.png" />
+					<div class="Small">Todo</div>
+				</a>
 			</div>
 			<div class="ui-block-d">
 			</div>
@@ -718,7 +722,7 @@ body {
 		<div align="center">
 			<img class="ReviewPhoto" border=1 src="/images/noimage.gif" width="144" onclick="PicasaAlbum.go(this)" />
 		</div>
-		<div><input class="Twitter" type="checkbox" checked /><label>当時にTwitterでもつぶやく</label></div>
+		<div><input class="Twitter" type="checkbox" value="true" checked /><label>同時にTwitterでもつぶやく</label></div>
 		<hr/>
 		<a data-role="button" data-icon="submit" data-iconpos="right"
 				href="javascript:ReviewInput.write()">登録</a>
@@ -776,7 +780,8 @@ body {
 					</td>
 				</tr>
 			</table>
-	
+		<div>評価値: <span class="Appraise"></span></div>
+
 		<div class="TagHeader"><span>ジャンル</span><span class="Small"><span class="Require">(必須)</span>複数可</span></div>
 		<div class="Genre" option="{multi:true}">
 			<a value="food" checked="true" >食</a>
@@ -1057,7 +1062,7 @@ body {
 	</div>
 <div id="Timeline" data-role="page" >
 	<div data-role="header" data-position="fixed" >
-		<h1>タイムライン</h1>
+		<h1>ストリーム</h1>
 		<a href="#" data-role="button" class="TagSelectBtn ui-btn-right" 
 				data-icon="filter" data-iconpos="right"
 				onclick="SpotTags.open('.TagSelectBtn','タグ','search')" 
@@ -1155,7 +1160,7 @@ body {
 			<textarea class="Comment"  cols="100%" rows="10" placeholder="コメント" ></textarea>
 		</div>
 		
-		<div><input class="Twitter" type="checkbox" checked /><label>当時にTwitterでもつぶやく</label></div>
+		<div><input class="Twitter" type="checkbox"  value="true" checked /><label>同時にTwitterでもつぶやく</label></div>
 		<hr/>
 		<a data-role="button" data-icon="submit" data-iconpos="right"
 				href="javascript:TwitInput.write()">つぶやく</a>
