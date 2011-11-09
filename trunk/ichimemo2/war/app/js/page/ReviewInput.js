@@ -94,6 +94,7 @@ var ReviewInput = Page.def(function ReviewInput(){}, function(Class){
 		params.photoUrl = $page.find(".ReviewPhoto").attr("src");
 		params.checked = current.checked;
 		params.twit = false;
+		params.autoTwitter = $page.find(".Twitter").is(":checked");
 		if (params.photoUrl.match(/^\/images/)) params.photoUrl = null;
 	
 		var id = Kokorahen.writeReview(params);

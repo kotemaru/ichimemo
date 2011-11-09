@@ -76,7 +76,10 @@ public class ReviewLogic  {
 		model.setTwit(params.toBoolean("twit"));
 		Key key = Datastore.put(model);
 
-		env.twitterLogic.twit(params.toString("comment")+"@"+params.toString("name"));
+		if(params.toBoolean("autoTwitter")) {
+			String msg = params.toString("comment")+"@ "+params.toString("spotName");
+			env.twitterLogic.twit(msg);
+		}
 
 		postTask(model.getSpotId());
 		
