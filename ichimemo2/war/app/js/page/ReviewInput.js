@@ -83,6 +83,7 @@ var ReviewInput = Page.def(function ReviewInput(){}, function(Class){
 		var params = {};
 		
 		params.id = current.review.id;
+		params.genres = sd.genres;
 		params.spotId = sd.id;
 		params.spotName = sd.name;
 		params.lat = sd.lat;

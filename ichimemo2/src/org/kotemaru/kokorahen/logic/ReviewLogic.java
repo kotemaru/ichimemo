@@ -58,6 +58,7 @@ public class ReviewLogic  {
 		List<String> images = new ArrayList<String>(1);
 		images.add(params.toString("image"));
 
+		model.setGenres((List<String>)params.get("genres"));
 		model.setUserId(user.getUserId());
 		model.setNickname(user.getNickname());
 		model.setSpotId(params.toLong("spotId"));

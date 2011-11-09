@@ -1,8 +1,6 @@
 <div id="User" data-role="page">
 	<div data-role="header" data-position="fixed">
 		<h1>ユーザ</h1>
-		<a data-icon="delete" class="ui-btn-right" data-iconpos="right" 
-			href="javascript:Login.logout()">ログアウト</a>
 	</div>
 	<div data-role="content">
 		<div class="UserBrief" onclick="UserConf.go()">
@@ -26,6 +24,14 @@
 				<a data-role="button"	href="javascript:User.showList('follow')" >
 					<img src="/images/users.png" />
 					<div class="Small">Follow</div>
+				</a>
+			</div>
+			<div class="ui-block-c" >
+			</div>
+			<div class="ui-block-d" >
+				<a data-role="button"	href="javascript:Login.logout()" >
+					<img src="/images/logout.png" />
+					<div class="Small">Logout</div>
 				</a>
 			</div>
 		</div>

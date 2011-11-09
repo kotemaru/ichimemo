@@ -25,10 +25,10 @@ if (undefined === window.console) {
 	<link rel="stylesheet" href="../jq/jqm/jquery.mobile-1.0rc2.css" />
 	<script src="../jq/jquery-1.6.2.min.js"></script>
 	
-	<link rel="stylesheet" href="../app/min/all-min.css?v=20111108_1828" />
+	<link rel="stylesheet" href="../app/min/all-min.css?v=20111109_1440" />
 	<script src="http://maps.google.com/maps/api/js?libraries=geometry&amp;sensor=true"></script>
 	<script src="../jq/jqm/jquery.mobile-1.0rc2.min.js"></script>
-	<script src="../app/min/all-min.js?v=20111108_1828"></script>
+	<script src="../app/min/all-min.js?v=20111109_1440"></script>
 	<script src="Genre.js"></script>
 
 	<style>
@@ -122,7 +122,7 @@ Please wait...
 	<div data-role="content">
 			<div align="center">
 				<img onclick="Util.goExt('../')" width="300px" src="/images/kokorahen-logo.png"/>
-				<div class="Small" align="right">Ver:SNAP-20111108-1828</div>
+				<div class="Small" align="right">Ver:SNAP-20111109-1440</div>
 			</div>
 			<a href="javascript:Util.goExt('../food/')" data-ajax="false" data-role="button">食べに行きたい</a>
 			<a href="javascript:Util.goExt('../bar/')"  data-ajax="false" data-role="button">呑みに行きたい</a>
@@ -1178,8 +1178,6 @@ body {
 <div id="User" data-role="page">
 	<div data-role="header" data-position="fixed">
 		<h1>ユーザ</h1>
-		<a data-icon="delete" class="ui-btn-right" data-iconpos="right" 
-			href="javascript:Login.logout()">ログアウト</a>
 	</div>
 	<div data-role="content">
 		<div class="UserBrief" onclick="UserConf.go()">
@@ -1203,6 +1201,14 @@ body {
 				<a data-role="button"	href="javascript:User.showList('follow')" >
 					<img src="/images/users.png" />
 					<div class="Small">Follow</div>
+				</a>
+			</div>
+			<div class="ui-block-c" >
+			</div>
+			<div class="ui-block-d" >
+				<a data-role="button"	href="javascript:Login.logout()" >
+					<img src="/images/logout.png" />
+					<div class="Small">Logout</div>
 				</a>
 			</div>
 		</div>
@@ -1379,7 +1385,8 @@ body {
 			<div>夜: <span class="timeDinnerMin"></span>〜<span class="timeDinnerMax"></span></div>
 			<div>休: <span class="closedDays"></span></div>
 			<div>備考: <span class="openHours"></span>
-				<span class="comment"></span></div>
+				<span class="comment"></span><span class="placeUrl"></span>
+			</div>
 			<div>メモ: <span class="myMemo"></span></div>
 			<div style="height:4px;" ></div>
 			<div>(<font color="red">※</font>未登録項目への<a class="Edit" href="#">記入</a>に御協力下さい。)</div>

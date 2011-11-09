@@ -33,7 +33,7 @@ public class GPlaceLogic  {
 		"https://maps.googleapis.com/maps/api/place/search/json"
 		+"?location=${lat},${lng}"
 		+"&radius=${radius}"
-		+"&types=restaurant"
+		+"&types=${genre}"
 		+"&sensor=false"
 		+"&language=ja"
 		+"&key="+KEY
@@ -75,8 +75,9 @@ public class GPlaceLogic  {
 		]
 	}
 */		
-	public Map listPlace(Double lat, Double lng, int radius) throws IOException {
+	public Map listPlace(String genre, Double lat, Double lng, int radius) throws IOException {
 		String url = URL_SEARCH
+			.replaceAll("[$][{]genre[}]", genre)
 			.replaceAll("[$][{]lat[}]", lat.toString())
 			.replaceAll("[$][{]lng[}]", lng.toString())
 			.replaceAll("[$][{]radius[}]", Integer.toString(radius))
@@ -154,6 +155,7 @@ public class GPlaceLogic  {
 		spot.setPlaceRating(rating);
 		spot.setAppraise(rating);
 		spot.setPlaceId((String)data.get("result.id"));
+		spot.setPlaceUrl((String)data.get("result.url"));
 
 		List<String> htmlAttrs = (List<String>)place.get("html_attributions");
 		if (htmlAttrs != null && htmlAttrs.size()>0) {
@@ -176,20 +178,22 @@ public class GPlaceLogic  {
 			throw new IOException(msg);
 		}
 		JSONParser parser = new JSONParser();
+		//System.out.println(responseText);
 		Map map = parser.parse(responseText);
 		return map;
 	}
 	
 	public int fromPlace(Map map) throws IOException {
 		Params params = new Params(map);
+		String genre  = params.toString("genre");
 		Double lat  = params.toDouble("lat");
 		Double lng  = params.toDouble("lng");
 		Long radius  = params.toLong("radius");
-		return fromPlace(lat, lng, radius.intValue());
+		return fromPlace(genre, lat, lng, radius.intValue());
 	}
 	
-	public int fromPlace(Double lat, Double lng, int radius) throws IOException {
-		Map listMap = listPlace(lat,lng,radius);
+	public int fromPlace(String genre, Double lat, Double lng, int radius) throws IOException {
+		Map listMap = listPlace(genre, lat,lng,radius);
 		List<Map> list = (List<Map>)listMap.get("results");
 		int count = 0;
 		
