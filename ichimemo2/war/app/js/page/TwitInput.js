@@ -41,6 +41,7 @@ Page.def(function TwitInput(){}, function(Class){
 	}
 	
 	Class.write = function() {
+		var $page = $(Class.PAGE);
 		var sd = Spot.getSpotForId(current.review.spotId).data;
 		var params = {};
 		params.genres = sd.genres;
@@ -50,10 +51,11 @@ Page.def(function TwitInput(){}, function(Class){
 		params.lat = sd.lat;
 		params.lng = sd.lng;
 		params.tags = sd.tags;
-		params.comment = $(Class.PAGE).find(".Comment").val();
+		params.comment = $page.find(".Comment").val();
 		params.checked = false;
 		params.twit = true;
-	
+		params.autoTwitter = $page.find(".Twitter").is(":checked");
+
 		var id = Kokorahen.writeReview(params);
 		alert("つぶやきました。("+id+")");
 		Map.clear();

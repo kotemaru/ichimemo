@@ -2,7 +2,7 @@
 	<div data-role="header" data-position="fixed">
 		<h1 class="Header">レビュー登録</h1>
 		<a data-icon="back" href="javascript:Util.backPage()" data-iconpos="left"></a>
-		<a data-icon="submit" href="javascript:ReviewInput.write()" data-iconpos="notext"></a>
+		<a data-icon="submit" href="javascript:ReviewInput.write()" data-iconpos="right">登録</a>
 	</div>
 	<div data-role="content">
 		<div class="SpotBrief" ></div>
@@ -27,7 +27,8 @@
 		<div align="center">
 			<img class="ReviewPhoto" border=1 src="/images/noimage.gif" width="144" onclick="PicasaAlbum.go(this)" />
 		</div>
-		
+		<div><input class="Twitter" type="checkbox" value="true" checked /><label>同時にTwitterでもつぶやく</label></div>
+		<hr/>
 		<a data-role="button" data-icon="submit" data-iconpos="right"
 				href="javascript:ReviewInput.write()">登録</a>
 
