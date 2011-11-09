@@ -67,8 +67,9 @@ Page.def(function SpotTL(){}, function(Class){
 	}
 	Class.goMap = function() {
 		var spot = Spot.getSpotForId(currentSpotId);
-		Map.setCenter(spot.marker.getPosition(), 17);
-		Map.go();
+		//Map.setCenter(spot.marker.getPosition(), 17);
+		//Map.go();
+		MapDialog.go(spot.marker.getPosition());
 	}
 
 });
