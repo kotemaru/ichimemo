@@ -43,6 +43,7 @@ public class SpotModel extends ModelBase {
 	private Long updater;
 	private Float placeRating;
 	private String placeId;
+	private String placeUrl;
 
 	@Attribute(persistent = false)
 	private double distance;
@@ -377,6 +378,14 @@ public class SpotModel extends ModelBase {
 
 	public void setMyMemo(String myMemo) {
 		this.myMemo = myMemo;
+	}
+
+	public String getPlaceUrl() {
+		return placeUrl;
+	}
+
+	public void setPlaceUrl(String placeUrl) {
+		this.placeUrl = placeUrl;
 	}
 
 

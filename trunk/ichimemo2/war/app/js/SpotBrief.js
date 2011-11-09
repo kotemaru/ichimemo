@@ -72,6 +72,13 @@ Module.def(window, function SpotBrief(){}, function(Class){
 		} else {
 			$brief.find(".GoogleLogo").html("");
 		}
+		if (data.placeUrl != null) {
+			$brief.find(".placeUrl").html(
+				"[<a href='"+data.placeUrl+"' target='_blank'>GooglePlaceへ</a>]"
+			);
+		} else {
+			$brief.find(".placeUrl").html("");
+		}
 	}
 	Class._setText = function($brief, data, name) {
 		var val = data[name];

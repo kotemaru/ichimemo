@@ -43,6 +43,7 @@ Page.def(function TwitInput(){}, function(Class){
 	Class.write = function() {
 		var sd = Spot.getSpotForId(current.review.spotId).data;
 		var params = {};
+		params.genres = sd.genres;
 		params.appraise = -1.0;
 		params.spotId = sd.id;
 		params.spotName = sd.name;
