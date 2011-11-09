@@ -1,8 +1,9 @@
-Module.def(window,function Selector(xpath, tree){
+Module.def(window,function Selector(xpath, tree, callback){
 	this.xpath = xpath;
 	this.mapping = {};
 	this.values = {};
 	this.isSingle = false;
+	this.callback = callback;
 
 	var sel = $(xpath);
 	var html = this.toHtml(tree);
@@ -54,7 +55,7 @@ Module.def(window,function Selector(xpath, tree){
 		var list = [];
 		for (var val in this.values) {
 			if (this.values[val]) {
-				list.push(val.match(/[^/]*$/)[0]);
+				list.push(val.match(/[^\/]*$/)[0]);
 			}
 		}
 		return list;
@@ -88,7 +89,7 @@ Module.def(window,function Selector(xpath, tree){
 		console.log("=-===>"+sel+","+val+","+val.length);
 		if (val.length <= 1) return;
 		sel.find("li[parent='"+val+"']").show();
-		showItem(sel, val.replace(/[/][^/]*$/,""));
+		showItem(sel, val.replace(/[\/][^\/]*$/,""));
 	}
 	
 	Class.onClick = function(ev, ui) {
@@ -103,6 +104,7 @@ Module.def(window,function Selector(xpath, tree){
 			_this.values = {};
 			_this.values[val] = flag;
 			_this.refresh();
+			if (_this.callback) _this.callback(_this);
 			return;
 		}
 		
@@ -113,7 +115,7 @@ Module.def(window,function Selector(xpath, tree){
 			// 祖先をtrueにする
 			while(val.length > 0) {
 				values[val] = true;
-				val = val.replace(/[/][^/]*$/,"");
+				val = val.replace(/[\/][^\/]*$/,"");
 			}
 		} else {
 			// 子孫をfalseにする
@@ -127,6 +129,7 @@ Module.def(window,function Selector(xpath, tree){
 		_this.refresh();	
 		var xxx = sel.find("li[parent='"+val+"']");
 		xxx.show();
+		if (_this.callback) _this.callback(_this);
 	}
 
 });

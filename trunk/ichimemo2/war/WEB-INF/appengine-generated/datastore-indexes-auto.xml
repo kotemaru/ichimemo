@@ -1,15 +1,15 @@
-<!-- Indices written at Wed, 9 Nov 2011 06:30:58 UTC -->
+<!-- Indices written at Wed, 9 Nov 2011 06:46:54 UTC -->
 
 <datastore-indexes>
 
-    <!-- Used 231 times in query history -->
+    <!-- Used 330 times in query history -->
     <datastore-index kind="MySpotModel" ancestor="false" source="auto">
         <property name="areas" direction="asc"/>
         <property name="genres" direction="asc"/>
         <property name="appraise" direction="desc"/>
     </datastore-index>
 
-    <!-- Used 231 times in query history -->
+    <!-- Used 330 times in query history -->
     <datastore-index kind="SpotModel" ancestor="false" source="auto">
         <property name="areas" direction="asc"/>
         <property name="genres" direction="asc"/>
@@ -30,7 +30,7 @@
         <property name="updateDate" direction="desc"/>
     </datastore-index>
 
-    <!-- Used 12 times in query history -->
+    <!-- Used 13 times in query history -->
     <datastore-index kind="ReviewModel" ancestor="false" source="auto">
         <property name="spotId" direction="asc"/>
         <property name="userId" direction="asc"/>
@@ -49,6 +49,23 @@
         <property name="areas" direction="asc"/>
         <property name="genres" direction="asc"/>
         <property name="updateDate" direction="desc"/>
+    </datastore-index>
+
+    <!-- Used 32 times in query history -->
+    <datastore-index kind="MySpotModel" ancestor="false" source="auto">
+        <property name="areas" direction="asc"/>
+        <property name="genres" direction="asc"/>
+        <property name="tags" direction="asc"/>
+        <property name="appraise" direction="desc"/>
+    </datastore-index>
+
+    <!-- Used 32 times in query history -->
+    <datastore-index kind="SpotModel" ancestor="false" source="auto">
+        <property name="areas" direction="asc"/>
+        <property name="genres" direction="asc"/>
+        <property name="invalid" direction="asc"/>
+        <property name="tags" direction="asc"/>
+        <property name="appraise" direction="desc"/>
     </datastore-index>
 
 </datastore-indexes>
