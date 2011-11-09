@@ -127,5 +127,8 @@ Page.def(function Review(){}, function closure(Class){
 	Class.moreSpot = function() {
 		SpotTL.go(current.review.spotId);
 	}
+	Class.newTodo = function() {
+		ReviewInput.go(undefined, current.review.spotId, false);
+	}
 	
 });
