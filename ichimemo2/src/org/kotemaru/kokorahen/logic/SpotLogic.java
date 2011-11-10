@@ -54,6 +54,12 @@ public class SpotLogic  {
 			model = new SpotModel();
 			model.setOwner(env.getLoginUser().getUserId());
 			model.setCreateDate(new Date());
+		} else if (model == null) { // && id != null
+			// data reload 用
+			model = new SpotModel();
+			model.setKey(Datastore.createKey(SpotModel.class, id));
+			model.setOwner(env.getLoginUser().getUserId());
+			model.setCreateDate(new Date());
 		} else {
 			SpotModel backup = new SpotModel();
 			BeanUtil.copy(model, backup);

@@ -1,13 +1,20 @@
 <div id="SpotTags" data-role="dialog"  >
 	<div data-role="header"  data-position="fixed" >
 		<h1>タグ</h1>
-		<a data-icon="plus" href="javascript:TagsConf.go()" data-iconpos="right">ユーザ定義</a>
+		<a data-icon="check" data-rel="back" data-iconpos="right">決定</a>
 	</div>
 	
 	<div data-role="content">
 		<br/>
 		<div class="TagList" ></div>
 		<div class="TagListMy" ></div>
-	<br/>
+		<a data-role="button" data-icon="plus" data-theme="b"
+			href="javascript:TagsConf.go()" data-iconpos="right">ユーザ定義</a>
 	</div>
 </div>
+
+<style>
+#SpotTags > div:first-child > a:first-child {
+	display: none;
+}
+</style>
