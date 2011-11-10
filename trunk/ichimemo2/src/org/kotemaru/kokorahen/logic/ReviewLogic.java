@@ -77,7 +77,7 @@ public class ReviewLogic  {
 		Key key = Datastore.put(model);
 
 		if(params.toBoolean("autoTwitter")) {
-			String msg = params.toString("comment")+"@ "+params.toString("spotName");
+			String msg = params.toString("comment")+" @ "+params.toString("spotName");
 			env.twitterLogic.twit(msg);
 		}
 
