@@ -61,7 +61,7 @@ Module.def(window, function Spot(data) {
 	var currentRange = 0;
 	var currentAreas = null;
 	var currentZoom = 0;
-	var LIMIT = 30;
+	var LIMIT = 20;
 	var visibleStack = 0;
 	
 	

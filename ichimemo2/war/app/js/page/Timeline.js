@@ -2,7 +2,7 @@ Page.def(function Timeline(){}, function(Class){
 	
 	var LIST_DIV = null;
 	var LIST_ITEM = null;
-	var LIMIT = 30;
+	var LIMIT = 20;
 	var radioOnly = null;
 	var reloadFlag = true;
 	
@@ -11,7 +11,7 @@ Page.def(function Timeline(){}, function(Class){
 		LIST_DIV = $page.find(".ReviewList")[0];
 		LIST_ITEM = $page.find(".ReviewList ul").html();
 		
-		$page.find(".Only").change(reload);
+		//$page.find(".Only").change(reload);
 		radioOnly = new Radio($page.find(".Only")[0], reload);
 		$page.find(".Search").live('keypress', function(ev){
 			if (ev.which === 13) {
@@ -41,7 +41,7 @@ Page.def(function Timeline(){}, function(Class){
 			tag: SpotTags.getSearchTag(), 
 			limit: LIMIT
 		};
-		if ($(Class.FOLLOW_ONLY).attr('checked') == "checked") {
+		if (radioOnly.getValue() == "follow") {
 			params.follows = Login.user.follows;
 		} else {
 			var curPos = Map.getPosition();

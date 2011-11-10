@@ -27,6 +27,8 @@ public class MySpotModel extends ModelBase {
 	private List<String> areas;
 	private List<String> tags;
 	private Float appraise = 0.0F;
+	
+	@Attribute(unindexed = true)
 	private String memo = null;
 
 	private Boolean temporal;  // true=フォロイーの推薦

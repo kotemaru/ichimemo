@@ -2,7 +2,7 @@ Page.def(function TwitInput(){}, function(Class){
 
 	var LIST_DIV = null;
 	var LIST_ITEM = null;
-	var LIMIT = 30;
+	var LIMIT = 20;
 	
 	var current = {
 			review: null,
