@@ -1,22 +1,22 @@
-<!-- Indices written at Thu, 10 Nov 2011 04:55:27 UTC -->
+<!-- Indices written at Thu, 10 Nov 2011 06:27:44 UTC -->
 
 <datastore-indexes>
 
-    <!-- Used 1 time in query history -->
+    <!-- Used 2 times in query history -->
     <datastore-index kind="ReviewModel" ancestor="false" source="auto">
         <property name="genres" direction="asc"/>
         <property name="userId" direction="asc"/>
         <property name="updateDate" direction="desc"/>
     </datastore-index>
 
-    <!-- Used 328 times in query history -->
+    <!-- Used 646 times in query history -->
     <datastore-index kind="MySpotModel" ancestor="false" source="auto">
         <property name="areas" direction="asc"/>
         <property name="genres" direction="asc"/>
         <property name="appraise" direction="desc"/>
     </datastore-index>
 
-    <!-- Used 328 times in query history -->
+    <!-- Used 646 times in query history -->
     <datastore-index kind="SpotModel" ancestor="false" source="auto">
         <property name="areas" direction="asc"/>
         <property name="genres" direction="asc"/>
@@ -29,6 +29,29 @@
         <property name="areas" direction="asc"/>
         <property name="genres" direction="asc"/>
         <property name="updateDate" direction="desc"/>
+    </datastore-index>
+
+    <!-- Used 3 times in query history -->
+    <datastore-index kind="ReviewModel" ancestor="false" source="auto">
+        <property name="spotId" direction="asc"/>
+        <property name="updateDate" direction="desc"/>
+    </datastore-index>
+
+    <!-- Used 96 times in query history -->
+    <datastore-index kind="MySpotModel" ancestor="false" source="auto">
+        <property name="areas" direction="asc"/>
+        <property name="genres" direction="asc"/>
+        <property name="tags" direction="asc"/>
+        <property name="appraise" direction="desc"/>
+    </datastore-index>
+
+    <!-- Used 96 times in query history -->
+    <datastore-index kind="SpotModel" ancestor="false" source="auto">
+        <property name="areas" direction="asc"/>
+        <property name="genres" direction="asc"/>
+        <property name="invalid" direction="asc"/>
+        <property name="tags" direction="asc"/>
+        <property name="appraise" direction="desc"/>
     </datastore-index>
 
 </datastore-indexes>

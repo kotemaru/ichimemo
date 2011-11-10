@@ -144,11 +144,13 @@ public class GPlaceLogic  {
 		JSONData data = new JSONData(place);
 		Double ratingD = (Double)data.get("result.rating");
 		Float rating = (ratingD == null) ? -1.0F : ratingD.floatValue();
+		String addr = (String)data.get("result.formatted_address");
+		addr = addr.replaceFirst("^[^,]*, ","");
 		
 		spot.setGenres((List<String>)data.get("result.types"));
 		spot.setLat((Double)data.get("result.geometry.location.lat"));
 		spot.setLng((Double)data.get("result.geometry.location.lng"));
-		spot.setAddress((String)data.get("result.vicinity"));
+		spot.setAddress(addr);
 		spot.setName((String)data.get("result.name"));
 		spot.setFurikana(env.getKana(spot.getName()));
 		spot.setUrl((String)data.get("result.website"));
@@ -200,7 +202,7 @@ public class GPlaceLogic  {
 		for (Map breif : list) {
 			String id = (String)breif.get("id");
 			String refer = (String)breif.get("reference");
-			String addr = (String)breif.get("vicinity");
+			String addr = (String)breif.get("vicinity"); // TODO:東京都が無いケースが有る。
 			if (! hasSpot(id,addr)) {
 				try {
 					makeSpot(refer);
