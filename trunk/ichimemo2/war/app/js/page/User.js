@@ -3,7 +3,7 @@ Page.def(function User(){}, function(Class){
 	var LIST_DIV = null;
 	var LIST_ITEM = null;
 	var	FOLLOWS_DIV = null;
-	var LIMIT = 30;
+	var LIMIT = 20;
 	var memcache = {};
 	var listMode = 'review'
 	

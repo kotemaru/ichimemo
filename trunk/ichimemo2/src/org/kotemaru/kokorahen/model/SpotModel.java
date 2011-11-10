@@ -25,11 +25,7 @@ public class SpotModel extends ModelBase {
 	private List<String> areas;
 	private String address;
 	private List<String> tags;
-	private Integer level = 0;
-	private Integer review = 0;
 	private Float appraise = -1.0F;
-	private String image;
-	private String comment;
 	private String timeLunchMin;
 	private String timeDinnerMin;
 	private String timeLunchMax;
@@ -41,10 +37,18 @@ public class SpotModel extends ModelBase {
 	private Long masterSpotId;
 	private Long owner;
 	private Long updater;
-	private Float placeRating;
 	private String placeId;
-	private String placeUrl;
 
+	@Attribute(unindexed = true)
+	private Float placeRating;
+	@Attribute(unindexed = true)
+	private String placeUrl;
+	@Attribute(unindexed = true)
+	private String image;
+	@Attribute(unindexed = true)
+	private String comment;
+
+	
 	@Attribute(persistent = false)
 	private double distance;
 	@Attribute(persistent = false)
@@ -152,18 +156,6 @@ public class SpotModel extends ModelBase {
 	}
 
 
-	public Integer getLevel() {
-		return level;
-	}
-
-
-	public void setLevel(Integer level) {
-		this.level = level;
-	}
-
-
-
-
 	public Float getAppraise() {
 		return appraise;
 	}
@@ -263,16 +255,6 @@ public class SpotModel extends ModelBase {
 
 	public void setUrl(String url) {
 		this.url = url;
-	}
-
-
-	public Integer getReview() {
-		return review;
-	}
-
-
-	public void setReview(Integer review) {
-		this.review = review;
 	}
 
 	public String getFurikana() {

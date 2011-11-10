@@ -18,19 +18,24 @@ public class ReviewModel extends ModelBase {
 	private List<String> genres;
 	private Long userId;
 	private Long spotId;
-	private String spotName;
-	private String spotKana;
 	private Date createDate;
 	private Date updateDate;
-	private String comment;
 	private Float appraise;
 	private List<String> tags;
-	private String photoUrl;
 	private Double lat;
 	private Double lng;
 	private List<String> areas;
 	private Boolean checked;
 	private Boolean twit = false;
+	
+	@Attribute(unindexed = true)
+	private String spotName;
+	@Attribute(unindexed = true)
+	private String spotKana;
+	@Attribute(unindexed = true)
+	private String comment;
+	@Attribute(unindexed = true)
+	private String photoUrl;
 
 	@Attribute(persistent = false)
 	private String nickname;

@@ -5,7 +5,7 @@ Page.def(function List(){}, function(Class){
 	var LIST_ITEM = null;
 	var radioSort = null;
 	var radioRadius = null;
-	var LIMIT = 30;
+	var LIMIT = 20;
 
 	Class.init = function()  {
 		var $page = $(Class.PAGE)

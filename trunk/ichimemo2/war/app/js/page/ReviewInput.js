@@ -2,7 +2,7 @@ var ReviewInput = Page.def(function ReviewInput(){}, function(Class){
 
 	var LIST_DIV = null;
 	var LIST_ITEM = null;
-	var LIMIT = 30;
+	var LIMIT = 20;
 	
 	var current = {
 			review: null,

@@ -20,8 +20,6 @@ public class UserModel extends ModelBase {
 	private String googleUser;
 	private String twitterUser;
 	private String nickname;
-	private String photoUrl;
-	private String comment;
 
 	private Date createDate;
 	private Date updateDate;
@@ -31,7 +29,13 @@ public class UserModel extends ModelBase {
 	private List<Long> follows = null;
 	private Integer followerNum = 0;
 
+	@Attribute(unindexed = true)
 	private List<String> tags;
+	@Attribute(unindexed = true)
+	private String comment;
+	@Attribute(unindexed = true)
+	private String photoUrl;
+
 	
 	@Attribute(persistent = false)
 	private boolean admin;
