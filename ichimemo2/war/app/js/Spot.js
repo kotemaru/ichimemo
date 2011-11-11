@@ -33,6 +33,7 @@ Module.def(window, function Spot(data) {
 		});
 		this.marker.spot = this;
 		this.marker.setVisible(false);
+		this.marker.setZIndex(0);
 		google.maps.event.addListener(this.marker, 'click', Class.onSpotMarkerClick);
 	}
 	
@@ -44,13 +45,15 @@ Module.def(window, function Spot(data) {
 			new google.maps.Point(12,24) // anchor
 		);
 	}
-	Class.onSpotMarkerClick = function(ev) {
+	Class.onSpotMarkerClick = function(pos) { // this=marker
 		SpotInfo.setCurrent(this.spot);
 		if (SpotInfo.current == null) return;
 		var addr = SpotInfo.current.data.address.replace(/^日本,/,"");
 		var msg = "<div class='BalloonLine1'>"+SpotInfo.current.data.name+"</div>"
 			+"<div class='BalloonLine2'>"+addr+"</div>";
 		Map.infobox.open(this, msg);
+		this.setZIndex(this.getZIndex()-1);
+		this.setMap(this.getMap());
 	}
 	
 	//--------------------------------------------------------------
