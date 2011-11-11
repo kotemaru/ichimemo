@@ -6,11 +6,16 @@ Page.def(function List(){}, function(Class){
 	var radioSort ;
 	var radioRadius ;
 	var LIMIT = 20;
+	
+	Class.init = function(){
+		var $page = $(Class.PAGE)
+		LIST_ITEM = $page.find(".SpotList ul").html();
+	}
 
 	Class.onPageCreate = function()  {
 		var $page = $(Class.PAGE)
 		LIST_DIV = $page.find(".SpotList")[0];
-		LIST_ITEM = $page.find(".SpotList ul").html();
+		//LIST_ITEM = $page.find(".SpotList ul").html();
 		$page.find(".Search").live('keypress', function(ev){
 			if (ev.which === 13) {
 				load();
