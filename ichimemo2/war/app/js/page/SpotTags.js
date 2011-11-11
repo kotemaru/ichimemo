@@ -61,11 +61,11 @@ Page.def(function SpotTags(){}, function(Class){
 	Class.SEARCH = "search";
 	Class.SPOT = "spot";
 
-	var button = null;
-	var openMode = null;
-	var placeMsg = null;
-	var selectorMy = null;
-	var selector = null;
+	var button ;
+	var openMode ;
+	var placeMsg ;
+	var selectorMy ;
+	var selector ;
 	var values = {
 		search: [],
 		spot: [],

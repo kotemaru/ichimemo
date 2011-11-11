@@ -1,14 +1,12 @@
 Page.def(function PicasaAlbum(){}, function(Class){
 	
-	ALBUMS_DIV = ".PicasaAlbumDiv";
-	PHOTOS_DIV = ".PicasaPhotoDiv";
-	BACK_BTN = ".PicasaAlbumBack";
-	AREAT_DIV = ".PicasaAreatDiv";
-	albumid = null;
-	target = null;
+	var ALBUMS_DIV = ".PicasaAlbumDiv";
+	var PHOTOS_DIV = ".PicasaPhotoDiv";
+	var BACK_BTN = ".PicasaAlbumBack";
+	var AREAT_DIV = ".PicasaAreatDiv";
+	var albumid;
+	var target;
 	
-	Class.init = function() {
-	}
 	Class.go = function(tgt) {
 		target = tgt;
 		albumid = null;

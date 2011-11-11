@@ -26,6 +26,16 @@ Page.init = function(m) {
 	}
 
 	var $obj = $(m.ID);
+	if (m.onPageCreate) {
+		$obj.live('pagecreate', function(ev, ui) {
+			try {
+				m.onPageCreate(ev,ui);
+			} catch(e) {
+				// 例外が上がるとJQM(b2)が止まる。
+				alert(e.message+"\n"+e.stack);
+			}
+		});
+	}
 	if (m.onBeforeShow) {
 		$obj.live('pagebeforeshow', function(ev, ui) {
 			try {

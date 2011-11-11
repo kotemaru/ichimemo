@@ -1,13 +1,13 @@
 
 Page.def(function SpotTL(){}, function(Class){
 	
-	var LIST_DIV = null;
-	var LIST_ITEM = null;
-	var currentSpotId = null;
-	var spotBrief = null;
-	var radioOnly = null;
+	var LIST_DIV ;
+	var LIST_ITEM ;
+	var currentSpotId ;
+	var spotBrief ;
+	var radioOnly ;
 	
-	Class.init = function() {
+	Class.onPageCreate = function() {
 		var $page = $(Class.PAGE)
 		LIST_DIV = $page.find(".ReviewList")[0];
 		LIST_ITEM = $page.find(".ReviewList ul").html();

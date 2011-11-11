@@ -43,7 +43,7 @@ Page.def(function ClosedDays(xpath, pleceMsg){
 		return html;
 	}
 	
-	Class.init = function() {
+	Class.onPageCreate = function() {
 		Class.INSTANCE = new ClosedDays($(Class.PAGE).find(".SpotDaysList")[0]);
 	}
 	Class.open = function() {

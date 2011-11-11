@@ -6,8 +6,12 @@ Page.def(function SpotInfo(){}, function(Class){
 	Class.current = null;
 	
 	var radioGenre = null;
+	var initFlag = false;
 
-	Class.init = function() {
+	function autoInit() {
+		if (initFlag) return;
+		initFlag = true;
+
 		$page = $(Class.PAGE);
 		
 		var mapopts2 = {
@@ -90,7 +94,9 @@ Page.def(function SpotInfo(){}, function(Class){
 		
 		radioGenre = new Radio($page.find(".Genre"));
 	}
+
 	Class.go = function(id) {
+		autoInit();
 		if (id != undefined) {
 			Class.setCurrent(Spot.getSpotForId(id));
 		}
@@ -130,6 +136,8 @@ Page.def(function SpotInfo(){}, function(Class){
 	}
 	
 	Class.setCurrent = function(cur){
+		autoInit();
+
 		var $page = $(Class.PAGE);
 		Class.current = cur;
 		var pos;

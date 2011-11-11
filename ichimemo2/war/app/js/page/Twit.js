@@ -3,9 +3,9 @@ Page.def(function Twit(){}, function closure(Class){
 	var current = {
 		review: null
 	};
-	var spotBrief = null;
+	var spotBrief ;
 
-	Class.init = function() {
+	Class.onPageCreate = function() {
 		LIST_ITEM = $("#reviewListItem").html();
 		spotBrief = new SpotBrief().init(Class.PAGE);
 	}

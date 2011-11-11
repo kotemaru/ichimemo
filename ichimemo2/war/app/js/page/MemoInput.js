@@ -3,7 +3,7 @@ Page.def(function MemoInput(){}, function(Class){
 	Class.spotId = null;
 	Class.spotBrief = null;
 	
-	Class.init = function() {
+	Class.onPageCreate = function() {
 		var $page = $(Class.PAGE);
 		Class.LIST_DIV = $page.find(".ReviewList")[0];
 		Class.spotBrief = new SpotBrief().init(Class.PAGE);

@@ -22,16 +22,18 @@ Page.def(function Review(){}, function closure(Class){
 	var current = {
 		review: null
 	};
-	var LIST_ITEM = null;
-	var spotBrief = null;
-	var faceMarkText = null;
-	var mode = null;
+	var LIST_ITEM;
+	var spotBrief;
+	var faceMarkText;
+	var mode;
 	var M_REVIEW = 'review';
 	var M_TWIT = 'twit';
 	var M_TODO = 'todo';
 
-	Class.init = function() {
+	Class.init = function(){
 		LIST_ITEM = $("#reviewListItem").html();
+	}
+	Class.onPageCreate = function() {
 		spotBrief = new SpotBrief().init(Class.PAGE);
 	}
 	

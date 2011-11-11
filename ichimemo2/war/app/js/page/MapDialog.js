@@ -12,8 +12,12 @@ Page.def(function MapDialog(){}, function(Class){
 	var map = null;
 	var marker = null;
 	var position;
+	var initFlag = false;
 
-	Class.init = function() {
+	function autoInit() {
+		if (initFlag) return;
+		initFlag = true;
+
 		var $page = $(Class.PAGE);
 
 		// マップ生成
@@ -39,6 +43,7 @@ Page.def(function MapDialog(){}, function(Class){
 	}
 
 	Class.go = function(pos) {
+		autoInit();
 		position = pos;
 		Class.updateOrientation();
 		Util.changePage(Class.ID);
