@@ -1,13 +1,13 @@
 Page.def(function User(){}, function(Class){
 	
-	var LIST_DIV = null;
-	var LIST_ITEM = null;
-	var	FOLLOWS_DIV = null;
+	var LIST_DIV ;
+	var LIST_ITEM ;
+	var	FOLLOWS_DIV ;
 	var LIMIT = 20;
 	var memcache = {};
 	var listMode = 'review'
 	
-	Class.init = function()  {
+	Class.onPageCreate = function()  {
 		var $page = $(Class.PAGE)
 		LIST_DIV = $page.find(".ReviewList")[0];
 		LIST_ITEM = $page.find(".ReviewList ul").html();

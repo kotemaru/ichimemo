@@ -1,8 +1,5 @@
 Page.def(function UserConf(){}, function(Class){
 	
-	Class.init = function()  {
-		// nop.
-	}
 	Class.go = function()  {
 		if (Login.user == null) return;
 		var form = document.userConf;

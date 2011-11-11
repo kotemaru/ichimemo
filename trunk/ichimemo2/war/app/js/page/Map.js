@@ -22,7 +22,7 @@ Page.def(function Map(){}, function(Class){
 	marker = null;
 	Class.infobox = null;
 
-	Class.init = function() {
+	Class.onPageCreate = function() {
 		var $page = $(Class.PAGE);
 
 		// マップ生成

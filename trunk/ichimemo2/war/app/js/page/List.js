@@ -1,13 +1,13 @@
 Page.def(function List(){}, function(Class){
 	
 	var ACTIVE_BTN = "ui-btn-active";
-	var LIST_DIV = null;
-	var LIST_ITEM = null;
-	var radioSort = null;
-	var radioRadius = null;
+	var LIST_DIV ;
+	var LIST_ITEM ;
+	var radioSort ;
+	var radioRadius ;
 	var LIMIT = 20;
 
-	Class.init = function()  {
+	Class.onPageCreate = function()  {
 		var $page = $(Class.PAGE)
 		LIST_DIV = $page.find(".SpotList")[0];
 		LIST_ITEM = $page.find(".SpotList ul").html();
