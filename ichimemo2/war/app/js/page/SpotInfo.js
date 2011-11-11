@@ -187,9 +187,9 @@ Page.def(function SpotInfo(){}, function(Class){
 		//Class.map.setCenter(pos);
 	};
 	
-	//Class.onBeforeShow = function(ev, info){
-		//Util.dialogFinally();
-	//}
+	Class.onBeforeShow = function(ev, info){
+		SpotTags.setLabel($("#spotTags")[0],SpotTags.getValue("spot"),"タグ選択");
+	}
 	
 	Class.onShow = function(ev, info){
 		Util.dialogFinally();
@@ -198,7 +198,7 @@ Page.def(function SpotInfo(){}, function(Class){
 		Class.marker2.setVisible(true);
 		Class.map.setCenter(Class.marker2.getPosition());
 	
-		SpotTags.setLabel($("#spotTags")[0],SpotTags.getValue("spot"),"タグ選択");
+		//SpotTags.setLabel($("#spotTags")[0],SpotTags.getValue("spot"),"タグ選択");
 
 		radioGenre.refresh();
 		ClosedDays.updateLabel();

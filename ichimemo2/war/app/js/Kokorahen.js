@@ -28,6 +28,12 @@ Kokorahen.fromGooglePlace = function(map){
 Kokorahen.fromGooglePlaceAsync = function(_callback ,map){
 	return JSRPC.callAsync(Kokorahen.__URL, "fromGooglePlace", arguments);
 }
+Kokorahen.getGoogleUser = function(username){
+	return JSRPC.call(Kokorahen.__URL, "getGoogleUser", arguments);
+}
+Kokorahen.getGoogleUserAsync = function(_callback ,username){
+	return JSRPC.callAsync(Kokorahen.__URL, "getGoogleUser", arguments);
+}
 Kokorahen.getKana = function(kanji){
 	return JSRPC.call(Kokorahen.__URL, "getKana", arguments);
 }
@@ -69,6 +75,12 @@ Kokorahen.getTodo = function(spotId){
 }
 Kokorahen.getTodoAsync = function(_callback ,spotId){
 	return JSRPC.callAsync(Kokorahen.__URL, "getTodo", arguments);
+}
+Kokorahen.getTwitterUser = function(username){
+	return JSRPC.call(Kokorahen.__URL, "getTwitterUser", arguments);
+}
+Kokorahen.getTwitterUserAsync = function(_callback ,username){
+	return JSRPC.callAsync(Kokorahen.__URL, "getTwitterUser", arguments);
 }
 Kokorahen.getUserModelPublic = function(id){
 	return JSRPC.call(Kokorahen.__URL, "getUserModelPublic", arguments);

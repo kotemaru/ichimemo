@@ -76,6 +76,7 @@ Page.def(function SpotTags(){}, function(Class){
 	Class.onBeforeShow = function() {
 		var sel = getSelector(openMode);
 		sel.refresh();
+		Util.procIf(Class.PAGE, function(c){return eval(c)});
 	}
 	Class.open = function(btn, placeMsg, mode) {
 		button = btn;

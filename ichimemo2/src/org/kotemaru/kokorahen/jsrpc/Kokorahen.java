@@ -221,6 +221,14 @@ public class Kokorahen implements JsrpcEnvironment {
 		UserModel user = userLogic.getUserModel(id);
 		return new UserPublicBean(user);
 	}
+	public UserPublicBean getGoogleUser(String username) {
+		UserModel user = userLogic.getGoogleUser(username);
+		return new UserPublicBean(user);
+	}
+	public UserPublicBean getTwitterUser(String username) {
+		UserModel user = userLogic.getTwitterUser(username);
+		return new UserPublicBean(user);
+	}
 	public  void writeUser(Map map) throws Exception {
 		Params params = new Params(map);
 		checkLogin(params.toLong("userId"));

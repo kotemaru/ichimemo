@@ -52,7 +52,14 @@ Module.def(window, function Spot(data) {
 		var msg = "<div class='BalloonLine1'>"+SpotInfo.current.data.name+"</div>"
 			+"<div class='BalloonLine2'>"+addr+"</div>";
 		Map.infobox.open(this, msg);
-		this.setZIndex(this.getZIndex()-1);
+
+		var min = 0;
+		for (var i=0; i<memcacheList.length; i++) {
+			var zidx = memcacheList[i].marker.getZIndex();
+			min = (min<zidx)?min:zidx;
+		};
+
+		this.setZIndex(min-1);
 		this.setMap(this.getMap());
 	}
 	
