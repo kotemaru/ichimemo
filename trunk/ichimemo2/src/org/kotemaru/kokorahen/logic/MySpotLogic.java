@@ -109,6 +109,9 @@ public class MySpotLogic  {
 		if (spot == null) {
 			throw new RuntimeException("Not found spot "+spotId);
 		}
+		if (spot.getClosed()) {
+			return -1L; // No Exception.
+		}
 		MySpotModel model = getMySpot(userId, spotId);
 		if (model == null) {
 			model = new MySpotModel();

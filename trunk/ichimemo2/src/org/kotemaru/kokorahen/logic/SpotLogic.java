@@ -88,6 +88,7 @@ public class SpotLogic  {
 		model.setTimeDinnerMax(params.toString("timeDinnerMax"));
 		model.setEmail(params.toString("email"));
 		model.setUrl(params.toString("url"));
+		model.setClosed(params.toBoolean("closed"));
 
 		// for Dummy data
 		Float appraise = params.toFloat("appraise");

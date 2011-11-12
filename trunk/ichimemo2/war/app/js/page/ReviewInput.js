@@ -21,6 +21,12 @@ var ReviewInput = Page.def(function ReviewInput(){}, function(Class){
 	}
 	
 	Class.go = function(id, spotId, checked) {
+		var spot = Spot.getSpotForId(spotId);
+		if (spot == null || spot.data.closed) {
+			alert("スポットは存在しません。");
+			return;
+		}
+
 		var $page = $(Class.PAGE);
 		current.checked = checked;
 		if (current.checked) { // rewview mode

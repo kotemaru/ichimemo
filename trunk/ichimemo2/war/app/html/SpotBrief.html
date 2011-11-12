@@ -7,6 +7,7 @@
 		</div></div></span>
 		<img class='MySpotMark' src='/images/star.png' />
 		<img class='FaceMark' src='/images/face-0.png' />
+		<div class='ClosedMark' if="(data.closed==true)">閉店</div>
 
 		<div class="Title">Title</div>
 		<div class="SubTitle">SubTitle</div>
@@ -63,6 +64,14 @@
 	left:3px;
 }
 
+.SpotBrief > div.ClosedMark{
+	position: absolute;
+	top: 10px;
+	left: 5px;
+	font-size: 20px;
+	font-weight: 900;
+	color: red;
+}
 
 img.Thumbnail {
 	width: 48px;
