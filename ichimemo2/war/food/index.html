@@ -25,10 +25,10 @@ if (undefined === window.console) {
 	<link rel="stylesheet" href="../jq/jqm/jquery.mobile-1.0rc2.css" />
 	<script src="../jq/jquery-1.6.2.min.js"></script>
 	
-	<link rel="stylesheet" href="../app/min/all-min.css?v=20111112_1139" />
+	<link rel="stylesheet" href="../app/min/all-min.css?v=20111112_1551" />
 	<script src="http://maps.google.com/maps/api/js?libraries=geometry&amp;sensor=true"></script>
 	<script src="../jq/jqm/jquery.mobile-1.0rc2.min.js"></script>
-	<script src="../app/min/all-min.js?v=20111112_1139"></script>
+	<script src="../app/min/all-min.js?v=20111112_1551"></script>
 	<script src="Genre.js"></script>
 
 	<style>
@@ -122,7 +122,7 @@ Please wait...
 	<div data-role="content">
 			<div align="center">
 				<img onclick="Util.goExt('../')" width="300px" src="/images/kokorahen-logo.png"/>
-				<div class="Small" align="right">Ver:SNAP-20111112-1139</div>
+				<div class="Small" align="right">Ver:SNAP-20111112-1551</div>
 			</div>
 			<a href="javascript:Util.goExt('../food/')" data-ajax="false" data-role="button">食べに行きたい</a>
 			<a href="javascript:Util.goExt('../bar/')"  data-ajax="false" data-role="button">呑みに行きたい</a>
@@ -616,7 +616,7 @@ body {
 		<div><pre class="Comment ui-shadow-inset ui-btn-corner-all ui-btn-shadow ui-body-c"></pre></div>
 
 		<div class="TagHeader"><span>画像</span></div>
-		<img class="ThumbnailL" src="/images/noimage.gif" onerror="Util.setNoImage()"/>
+		<img class="ThumbnailL" src="/images/noimage.png" onerror="Util.setNoImage()"/>
 
 	
 
@@ -737,7 +737,7 @@ body {
 
 		<div class="TagHeader"><span>画像</span></div>
 		<div align="center">
-			<img class="ReviewPhoto" border=1 src="/images/noimage.gif" width="144" onclick="PicasaAlbum.go(this)" />
+			<img class="ReviewPhoto" border=1 src="/images/noimage.png" width="144" onclick="PicasaAlbum.go(this)" />
 		</div>
 		<div><input class="Twitter" type="checkbox" value="true" checked /><label>同時にTwitterでもつぶやく</label></div>
 		<hr/>
@@ -1409,7 +1409,7 @@ body {
 		</div></div></span>
 		<img class='MySpotMark' src='/images/star.png' />
 		<img class='FaceMark' src='/images/face-0.png' />
-		<div class='ClosedMark' if="(data.closed==true)">閉店</div>
+		<div class='ClosedMark' SpotBrief-if="(data.closed==true)">閉店</div>
 
 		<div class="Title">Title</div>
 		<div class="SubTitle">SubTitle</div>
@@ -1503,7 +1503,7 @@ span.Thumbnail{
 	overflow: hidden;
 	float: left;
 	margin-right: 4px;
-	background-color: black;
+	background-color: white;
 }
 span.Thumbnail > div{
 	width:144px;
