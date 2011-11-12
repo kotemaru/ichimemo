@@ -375,6 +375,8 @@ public class SpotLogic  {
 					return "Not owner "+userId;
 				}
 				model.setInvalid(true);
+				model.setUpdater(env.getLoginUser().getUserId());
+				model.setUpdateDate(new Date());
 				Datastore.put(tx, model);
 				tx.commit();
 				return null;
@@ -383,6 +385,38 @@ public class SpotLogic  {
 			}
 		}
 		return "Retry over.";
+	}
+	public String mergeSpot(Long srcSpotId, Long dstSpotId){
+		Key key = Datastore.createKey(SpotModel.class, srcSpotId);
+		SpotModel srcSpot = Datastore.get(SpotModel.class, key);
+		
+		Key key2 = Datastore.createKey(SpotModel.class, dstSpotId);
+		SpotModel dstSpot = Datastore.get(SpotModel.class, key2);
+		
+		SpotModel backup = new SpotModel();
+		BeanUtil.copy(srcSpot, backup);
+		backup.setKey(null);
+		backup.setInvalid(true);
+		backup.setMasterSpotId(srcSpotId);
+		Datastore.put(backup);
+
+		srcSpot.setDupSpotId(dstSpotId);
+		srcSpot.setUpdater(env.getLoginUser().getUserId());
+		srcSpot.setUpdateDate(new Date());
+		Datastore.put(srcSpot);
+
+		// ジャンルマージ
+		HashSet<String> genreSet = new HashSet<String>();
+		genreSet.addAll(srcSpot.getGenres());
+		genreSet.addAll(dstSpot.getGenres());
+		List<String> genres = new ArrayList<String>();
+		genres.addAll(genreSet);
+		
+		dstSpot.setGenres(genres);
+		dstSpot.setUpdater(env.getLoginUser().getUserId());
+		dstSpot.setUpdateDate(new Date());
+		Datastore.put(dstSpot);
+		return null;
 	}
 
 	public void appraiseTask(Long spotId){
@@ -490,7 +524,7 @@ public class SpotLogic  {
 			HashSet<Long> exists){
 		SpotModelMeta e = SpotModelMeta.get();
 		ModelQuery q = Datastore.query(e);
-		q.filter(e.genres.in(genre));
+		if (genre != null) q.filter(e.genres.in(genre));
 		q.filter(e.invalid.equal(false));
 		q.filter(e.areas.equal(area));
 		if (tag != null) q.filter(e.tags.in(tag));

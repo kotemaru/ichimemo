@@ -8,6 +8,9 @@
 		<img class='MySpotMark' src='/images/star.png' />
 		<img class='FaceMark' src='/images/face-0.png' />
 		<div class='ClosedMark' SpotBrief-if="(data.closed==true)">閉店</div>
+		<div class='MergeMark' SpotBrief-if="(data.dupSpotId!=null)">
+			スポットは統合されました。
+		</div>
 
 		<div class="Title">Title</div>
 		<div class="SubTitle">SubTitle</div>
@@ -64,7 +67,7 @@
 	left:3px;
 }
 
-.SpotBrief > div.ClosedMark{
+.SpotBrief > div.ClosedMark, div.MergeMark{
 	position: absolute;
 	top: 10px;
 	left: 5px;

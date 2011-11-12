@@ -172,6 +172,12 @@ Kokorahen.logout = function(provider){
 Kokorahen.logoutAsync = function(_callback ,provider){
 	return JSRPC.callAsync(Kokorahen.__URL, "logout", arguments);
 }
+Kokorahen.mergeSpot = function(srcSpotId,dstSpotId){
+	return JSRPC.call(Kokorahen.__URL, "mergeSpot", arguments);
+}
+Kokorahen.mergeSpotAsync = function(_callback ,srcSpotId,dstSpotId){
+	return JSRPC.callAsync(Kokorahen.__URL, "mergeSpot", arguments);
+}
 Kokorahen.recommand = function(){
 	return JSRPC.call(Kokorahen.__URL, "recommand", arguments);
 }

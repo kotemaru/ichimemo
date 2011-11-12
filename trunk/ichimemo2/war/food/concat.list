@@ -26,5 +26,6 @@ app/html/page/TagsConf.html
 app/html/page/Twit.html
 app/html/page/ExistSpot.html
 app/html/page/MapDialog.html
+app/html/page/MergeSpot.html
 app/html/SpotBrief.html
 app/html/index-f.html

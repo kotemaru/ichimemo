@@ -301,7 +301,10 @@ try {
 		Spot.clearCache();
 		List.go();
 	}
-	
+	Class.merge = function(){
+		MergeSpot.go(Class.current);
+	}
+
 	Class.remove = function(){
 		var msg = Kokorahen.removeSpot(Class.current.data.id);
 		if (msg == null) {

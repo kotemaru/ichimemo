@@ -1,0 +1,38 @@
+<div id="MergeSpot" data-role="page">
+	<div data-role="header" data-position="fixed">
+		<h1>スポット統合</h1>
+		<a data-icon="back" href="javascript:Util.backPage()" data-iconpos="left"></a>
+	</div>
+	<div data-role="content">
+		<div class="SB1"><div class="SpotBrief" ></div></div>
+		<div align="center">▼</div>
+		<div class="SB2"><div class="SpotBrief" ></div></div>
+
+		<a data-role="button" href="javascript:MergeSpot.doMerge()">統合する</a>
+
+		
+		<div class="TagHeader">
+			<img src="/images/location_pin.png" width="16" />
+			<span>統合先候補(選択してください)</span>
+		</div>
+		<div class="SpotList">
+			<ul class="Template" data-role="none" >
+				<li>
+					<a href='javascript:MergeSpot.onItemClick(${id})'>
+						<span class="Thumbnail" ><div><div>
+							<img src="${photo}" onerror='SpotInfo.setDefaultPhoto(this)' />
+						</div></div></span>
+						<img class='${MySpotMark}' src='${mySpotMark}' />
+						<img class='FaceMark' src='/images/face-${appraise}.png' />
+
+						<div class="Title">${name}</div>
+						<div class="SubTitle">${address}</div>
+						<div class="Small">${distance}m</div>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div data-role="footer"  data-position="fixed" >
+	</div>
+</div>

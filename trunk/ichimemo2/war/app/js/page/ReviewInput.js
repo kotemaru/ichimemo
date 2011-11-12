@@ -22,7 +22,7 @@ var ReviewInput = Page.def(function ReviewInput(){}, function(Class){
 	
 	Class.go = function(id, spotId, checked) {
 		var spot = Spot.getSpotForId(spotId);
-		if (spot == null || spot.data.closed) {
+		if (spot == null || spot.data.closed || spot.data.dupSpotId) {
 			alert("スポットは存在しません。");
 			return;
 		}
@@ -34,7 +34,7 @@ var ReviewInput = Page.def(function ReviewInput(){}, function(Class){
 				current.review = {
 					id: null, spotId: spotId, appraise: 3, comment: "",
 					nickname: Login.user.nickname, isNewReview:true,
-					photoUrl: "/images/noimage.png"
+					photoUrl: "/images/noimage.gif"
 				};
 			} else {
 				current.review = Review.getReview(id);
@@ -49,7 +49,7 @@ var ReviewInput = Page.def(function ReviewInput(){}, function(Class){
 				current.review = {
 					id: null, spotId: spotId, appraise: 3, comment: "",
 					nickname: Login.user.nickname, isNewReview:true,
-					photoUrl: "/images/noimage.png"
+					photoUrl: "/images/noimage.gif"
 				};
 			}
 		}

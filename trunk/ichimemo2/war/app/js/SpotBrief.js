@@ -11,6 +11,10 @@ Module.def(window, function SpotBrief(){}, function(Class){
 	
 	Class.prototype.setSpot = function(spot) {
 		this.spot = spot;
+		if (spot == null) {
+			return this.setNull();
+		}
+
 		var data = spot.data;
 		var $brief = $(this.brief);
 		$brief.data("that", this);
@@ -81,6 +85,42 @@ Module.def(window, function SpotBrief(){}, function(Class){
 		}
 		Util.procIfEx("SpotBrief-if", this.brief, function(c){return eval(c)});
 	}
+	Class.prototype.setNull = function() {
+		this.spot = null;
+
+		var $brief = $(this.brief);
+		$brief.data("that", this);
+
+		$brief.find("a.Edit").click(function(){});
+		$brief.find(".Thumbnail img").attr("src",Util.correctImg(null));
+
+		$brief.find(".Title").html("?");
+		$brief.find(".SubTitle").text("?");
+		$brief.find(".Distance").text("?m");
+
+		$brief.find(".appraise").text("？");
+		$brief.find(".FaceMark").attr('src',"/images/face-0.png");
+
+		$brief.find(".myAppraiseLabel").text("");
+		$brief.find(".myAppraise").text("");
+		$brief.find(".MySpotMark").hide();
+
+		var data = {};		
+		Class._setText($brief, data, "tags");
+		Class._setText($brief, data, "timeLunchMin");
+		Class._setText($brief, data, "timeLunchMax");
+		Class._setText($brief, data, "timeDinnerMin");
+		Class._setText($brief, data, "timeDinnerMax");
+		Class._setText($brief, data, "closedDays");
+		Class._setText($brief, data, "openHours");
+		Class._setText($brief, data, "comment");
+		Class._setText($brief, data, "myMemo");
+
+		$brief.find(".GoogleLogo").html("");
+		$brief.find(".placeUrl").html("");
+		Util.procIfEx("SpotBrief-if", this.brief, function(c){return eval(c)});
+	}
+	
 	Class._setText = function($brief, data, name) {
 		var val = data[name];
 		if (val == null) val = "";

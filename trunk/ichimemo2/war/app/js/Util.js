@@ -37,7 +37,7 @@ Module.def(window, function Util(){}, function(Class) {
 				$.mobile.changePage(id, "slide");
 				$.mobile.activePage.find("a[data-icon='back'] .ui-btn-text").text(title);
 			} catch (err) {
-				alert(err);
+				alert(err+"\n"+err.stack);
 			}
 		},100);
 	}
@@ -147,7 +147,7 @@ Module.def(window, function Util(){}, function(Class) {
 		return false;
 	}
 	Class.setNoImage = function(img) {
-		img.src = "/images/noimage.png";
+		img.src = "/images/noimage.gif";
 	}
 	
 	Class.correntTextarea = function(input) {
@@ -165,7 +165,7 @@ Module.def(window, function Util(){}, function(Class) {
 	}
 	
 	Class.correctImg = function(img) {
-		if (img == null) return "/images/noimage.png";
+		if (img == null) return "/images/noimage.gif";
 		return img;
 	}
 	

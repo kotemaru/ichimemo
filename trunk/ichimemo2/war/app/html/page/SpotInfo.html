@@ -91,19 +91,19 @@
 		</div>
 		
 		<div class="TagHeader"><span>Email</span></div>
-		<div data-role=“fieldcontain”>
+		<div data-role="fieldcontain">
 			<div class="FullSizeInput">
 				<input type="email" name="email" placeholder="E-Mail"/>
 			</div>
 		</div>
 		<div class="TagHeader"><span>URL</span></div>
-		<div data-role=“fieldcontain”>
+		<div data-role="fieldcontain">
 			<div class="FullSizeInput">
 				<input type="url" name="url" placeholder="URL"/>
 			</div>
 		</div>
 		<div class="TagHeader"><span>備考</span></div>
-		<div data-role=“fieldcontain”>
+		<div data-role="fieldcontain">
 			<div class="FullSizeInput">
 				<input type="text" name="comment" placeholder="備考"/>
 			</div>
@@ -114,6 +114,8 @@
 		<hr/>
 		<a data-role="button" data-icon="submit" data-iconpos="right"
 				href="javascript:SpotInfo.write()">登録</a>
+		<a data-role="button" data-icon="minus" data-iconpos="right"
+				href="javascript:SpotInfo.merge()">二重登録の統合</a>
 		<a data-role="button" data-icon="delete" data-iconpos="right"
 				href="javascript:SpotInfo.remove()">削除(オーナーのみ)</a>
 	</form>

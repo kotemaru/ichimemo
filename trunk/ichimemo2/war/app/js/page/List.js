@@ -110,7 +110,7 @@ Page.def(function List(){}, function(Class){
 		div.append(ul);
 	
 		for (var i=0; i<spots.length; i++) {
-			if (spots[i].data.closed != true) {
+			if (spots[i].data.closed != true && spots[i].data.dupSpotId == null) {
 				ul.append(Class.getListItem(spots[i], listItem));
 			}
 		}
@@ -124,7 +124,7 @@ Page.def(function List(){}, function(Class){
 			Math.floor(data.myAppraise ? data.myAppraise : data.appraise);
 		if (appraise<0) appraise = 0;
 		var photo = data.image;
-		if (photo == null || photo == "") photo = "/images/noimage.png";
+		if (photo == null || photo == "") photo = "/images/noimage.gif";
 	
 		var star = data.checked ? "/images/star.png" : "/images/flag-16.png";
 		var html = listItem
