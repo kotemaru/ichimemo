@@ -110,7 +110,9 @@ Page.def(function List(){}, function(Class){
 		div.append(ul);
 	
 		for (var i=0; i<spots.length; i++) {
-			ul.append(Class.getListItem(spots[i], listItem));
+			if (spots[i].data.closed != true) {
+				ul.append(Class.getListItem(spots[i], listItem));
+			}
 		}
 		
 		//jqt.setPageHeight();

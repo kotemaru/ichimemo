@@ -158,7 +158,8 @@ Page.def(function SpotInfo(){}, function(Class){
 			ClosedDays.clear();
 			Class.setSpotPos(pos);
 			$page.find(".Appraise").text("");
-			
+			$page.find(".closed").val(false);
+
 		} else {
 			pos = new google.maps.LatLng(sd.lat, sd.lng);
 	
@@ -180,6 +181,7 @@ Page.def(function SpotInfo(){}, function(Class){
 					? (Math.floor(sd.appraise*10)/10)
 					: "?"
 			);
+			$page.find(".closed").val(sd.closed);
 		}
 	
 		Class.marker2.setPosition(pos);
@@ -268,6 +270,7 @@ Page.def(function SpotInfo(){}, function(Class){
 		params.genres = radioGenre.getValues();
 		params.tags = SpotTags.getValue("spot");
 		params.closedDay = ClosedDays.getValue().join(",");
+		params.closed = $page.find(".closed").is(":checked");
 
 		if (params.name == null || params.name == ""
 			|| params.furikana == null || params.furikana == ""

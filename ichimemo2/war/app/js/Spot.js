@@ -271,7 +271,8 @@ Module.def(window, function Spot(data) {
 		var latMax = Math.max(latNE, latSW);
 		var lngMax = Math.max(lngNE, lngSW);
 	
-		function inBounds(spot) {
+		function isVisible(spot) {
+			if (spot.data.closed == true) return false;
 			return (latMin <= spot.data.lat && spot.data.lat < latMax
 				&& lngMin <= spot.data.lng && spot.data.lng < lngMax);
 		}
@@ -279,25 +280,25 @@ Module.def(window, function Spot(data) {
 		
 		var spots = memcacheList;
 		for (var i=0; i<spots.length; i++) {
-			spots[i].inBounds = inBounds(spots[i]);
+			spots[i].isVisible = isVisible(spots[i]);
 		}
 	//console.log("--->"+spots.length);
 		spots.sort(function(a,b){
-			var ap = a.data.appraise + (a.inBounds?1000.0:0.0);
-			var bp = b.data.appraise + (b.inBounds?1000.0:0.0);
+			var ap = a.data.appraise + (a.isVisible?1000.0:0.0);
+			var bp = b.data.appraise + (b.isVisible?1000.0:0.0);
 			if (ap == bp) return 0;
 			return (ap < bp) ? 1 : -1;
 		});
 		//console.log("----->"+spots.length);
 		if (currentZoom >= 20) limit = 1000;
 		for (var i=0; i<limit && i<spots.length; i++) {
-			if (! spots[i].inBounds) break;
+			if (! spots[i].isVisible) break;
 			spots[i].marker.setVisible(true);
 		}
 	
 		if (i<spots.length) {
 			for (; i<spots.length; i++) {
-				if (spots[i].inBounds) spots[i].marker.setVisible(false);
+				if (spots[i].isVisible) spots[i].marker.setVisible(false);
 			}
 			return false;
 		}

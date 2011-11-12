@@ -39,6 +39,9 @@ public class SpotModel extends ModelBase {
 	private Long updater;
 	private String placeId;
 
+	
+	@Attribute(unindexed = true)
+	private Boolean closed = false;
 	@Attribute(unindexed = true)
 	private Float placeRating;
 	@Attribute(unindexed = true)
@@ -368,6 +371,14 @@ public class SpotModel extends ModelBase {
 
 	public void setPlaceUrl(String placeUrl) {
 		this.placeUrl = placeUrl;
+	}
+
+	public Boolean getClosed() {
+		return closed;
+	}
+
+	public void setClosed(Boolean closed) {
+		this.closed = closed;
 	}
 
 
