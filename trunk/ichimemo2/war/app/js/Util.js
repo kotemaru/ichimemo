@@ -147,7 +147,7 @@ Module.def(window, function Util(){}, function(Class) {
 		return false;
 	}
 	Class.setNoImage = function(img) {
-		img.src = "/images/noimage.gif";
+		img.src = "/images/noimage.png";
 	}
 	
 	Class.correntTextarea = function(input) {
@@ -165,7 +165,7 @@ Module.def(window, function Util(){}, function(Class) {
 	}
 	
 	Class.correctImg = function(img) {
-		if (img == null) return "/images/noimage.gif";
+		if (img == null) return "/images/noimage.png";
 		return img;
 	}
 	
@@ -173,6 +173,13 @@ Module.def(window, function Util(){}, function(Class) {
 		$(base).find("*[if]").each(function(){
 			var $e = $(this);
 			var bool = eval($e.attr('if'));
+			bool ? $e.show() : $e.hide();
+		});
+	}
+	Class.procIfEx = function (attr, base, eval) {
+		$(base).find("*["+attr+"]").each(function(){
+			var $e = $(this);
+			var bool = eval($e.attr(attr));
 			bool ? $e.show() : $e.hide();
 		});
 	}

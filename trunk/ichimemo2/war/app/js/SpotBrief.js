@@ -79,7 +79,7 @@ Module.def(window, function SpotBrief(){}, function(Class){
 		} else {
 			$brief.find(".placeUrl").html("");
 		}
-		Util.procIf(this.brief, function(c){return eval(c)});
+		Util.procIfEx("SpotBrief-if", this.brief, function(c){return eval(c)});
 	}
 	Class._setText = function($brief, data, name) {
 		var val = data[name];

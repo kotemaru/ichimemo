@@ -41,6 +41,8 @@ public class SpotModel extends ModelBase {
 
 	
 	@Attribute(unindexed = true)
+	private Long dupSpotId;
+	@Attribute(unindexed = true)
 	private Boolean closed = false;
 	@Attribute(unindexed = true)
 	private Float placeRating;
@@ -380,6 +382,15 @@ public class SpotModel extends ModelBase {
 	public void setClosed(Boolean closed) {
 		this.closed = closed;
 	}
+
+	public Long getDupSpotId() {
+		return dupSpotId;
+	}
+
+	public void setDupSpotId(Long dupSpotId) {
+		this.dupSpotId = dupSpotId;
+	}
+
 
 
 

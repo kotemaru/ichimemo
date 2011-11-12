@@ -124,7 +124,7 @@ Page.def(function List(){}, function(Class){
 			Math.floor(data.myAppraise ? data.myAppraise : data.appraise);
 		if (appraise<0) appraise = 0;
 		var photo = data.image;
-		if (photo == null || photo == "") photo = "/images/noimage.gif";
+		if (photo == null || photo == "") photo = "/images/noimage.png";
 	
 		var star = data.checked ? "/images/star.png" : "/images/flag-16.png";
 		var html = listItem

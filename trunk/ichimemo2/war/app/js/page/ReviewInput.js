@@ -34,7 +34,7 @@ var ReviewInput = Page.def(function ReviewInput(){}, function(Class){
 				current.review = {
 					id: null, spotId: spotId, appraise: 3, comment: "",
 					nickname: Login.user.nickname, isNewReview:true,
-					photoUrl: "/images/noimage.gif"
+					photoUrl: "/images/noimage.png"
 				};
 			} else {
 				current.review = Review.getReview(id);
@@ -49,7 +49,7 @@ var ReviewInput = Page.def(function ReviewInput(){}, function(Class){
 				current.review = {
 					id: null, spotId: spotId, appraise: 3, comment: "",
 					nickname: Login.user.nickname, isNewReview:true,
-					photoUrl: "/images/noimage.gif"
+					photoUrl: "/images/noimage.png"
 				};
 			}
 		}

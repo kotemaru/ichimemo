@@ -100,7 +100,7 @@ Page.def(function Review(){}, function closure(Class){
 		var appraise = Math.floor(data.appraise);
 		if (appraise<0) appraise = 0;
 		var photo = data.photoUrl;
-		if (photo == null || photo == "") photo = "/images/noimage.gif";
+		if (photo == null || photo == "") photo = "/images/noimage.png";
 
 		var faceMark = (appraise > 0)
 			? "/images/face-"+appraise+".png"
