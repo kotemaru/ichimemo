@@ -272,7 +272,7 @@ Module.def(window, function Spot(data) {
 		var lngMax = Math.max(lngNE, lngSW);
 	
 		function isVisible(spot) {
-			if (spot.data.closed == true) return false;
+			if (spot.data.closed == true || spot.data.dupSpotId != null) return false;
 			return (latMin <= spot.data.lat && spot.data.lat < latMax
 				&& lngMin <= spot.data.lng && spot.data.lng < lngMax);
 		}

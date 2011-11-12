@@ -275,6 +275,11 @@ public class Kokorahen implements JsrpcEnvironment {
 		Long userId = loginUser.isAdmin() ? null : loginUser.getUserId();
 		return spotLogic.removeSpot(spotId, userId);
 	}
+	public String mergeSpot(long srcSpotId, long dstSpotId){
+		checkLogin();
+		//Long userId = loginUser.isAdmin() ? null : loginUser.getUserId();
+		return spotLogic.mergeSpot(srcSpotId, dstSpotId);
+	}
 	//------------------------------------------------------------------------------
 	// MySpot管理
 	public  Long writeMySpot(Map map) throws Exception {

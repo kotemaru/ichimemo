@@ -32,16 +32,20 @@ Page.def(function MemoInput(){}, function(Class){
 	Class.onBeforeShow = function() {
 		var spot = Spot.getSpotForId(Class.spotId);
 		Class.spotBrief.setSpot(spot);
+		Util.procIf(Class.PAGE,function(c){return eval(c)});
 		Util.setNavbar(Class.PAGE);
 	}
 	
 	Class.write = function() {
 		var $page = $(Class.PAGE);
+		var spot = Spot.getSpotForId(Class.spotId);
 		var params = {};
 		params.spotId = Class.spotId;
 		params.tags = SpotTags.getValue(SpotTags.MYSPOT);
 		params.comment = $page.find(".Comment").val();
-		
+
+		if (spot.data.dupSpotId) params.spotId = spot.data.dupSpotId;
+
 		var id = Kokorahen.writeMemo(params);
 		alert("memo id="+id);
 	}
