@@ -229,11 +229,22 @@ public class Kokorahen implements JsrpcEnvironment {
 		UserModel user = userLogic.getTwitterUser(username);
 		return new UserPublicBean(user);
 	}
-	public  void writeUser(Map map) throws Exception {
+	public String writeUser(Map map) throws Exception {
 		Params params = new Params(map);
 		checkLogin(params.toLong("userId"));
+		String msg = userLogic.checkUser(map);
+		if (msg != null) {
+			return msg;
+		}
 		this.loginUser = userLogic.writeUser(map);
 		this.loginUser.setProvider(params.toString("provider"));
+		return null;
+	}
+	public String removeUser(Map map) throws Exception {
+		Params params = new Params(map);
+		Long userId = params.toLong("userId");
+		checkLogin(userId);
+		return userLogic.invalidUser(userId);
 	}
 
 	
@@ -364,6 +375,10 @@ public class Kokorahen implements JsrpcEnvironment {
 
 	//------------------------------------------------------------------------------
 	// デバッグ
+	public  void rewiteUser() throws IOException {
+		userLogic.rewriteAll();
+	}
+	
 	public  void deleteDummyData(){
 		SpotModelMeta e = SpotModelMeta.get();
 		ModelQuery q = Datastore.query(e);

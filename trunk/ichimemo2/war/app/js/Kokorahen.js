@@ -202,6 +202,18 @@ Kokorahen.removeSpot = function(spotId){
 Kokorahen.removeSpotAsync = function(_callback ,spotId){
 	return JSRPC.callAsync(Kokorahen.__URL, "removeSpot", arguments);
 }
+Kokorahen.removeUser = function(map){
+	return JSRPC.call(Kokorahen.__URL, "removeUser", arguments);
+}
+Kokorahen.removeUserAsync = function(_callback ,map){
+	return JSRPC.callAsync(Kokorahen.__URL, "removeUser", arguments);
+}
+Kokorahen.rewiteUser = function(){
+	return JSRPC.call(Kokorahen.__URL, "rewiteUser", arguments);
+}
+Kokorahen.rewiteUserAsync = function(_callback ){
+	return JSRPC.callAsync(Kokorahen.__URL, "rewiteUser", arguments);
+}
 Kokorahen.setHttpServletRequest = function(req){
 	return JSRPC.call(Kokorahen.__URL, "setHttpServletRequest", arguments);
 }

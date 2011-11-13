@@ -17,6 +17,11 @@ import com.google.appengine.api.datastore.Key;
 public class UserModel extends ModelBase {
 	private static final long serialVersionUID = 1L;
 
+	public static final String BAD = "bad";
+	public static final String USER = "user";
+	public static final String COMMITER = "commiter";
+	public static final String ADMIN = "admin";
+
 	private String googleUser;
 	private String twitterUser;
 	private String nickname;
@@ -28,6 +33,7 @@ public class UserModel extends ModelBase {
 	private boolean autoTwit = false;
 	private List<Long> follows = null;
 	private Integer followerNum = 0;
+	private Boolean invalid = false;
 
 	@Attribute(unindexed = true)
 	private List<String> tags;
@@ -35,6 +41,8 @@ public class UserModel extends ModelBase {
 	private String comment;
 	@Attribute(unindexed = true)
 	private String photoUrl;
+	@Attribute(unindexed = true)
+	private String role = USER;
 
 	
 	@Attribute(persistent = false)
@@ -165,6 +173,18 @@ public class UserModel extends ModelBase {
 	}
 	public void setTags(List<String> tags) {
 		this.tags = tags;
+	}
+	public Boolean getInvalid() {
+		return invalid;
+	}
+	public void setInvalid(Boolean invalid) {
+		this.invalid = invalid;
+	}
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 
