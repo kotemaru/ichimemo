@@ -134,7 +134,7 @@ Page.def(function List(){}, function(Class){
 		.replace(/[$][{]address[}]/g, data.address)
 		.replace(/[$][{]appraise[}]/g, appraise)
 		.replace(/[$][{]distance[}]/g, Math.floor(spot._distance))
-		.replace(/[$][{]MySpotMark[}]/g, (data.myAppraise ? "MySpotMark":"Hide"))
+		.replace(/[$][{]MySpotMark[}]/g, (data.mySpot ? "MySpotMark":"Hide"))
 		.replace(/[$][{]mySpotMark[}]/g, star)
 		;
 		return html;

@@ -289,6 +289,7 @@ public class MySpotLogic  {
 		spot.setMyMemo(mySpot.getMemo());
 		spot.setChecked(mySpot.getChecked());
 		spot.setTemporal(mySpot.getTemporal());
+		spot.setMySpot(true);
 		return spot;
 	}
 	public List<SpotModel> margeMySpot(Long userId, List<SpotModel> spots) throws Exception {
