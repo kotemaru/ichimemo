@@ -1,5 +1,6 @@
 package org.kotemaru.kokorahen.logic;
 
+import java.io.IOException;
 import java.util.*;
 import java.util.logging.Logger;
 import org.slim3.datastore.*;
@@ -7,6 +8,7 @@ import org.kotemaru.jsrpc.Params;
 import org.kotemaru.kokorahen.jsrpc.Kokorahen;
 import org.kotemaru.kokorahen.meta.UserModelMeta;
 import org.kotemaru.kokorahen.model.UserModel;
+import org.kotemaru.util.json.JSONSerializer;
 
 import twitter4j.TwitterException;
 
@@ -46,6 +48,7 @@ public class UserLogic  {
 		UserModelMeta e = UserModelMeta.get();
 		ModelQuery q = Datastore.query(e);
 		q.filter(e.googleUser.equal(name));
+		q.filter(e.invalid.equal(false));
 		List<UserModel> list = q.asList();
 		if (list.size() == 0) return null;
 		return list.get(0);
@@ -54,6 +57,7 @@ public class UserLogic  {
 		UserModelMeta e = UserModelMeta.get();
 		ModelQuery q = Datastore.query(e);
 		q.filter(e.twitterUser.equal(name));
+		q.filter(e.invalid.equal(false));
 		List<UserModel> list = q.asList();
 		if (list.size() == 0) return null;
 		return list.get(0);
@@ -94,6 +98,28 @@ public class UserLogic  {
 		Datastore.put(user);
 		return collectUserInfo(user);
 	}
+	public String checkUser(Map map) throws Exception {
+		Params params = new Params(map);
+		long userId = params.toLong("userId");
+		String gname = params.toString("googleUser");
+		String tname = params.toString("twitterUser");
+
+		if (gname != null && gname.length()>0 ) {
+			UserModel user = getGoogleUser(gname, false);
+			if (user != null && user.getUserId() != userId) {
+				return "このGoogleユーザ("+gname+")は既に登録されています。"
+					+ " ["+user.getUserId()+","+userId+"]";
+			}
+		}
+		if (tname != null && tname.length()>0 ) {
+			UserModel user = getTwitterUser(tname, false);
+			if (user != null && user.getUserId() != userId) {
+				return "このTwitterユーザ("+tname+")は既に登録されています。"
+					+ " ["+user.getUserId()+","+userId+"]";
+			}
+		}
+		return null;
+	}
 
 	public UserModel writeUser(Map map) throws Exception {
 		Params params = new Params(map);
@@ -114,6 +140,21 @@ public class UserLogic  {
 		cacheUserModel.remove(id);
 		return collectUserInfo(user);
 	}
+	
+	public String invalidUser(Long userId) throws Exception {
+		UserModel user =  getUserModel(userId);
+		if (UserModel.BAD.equals(user.getRole())) {
+			return "このユーザは削除できません。";
+		}
+		
+		user.setInvalid(true);
+		user.setUpdateDate(new Date());
+
+		Datastore.put(user);
+		cacheUserModel.remove(userId);
+		return null;
+	}
+	
 	public UserModel lastLogin(UserModel user) throws Exception {
 		user.setLastLogin(new Date());
 		Datastore.put(user);
@@ -137,4 +178,25 @@ public class UserLogic  {
 		return user;
 	}
 
+	// debug
+	/** 再書き込みでデフォルト値設定 
+	 * @throws IOException */
+	public void rewriteAll() throws IOException {
+		JSONSerializer seri = new JSONSerializer();
+		UserModelMeta e = UserModelMeta.get();
+		ModelQuery<UserModel> q = Datastore.query(e);
+		Iterator<UserModel> ite = q.asIterator();
+		while (ite.hasNext()) {
+			UserModel model = ite.next();
+			model.setInvalid(false);
+			model.setRole(model.COMMITER);
+			System.out.println(seri.getString(model, "utf-8"));
+			Datastore.put(model);
+		}
+	}
+
+	
+	
+	
+	
 }

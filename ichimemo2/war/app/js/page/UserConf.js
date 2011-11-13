@@ -35,14 +35,35 @@ Page.def(function UserConf(){}, function(Class){
 		}
 		Login.user.photoUrl = photo;
 		
-		Kokorahen.writeUser(Login.user);
+		writeUser();
+	}
+	Class.remove = function() {
+		var msg = "ユーザ("
+			+Login.user.nickname
+			+")を削除しようとしてます。";
+		if (confirm(msg)) {
+			var err = Kokorahen.removeUser(Login.user);
+			if (err == null) {
+				alert("ユーザを削除しました。");
+				Login.logout();
+			} else {
+				alert(err);
+			}
+		}
+	}
+	
+	function writeUser() {
+		var msg = Kokorahen.writeUser(Login.user);
+		if (msg != null) {
+			alert(msg);
+		}
 		Login.refresh();
 	}
+	
 	Class.getThumbnailImg = function () {
 		var $img = $(Class.PAGE).find(".Thumbnail img");
 		return $img;
 	}
-
 	
 	Class.addFollow = function(userId) {
 		if (Login.user.userId == userId) {
@@ -59,15 +80,13 @@ Page.def(function UserConf(){}, function(Class){
 			return;
 		}
 		Login.user.follows.push(userId);
-		Kokorahen.writeUser(Login.user);
-		Login.refresh();
+		writeUser();
 	}
 	Class.delFollow = function(userId) {
 		var idx = Login.user.follows.indexOf(userId);
 		if (idx < 0) return;
 		Login.user.follows.splice(idx, 1);
-		Kokorahen.writeUser(Login.user);
-		Login.refresh();
+		writeUser();
 	}
 	
 	Class.recommandMySpot = function() {

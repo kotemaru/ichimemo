@@ -57,7 +57,7 @@ public class JSONSerializer {
 		sObject(obj);
 		this.out.flush();
 	}
-	public String getString(Map obj, String charset) throws IOException  {
+	public String getString(Object obj, String charset) throws IOException  {
 		ByteArrayOutputStream bout = new ByteArrayOutputStream();
 		serialize(obj, bout);
 		return bout.toString(charset);
