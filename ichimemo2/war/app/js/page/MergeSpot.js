@@ -79,6 +79,8 @@ Page.def(function MergeSpot(){}, function(Class){
 		}
 
 		Kokorahen.mergeSpot(targetSpot.data.id, distSpot.data.id);
+		alert("統合しました。");
+		List.go();
 	}
 
 });

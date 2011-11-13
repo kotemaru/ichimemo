@@ -66,6 +66,8 @@ public class SpotModel extends ModelBase {
 	private List<String> myTags; 
 	@Attribute(persistent = false)
 	private String myMemo; 
+	@Attribute(persistent = false)
+	private Boolean mySpot = false; 
 
 	public long getId() {
 		return getKey().getId();
@@ -389,6 +391,14 @@ public class SpotModel extends ModelBase {
 
 	public void setDupSpotId(Long dupSpotId) {
 		this.dupSpotId = dupSpotId;
+	}
+
+	public Boolean getMySpot() {
+		return mySpot;
+	}
+
+	public void setMySpot(Boolean mySpot) {
+		this.mySpot = mySpot;
 	}
 
 

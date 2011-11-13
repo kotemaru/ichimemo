@@ -49,12 +49,18 @@ Module.def(window, function SpotBrief(){}, function(Class){
 			var label = data.checked ? "評価:" : "期待:";
 			$brief.find(".myAppraiseLabel").text(label);
 			$brief.find(".myAppraise").text(Math.floor(data.myAppraise*10)/10);
-			var star = data.checked ? "/images/star.png" : "/images/flag-16.png";
-			$brief.find(".MySpotMark").show().attr('src', star);
+			//var star = data.checked ? "/images/star.png" : "/images/flag-16.png";
+			//$brief.find(".MySpotMark").show().attr('src', star);
 			
 		} else {
 			$brief.find(".myAppraiseLabel").text("");
 			$brief.find(".myAppraise").text("");
+			//$brief.find(".MySpotMark").hide();
+		}
+		if (data.mySpot) {
+			var star = data.checked ? "/images/star.png" : "/images/flag-16.png";
+			$brief.find(".MySpotMark").show().attr('src', star);
+		} else {
 			$brief.find(".MySpotMark").hide();
 		}
 
