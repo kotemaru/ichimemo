@@ -1,138 +1,79 @@
 Module.def(window, function SpotBrief(){}, function(Class){
+	var Instance = Class.prototype;
+
+	var URL_PATT = /(https?|ftp)(:\/\/[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)/g;
 
 	Class.TEMPL = $("#spotBrief").html();
 
-	Class.prototype.init = function(page) {
+	Instance.init = function(page) {
 		var $brief = $(page).find(".SpotBrief");
+		$brief.attr("scope","local");
 		$brief.html(Class.TEMPL);
 		this.brief = $brief[0];
 		return this;
 	}
 	
-	Class.prototype.setSpot = function(spot) {
+	Instance.setSpot = function(spot) {
 		this.spot = spot;
-		if (spot == null) {
-			return this.setNull();
+		var that = this;
+		var data = {};
+		if (spot != null) {
+			data = spot.data;
+			var $brief = $(this.brief);
+			$brief.data("that", this);
+			$brief.find("a.Edit").click(function(){
+				SpotInfo.setCurrent(spot);
+				SpotInfo.go();
+			});
 		}
+		Util.evalAttr(this.brief, function(c){return eval(c)});
+	}
 
-		var data = spot.data;
-		var $brief = $(this.brief);
-		$brief.data("that", this);
+	function f3(val) {
+		if (val == null || val <= 0) return "?";
+		return Math.floor(val*10)/10
+	}
 
-		$brief.find("a.Edit").click(function(){
-			SpotInfo.setCurrent(spot);
-			SpotInfo.go();
-		});
-		$brief.find(".Thumbnail img").attr("src",Util.correctImg(data.image));
+	function url2link(text) {
+		if (text == null) return "";
+		return text.replace(URL_PATT,"<a target='_blank' href='$1$2'>$1$2</a>");
+	}
 
-		var title = data.name;
+	Instance.titleHtml = function() {
+		if (this.spot == null) return "?";
+		var data = this.spot.data;
 		if (data.url != null && data.url != "") {
-			title = "<a target='_blank' href='"+data.url+"'>"+data.name+"</a>";
+			return "<a target='_blank' href='"+data.url+"'>"+data.name+"</a>";
 		}
-		$brief.find(".Title").html(title);
-		$brief.find(".SubTitle").text(data.address);
-		$brief.find(".Distance").text(Util.spotDistance(spot)+"m");
-
-		if (data.appraise > 0) {
-			$brief.find(".appraise").text(Math.floor(data.appraise*10)/10);
-			$brief.find(".FaceMark").attr('src',
-					"/images/face-"+Math.floor(data.appraise+0.9999999)+".png");
-		} else {
-			$brief.find(".appraise").text("？");
-			$brief.find(".FaceMark").attr('src',"/images/face-0.png");
-		}
-
-		if (data.myAppraise > 0) {
-			$brief.find(".FaceMark").attr('src',
-					"/images/face-"+Math.floor(data.myAppraise)+".png");
-			
-			var label = data.checked ? "評価:" : "期待:";
-			$brief.find(".myAppraiseLabel").text(label);
-			$brief.find(".myAppraise").text(Math.floor(data.myAppraise*10)/10);
-			//var star = data.checked ? "/images/star.png" : "/images/flag-16.png";
-			//$brief.find(".MySpotMark").show().attr('src', star);
-			
-		} else {
-			$brief.find(".myAppraiseLabel").text("");
-			$brief.find(".myAppraise").text("");
-			//$brief.find(".MySpotMark").hide();
-		}
-		if (data.mySpot) {
-			var star = data.checked ? "/images/star.png" : "/images/flag-16.png";
-			$brief.find(".MySpotMark").show().attr('src', star);
-		} else {
-			$brief.find(".MySpotMark").hide();
-		}
-
-		
-		Class._setText($brief, data, "tags");
-		Class._setText($brief, data, "timeLunchMin");
-		Class._setText($brief, data, "timeLunchMax");
-		Class._setText($brief, data, "timeDinnerMin");
-		Class._setText($brief, data, "timeDinnerMax");
-		Class._setText($brief, data, "closedDays");
-		Class._setText($brief, data, "openHours");
-		Class._setText($brief, data, "comment");
-		Class._setText($brief, data, "myMemo");
-
-		if (data.placeId != null) {
-			$brief.find(".GoogleLogo").html(
-				"<img src='/images/powered-by-google.png' />"
-			);
-		} else {
-			$brief.find(".GoogleLogo").html("");
-		}
-		if (data.placeUrl != null) {
-			$brief.find(".placeUrl").html(
-				"[<a href='"+data.placeUrl+"' target='_blank'>GooglePlaceへ</a>]"
-			);
-		} else {
-			$brief.find(".placeUrl").html("");
-		}
-		Util.procIfEx("SpotBrief-if", this.brief, function(c){return eval(c)});
+		return  data.name;
 	}
-	Class.prototype.setNull = function() {
-		this.spot = null;
 
-		var $brief = $(this.brief);
-		$brief.data("that", this);
-
-		$brief.find("a.Edit").click(function(){});
-		$brief.find(".Thumbnail img").attr("src",Util.correctImg(null));
-
-		$brief.find(".Title").html("?");
-		$brief.find(".SubTitle").text("?");
-		$brief.find(".Distance").text("?m");
-
-		$brief.find(".appraise").text("？");
-		$brief.find(".FaceMark").attr('src',"/images/face-0.png");
-
-		$brief.find(".myAppraiseLabel").text("");
-		$brief.find(".myAppraise").text("");
-		$brief.find(".MySpotMark").hide();
-
-		var data = {};		
-		Class._setText($brief, data, "tags");
-		Class._setText($brief, data, "timeLunchMin");
-		Class._setText($brief, data, "timeLunchMax");
-		Class._setText($brief, data, "timeDinnerMin");
-		Class._setText($brief, data, "timeDinnerMax");
-		Class._setText($brief, data, "closedDays");
-		Class._setText($brief, data, "openHours");
-		Class._setText($brief, data, "comment");
-		Class._setText($brief, data, "myMemo");
-
-		$brief.find(".GoogleLogo").html("");
-		$brief.find(".placeUrl").html("");
-		Util.procIfEx("SpotBrief-if", this.brief, function(c){return eval(c)});
+	Instance.faceMarkImg = function() {
+		if (this.spot == null) return "?";
+		var data = this.spot.data;
+		if (null != data.myAppraise && data.myAppraise > 0) {
+			return "/images/face-"+Math.floor(data.myAppraise)+".png";
+		} else if (data.appraise > 0) {
+			return "/images/face-"+Math.floor(data.appraise)+".png";
+		}
+		return "/images/face-0.png";
 	}
-	
-	Class._setText = function($brief, data, name) {
-		var val = data[name];
+	Instance.data = function(name){
+		if (this.spot == null) return "";
+		var val = this.spot.data[name];
 		if (val == null) val = "";
-		if (val.join) val = val.join(",");
-		$brief.find("."+name).text(val);
+		if (val.join) return val.join(",");
+		return val;
 	}
+	Instance.placeUrl = function(){
+		if (this.spot == null) return "";
+		var data = this.spot.data;
+		if (data.placeId != null) {
+			return "[<a href='"+data.placeUrl+"' target='_blank'>GooglePlaceへ</a>]";
+		}
+		return "";
+	}
+
 	
 	Class.toggleDetail = function(ev,_this) { // this=img
 		var $brief = $(_this.parentNode.parentNode);
@@ -145,11 +86,11 @@ Module.def(window, function SpotBrief(){}, function(Class){
 		Util.eventBreaker(ev);
 	}
 
-	Class.prototype.showDetail = function() { 
+	Instance.showDetail = function() { 
 		$(this.brief).find(".SpotDetail").show();
 		$(this.brief).find(".SpotDetailKnob img").attr('src',"/images/pullup.png");
 	}
-	Class.prototype.hideDetail = function() { 
+	Instance.hideDetail = function() { 
 		$(this.brief).find(".SpotDetail").hide();
 		$(this.brief).find(".SpotDetailKnob img").attr('src',"/images/pulldown.png");
 	}

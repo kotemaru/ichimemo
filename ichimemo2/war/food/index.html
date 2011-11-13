@@ -25,10 +25,10 @@ if (undefined === window.console) {
 	<link rel="stylesheet" href="../jq/jqm/jquery.mobile-1.0rc2.css" />
 	<script src="../jq/jquery-1.6.2.min.js"></script>
 	
-	<link rel="stylesheet" href="../app/min/all-min.css?v=20111113_1320" />
+	<link rel="stylesheet" href="../app/min/all-min.css?v=20111113_1723" />
 	<script src="http://maps.google.com/maps/api/js?libraries=geometry&amp;sensor=true"></script>
 	<script src="../jq/jqm/jquery.mobile-1.0rc2.min.js"></script>
-	<script src="../app/min/all-min.js?v=20111113_1320"></script>
+	<script src="../app/min/all-min.js?v=20111113_1723"></script>
 	<script src="Genre.js"></script>
 
 	<style>
@@ -122,7 +122,7 @@ Please wait...
 	<div data-role="content">
 			<div align="center">
 				<img onclick="Util.goExt('../')" width="300px" src="/images/kokorahen-logo.png"/>
-				<div class="Small" align="right">Ver:SNAP-20111113-1320</div>
+				<div class="Small" align="right">Ver:SNAP-20111113-1723</div>
 			</div>
 			<a href="javascript:Util.goExt('../food/')" data-ajax="false" data-role="button">食べに行きたい</a>
 			<a href="javascript:Util.goExt('../bar/')"  data-ajax="false" data-role="button">呑みに行きたい</a>
@@ -1447,36 +1447,41 @@ body {
 
 <div class="Template">
 	
-	<div id="spotBrief" class="SpotBrief" >
-		<a class="Edit" data-role="button" data-icon="edit" data-iconpos="notext"></a>
-		<span class="Thumbnail" ><div><div>
-			<img src="/images/Home.png" onerror='SpotInfo.setDefaultPhoto(this)' />
-		</div></div></span>
-		<img class='MySpotMark' src='/images/star.png' />
-		<img class='FaceMark' src='/images/face-0.png' />
-		<div class='ClosedMark' SpotBrief-if="(data.closed==true)">閉店</div>
-		<div class='MergeMark' SpotBrief-if="(data.dupSpotId!=null)">
-			スポットは統合されました。
-		</div>
-
-		<div class="Title">Title</div>
-		<div class="SubTitle">SubTitle</div>
-		<div class="Small">距離:<span class="Distance">999m</span>
-			一般評価:<span class="appraise"></span>
-			<span class="myAppraiseLabel"></span><span class="myAppraise"></span>
+	<div id="spotBrief" class="SpotBrief" scope="local" >
+		<div>
+			<a class="Edit" data-role="button" data-icon="edit" data-iconpos="notext"></a>
+			<span class="Thumbnail" ><div><div>
+				<img eval-src="(Util.correctImg(data.image))" onerror='SpotInfo.setDefaultPhoto(this)' />
+			</div></div></span>
+			<img class='MySpotMark' src='/images/star.png'  if="(data.mySpot && data.checked)"/>
+			<img class='MySpotMark' src='/images/flag-16.png' if="(data.mySpot && !data.checked)"/>
+			<img class='FaceMark' eval-src="(that.faceMarkImg())" />
+			<div class='ClosedMark' if="(data.closed==true)">閉店</div>
+			<div class='MergeMark' if="(data.dupSpotId!=null)">
+				スポットは統合されました。
+			</div>
+	
+			<div class="Title" eval-html="(that.titleHtml())" >Title</div>
+			<div class="SubTitle" eval-text="(data.address)" >SubTitle</div>
+			<div class="Small">距離:<span class="Distance" eval-text="(Util.spotDistance(spot)+'m')">999m</span>
+				一般評価:<span eval-text="(f3(data.appraise))"></span>
+				<span if="(data.checked)">評価：</span><span if="(!data.checked)">期待：</span>
+				<span eval-text="(f3(data.myAppraise))"></span>
+			</div>
 		</div>
 		<div class="SpotDetail">
-			<div>タグ: <span class="tags"></span></div>
-			<div>昼: <span class="timeLunchMin"></span>〜<span class="timeLunchMax"></span></div>
-			<div>夜: <span class="timeDinnerMin"></span>〜<span class="timeDinnerMax"></span></div>
-			<div>休: <span class="closedDays"></span></div>
-			<div>備考: <span class="openHours"></span>
-				<span class="comment"></span><span class="placeUrl"></span>
+			<div>タグ: <span eval-text="(that.data('tags'))"></span></div>
+			<div>昼: <span eval-text="(that.data('timeLunchMin'))"></span>〜<span eval-text="(that.data('timeLunchMax'))"></span></div>
+			<div>夜: <span eval-text="(that.data('timeDinnerMin'))"></span>〜<span eval-text="(that.data('timeDinnerMax'))"></span></div>
+			<div>休: <span eval-text="(that.data('closedDays'))"></span></div>
+			<div>備考: <span eval-text="(that.data('openHours'))"></span>
+				<span eval-html="(url2link(that.data('comment')))"></span>
+				<span eval-html="(that.placeUrl())"></span>
 			</div>
-			<div>メモ: <span class="myMemo"></span></div>
+			<div>メモ: <span eval-text="(that.data('myMemo'))"></span></div>
 			<div style="height:4px;" ></div>
 			<div>(<font color="red">※</font>未登録項目への<a class="Edit" href="#">記入</a>に御協力下さい。)</div>
-			<div class="GoogleLogo" align="right"></div>
+			<div id="(data.placeId)" align="right"><img src='/images/powered-by-google.png' /></div>
 		</div>
 		<div class="SpotDetailKnob"><div></div><span onclick="SpotBrief.toggleDetail(event,this)"><img src="/images/pulldown.png" /></span></div>
 	</div>
@@ -1488,7 +1493,7 @@ body {
 	position: relative;;
 }
 
-.SpotBrief > a {
+.SpotBrief >div> a.Edit {
 	float: right;
 }
 .SpotBrief > div.SpotDetail {
@@ -1503,18 +1508,18 @@ body {
 .SpotBrief > div.SpotDetailKnob > img{
 	vertical-align: top;
 }
-.SpotBrief > img.FaceMark{
+.SpotBrief  img.FaceMark{
 	position: absolute;
 	top:-7px;
 	left:-7px;
 }
-.SpotBrief > img.MySpotMark{
+.SpotBrief  img.MySpotMark{
 	position: absolute;
 	top:-7px;
 	left:3px;
 }
 
-.SpotBrief > div.ClosedMark, div.MergeMark{
+.SpotBrief  div.ClosedMark, div.MergeMark{
 	position: absolute;
 	top: 10px;
 	left: 5px;

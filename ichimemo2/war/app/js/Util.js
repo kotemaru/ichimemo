@@ -169,13 +169,52 @@ Module.def(window, function Util(){}, function(Class) {
 		return img;
 	}
 	
-	Class.procIf = function (base, eval) {
+	Class.evalAttr = function (base, localEval) {
+		//var xxx = $(base).find("*[if]");
+		var $local = $(base).find("*[scope='local']");
+		var backup = [];
+		for (var i=0; i<$local.length; i++) {
+			backup.push($local[i]);
+			$($local[i]).replaceWith("<div backup-no="+i+">backup-"+i+"</dvi>");
+		};
+
 		$(base).find("*[if]").each(function(){
 			var $e = $(this);
-			var bool = eval($e.attr('if'));
+			var bool = localEval($e.attr('if'));
 			bool ? $e.show() : $e.hide();
 		});
+		$(base).find("*[eval-src]").each(function(){
+			var $e = $(this);
+			$e.attr("src",localEval($e.attr('eval-src')));
+		});
+		$(base).find("*[eval-href]").each(function(){
+			var $e = $(this);
+			$e.attr("href",localEval($e.attr('eval-href')));
+		});
+		$(base).find("*[eval-value]").each(function(){
+			var $e = $(this);
+			$e.val(localEval($e.attr('eval-value')));
+		});
+		$(base).find("*[eval-text]").each(function(){
+			var $e = $(this);
+			$e.text(localEval($e.attr('eval-text')));
+		});
+		$(base).find("*[eval-html]").each(function(){
+			var $e = $(this);
+			$e.html(localEval($e.attr('eval-html')));
+		});
+
+
+		var $local = $(base).find("div[backup-no]");
+		for (var i=0; i<$local.length; i++) {
+			$($local[i]).replaceWith(backup[i]);
+		};
+	
 	}
+	Class.procIf = Class.evalAttr;
+
+	
+	
 	Class.procIfEx = function (attr, base, eval) {
 		$(base).find("*["+attr+"]").each(function(){
 			var $e = $(this);
