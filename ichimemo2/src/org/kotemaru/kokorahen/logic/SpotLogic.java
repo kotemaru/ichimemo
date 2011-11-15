@@ -196,39 +196,85 @@ public class SpotLogic  {
 			if (tag != null) q.filter(e.tags.in(tag));
 			qs[i] = q.asIterator();
 		}
+
+		HashSet<Long> mySpots = new HashSet<Long>(list.size());
+		for (int i=0; i<list.size(); i++) {
+			mySpots.add(list.get(i).getId());
+		}
 		
 		SpotModel[] spots = new SpotModel[qs.length];
 		for (int i=0; i<qs.length; i++) {
-			while (spots[i] == null && qs[i].hasNext()) {
-				spots[i] = qs[i].next();
-				if (!isMatch(spots[i],search,latMin,lngMin,latMax,lngMax)) {
-					spots[i] = null;
-				}
-			}
+			spots[i] = next(qs[i],search,latMin,lngMin,latMax,lngMax);
 		}
 
+		while (list.size()<limit) {
+			SpotModel spot = maxSpot(spots, qs, search, latMin, lngMin, latMax, lngMax);
+			if (spot == null) {
+				//System.out.println("===>--break");
+				break;
+			}
+			if (!mySpots.contains(spot.getId())) {
+				//System.out.println("===>"+spot.getName()+":"+list.size());
+				list.add(spot);
+			}
+		}
+		
+/*
 		while (list.size()<limit) {
 			int maxJ = -1;
 			float maxA = -10000.0F;
 			for (int j=0; j<spots.length; j++) {
-				if (spots[j] != null && spots[j].getAppraise() > maxA) {
+				if (spots[j] != null) {
+					//System.out.println("====3>"+j+":"+maxJ+":"+spots[j].getAppraise()+":"+maxA);
+				}
+				if (spots[j] != null && spots[j].getAppraise() >= maxA) {
 					maxJ = j;
 					maxA = spots[j].getAppraise();
 				}
 			}
+			//System.out.println("=======4>"+maxJ+":"+maxA);
 			if (maxJ == -1) break;
 			list.add(spots[maxJ]);
 			spots[maxJ] = null;
 			while (spots[maxJ] == null && qs[maxJ].hasNext()) {
 				spots[maxJ] = qs[maxJ].next();
+				//System.out.println("==2>"+maxA+":"+maxJ+":"+areas.get(maxJ)+":"+spots[maxJ].getName());
 				if (!isMatch(spots[maxJ],search,latMin,lngMin,latMax,lngMax)) {
 					spots[maxJ] = null;
 				}
 			}
 		}
-		
+*/	
 		return list;
 	}
+
+	private SpotModel next(Iterator<SpotModel> q, String search, 
+			double latMin, double lngMin, double latMax, double lngMax) {
+		while (q.hasNext()) {
+			SpotModel spot = q.next();
+			if (isMatch(spot,search,latMin,lngMin,latMax,lngMax)) {
+				return spot;
+			}
+		}
+		return null;
+	}
+	private SpotModel maxSpot(SpotModel spots[], Iterator<SpotModel>[] qs, String search,
+			double latMin, double lngMin, double latMax, double lngMax) {
+		float max = -10000.0F;
+		int idx = -1;
+		for (int i=0; i<spots.length; i++) {
+			if (spots[i] != null && spots[i].getAppraise() > max) {
+				max = spots[i].getAppraise();
+				idx = i;
+			}
+		}
+		if (idx == -1) return null;
+
+		SpotModel spot = spots[idx];
+		spots[idx] = next(qs[idx], search, latMin, lngMin, latMax, lngMax);
+		return spot;
+	}
+
 	
 	private boolean isMatch(SpotModel spot, String search, 
 			double latMin, double lngMin, double latMax, double lngMax) {
@@ -307,7 +353,7 @@ public class SpotLogic  {
 			
 			// 評価値をSpotに追加する。
 			for (int j=0; j<reviews.size(); j++) {
-				System.out.println("listFollowSpot-1.2="+i+","+j+":"+reviews.size());
+				//System.out.println("listFollowSpot-1.2="+i+","+j+":"+reviews.size());
 				ReviewModel review = reviews.get(j);
 				Long spotId = review.getSpotId();
 				Appraise app = appMap.get(spotId);
