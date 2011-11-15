@@ -51,6 +51,7 @@ Page.def(function UserConf(){}, function(Class){
 		if (isChangeLogin(loginName)) {
 			alert("ログイン中のアカウントが変更されました。ログアウトします。");
 			Login.logout();
+			return;
 		}
 		if (isOK) User.go();
 	}
@@ -71,11 +72,11 @@ Page.def(function UserConf(){}, function(Class){
 	
 	function writeUser() {
 		var msg = Kokorahen.writeUser(Login.user);
+		Login.refresh();
 		if (msg != null) {
 			alert(msg);
 			return false;
 		}
-		Login.refresh();
 		return true;
 	}
 	

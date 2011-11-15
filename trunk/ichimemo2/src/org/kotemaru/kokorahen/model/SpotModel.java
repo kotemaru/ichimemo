@@ -164,6 +164,7 @@ public class SpotModel extends ModelBase {
 
 
 	public Float getAppraise() {
+		if (Float.isNaN(appraise)) return 0.0F;
 		return appraise;
 	}
 

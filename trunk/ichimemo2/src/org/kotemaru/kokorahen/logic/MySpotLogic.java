@@ -224,14 +224,21 @@ public class MySpotLogic  {
 		
 		MySpotModel[] spots = new MySpotModel[qs.length];
 		for (int i=0; i<qs.length; i++) {
-			while (spots[i] == null && qs[i].hasNext()) {
-				spots[i] = qs[i].next();
-				if (!isMatch(spots[i],search,latMin,lngMin,latMax,lngMax)) {
-					spots[i] = null;
-				}
-			}
+			spots[i] = next(qs[i],search,latMin,lngMin,latMax,lngMax);
 		}
-
+		
+		List<SpotModel> list = new ArrayList<SpotModel>(limit);
+		while (list.size()<limit) {
+			MySpotModel spot = maxSpot(spots, qs, search, latMin, lngMin, latMax, lngMax);
+			if (spot == null) {
+				//System.out.println("@@@>--break");
+				break;
+			}
+			//System.out.println("@@@>"+spot.getName()+":"+list.size());
+			list.add(toSpotModel(spot));
+		}
+		
+/*
 		List<SpotModel> list = new ArrayList<SpotModel>(limit);
 		for (int i=0; i<limit; i++) {
 			int maxJ = -1;
@@ -257,7 +264,7 @@ public class MySpotLogic  {
 				}
 			}
 		}
-		
+*/
 		if (true == general && list.size()<limit) {
 			env.spotLogic.listSpot(
 				genre,
@@ -276,6 +283,32 @@ public class MySpotLogic  {
 		System.out.println("checked="+checked+",spots="+list.size()+"\n"+params);
 
 		return list;
+	}
+	private MySpotModel next(Iterator<MySpotModel> q, String search, 
+			double latMin, double lngMin, double latMax, double lngMax) {
+		while (q.hasNext()) {
+			MySpotModel spot = q.next();
+			if (isMatch(spot,search,latMin,lngMin,latMax,lngMax)) {
+				return spot;
+			}
+		}
+		return null;
+	}
+	private MySpotModel maxSpot(MySpotModel spots[], Iterator<MySpotModel>[] qs, String search,
+			double latMin, double lngMin, double latMax, double lngMax) {
+		float max = -10000.0F;
+		int idx = -1;
+		for (int i=0; i<spots.length; i++) {
+			if (spots[i] != null && spots[i].getAppraise() > max) {
+				max = spots[i].getAppraise();
+				idx = i;
+			}
+		}
+		if (idx == -1) return null;
+
+		MySpotModel spot = spots[idx];
+		spots[idx] = next(qs[idx], search, latMin, lngMin, latMax, lngMax);
+		return spot;
 	}
 	
 	private SpotModel toSpotModel(MySpotModel mySpot) {

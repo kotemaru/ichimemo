@@ -48,8 +48,8 @@ public class Kokorahen implements JsrpcEnvironment {
 
 	private static final Logger LOG = Logger.getLogger(Kokorahen.class.getName());
 
-	private static final String  GOOGLE = "google";
-	private static final String  TWITTER = "twitter";
+	public static final String  GOOGLE = "google";
+	public static final String  TWITTER = "twitter";
 
 	public static final String BASE_PATH = "/classes/"
 		+ Kokorahen.class.getName().replace('.','/');
@@ -134,6 +134,20 @@ public class Kokorahen implements JsrpcEnvironment {
 			throw new JsrpcException("Not admin.");
 		}
 	}
+	public UserModel createUser() throws Exception {
+		if (loginUser == null || !loginUser.isTemporal()) return null;
+
+		String provider = this.loginUser.getProvider();
+		if (GOOGLE.equals(provider)) {
+			loginUser = userLogic.getGoogleUser(loginUser.getGoogleUser(), true);
+		} else if (TWITTER.equals(provider)) {
+			loginUser = userLogic.getTwitterUser(loginUser.getTwitterUser(), true);
+		} else {
+			throw new RuntimeException("Unsupported login provider "+provider);
+		}
+		loginUser.setProvider(provider);
+		return loginUser;
+	}
 
 	public  String login(String provider, String top) throws Exception {
 		topPageUrl = top;
@@ -147,12 +161,14 @@ public class Kokorahen implements JsrpcEnvironment {
 		}
 	}
 
-
-	public  String loginGoogle(String url) throws Exception {
+	private String loginGoogle(String url) throws Exception {
 		UserService us = UserServiceFactory.getUserService();
 		if (us.getCurrentUser() != null) {
 			String name = us.getCurrentUser().getEmail();
-			UserModel user = userLogic.getGoogleUser(name, true);
+			UserModel user = userLogic.getGoogleUser(name, false);
+			if (user == null) {
+				user = userLogic.getGoogleUserTmp(name);
+			}
 			userLogic.lastLogin(user);
 			user.setProvider(GOOGLE);
 			user.setAdmin(us.isUserAdmin());
@@ -184,6 +200,9 @@ public class Kokorahen implements JsrpcEnvironment {
 
 		String name = twitterLogic.getScreenName();
 		UserModel user = userLogic.getTwitterUser(name, true);
+		if (user == null) {
+			user = userLogic.getTwitterUserTmp(name);
+		}
 		userLogic.lastLogin(user);
 		this.loginUser = user;
 		user.setProvider(TWITTER);

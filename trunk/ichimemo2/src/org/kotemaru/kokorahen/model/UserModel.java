@@ -46,13 +46,16 @@ public class UserModel extends ModelBase {
 
 	
 	@Attribute(persistent = false)
-	private boolean admin;
+	private boolean temporal = false;
+	@Attribute(persistent = false)
+	private boolean admin = false;
 	@Attribute(persistent = false)
 	private String provider;
 	@Attribute(persistent = false)
 	private Map<Long,String> followsNickname = null;
 
 	public Long getUserId() {
+		if (getKey() == null) return -1L;
 		return getKey().getId();
 	}
 	public void setUserId(Long id) {
@@ -185,6 +188,12 @@ public class UserModel extends ModelBase {
 	}
 	public void setRole(String role) {
 		this.role = role;
+	}
+	public boolean isTemporal() {
+		return temporal;
+	}
+	public void setTemporal(boolean temporal) {
+		this.temporal = temporal;
 	}
 
 

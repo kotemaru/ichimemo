@@ -74,6 +74,7 @@ public class UserLogic  {
 		user.setCreateDate(new Date());
 		user.setUpdateDate(new Date());
 		user.setLastLogin(new Date());
+
 		Datastore.put(user);
 		return collectUserInfo(user);
 	}
@@ -101,7 +102,7 @@ public class UserLogic  {
 	public String checkUser(Map map) throws Exception {
 		Params params = new Params(map);
 		long userId = params.toLong("userId");
-		String gname = params.toString("googleUser");
+		String gname = correctGmail(params.toString("googleUser"));
 		String tname = params.toString("twitterUser");
 
 		if (gname != null && gname.length()>0 ) {
@@ -121,12 +122,20 @@ public class UserLogic  {
 		return null;
 	}
 
+	private String correctGmail(String gname) {
+		if (gname == null || gname.length()==0) return gname;
+		if (gname.indexOf('@')>=0) return gname;
+		return gname + "@gmail.com";
+	}
+	
 	public UserModel writeUser(Map map) throws Exception {
 		Params params = new Params(map);
 		Long id = params.toLong("userId");
 
+		String gname = correctGmail(params.toString("googleUser"));
+		
 		UserModel user =  getUserModel(id);
-		user.setGoogleUser(params.toString("googleUser"));
+		user.setGoogleUser(gname);
 		user.setTwitterUser(params.toString("twitterUser"));
 		user.setNickname(params.toString("nickname"));
 		user.setUpdateDate(new Date());
@@ -193,6 +202,34 @@ public class UserLogic  {
 			System.out.println(seri.getString(model, "utf-8"));
 			Datastore.put(model);
 		}
+	}
+
+
+	public UserModel getTwitterUserTmp(String name) throws TwitterException {
+		twitter4j.User tuser = env.twitterLogic.getTwitterUser();
+		
+		UserModel user = new UserModel();
+		user.setTwitterUser(name);
+		user.setNickname(tuser.getName());
+		user.setProvider(env.TWITTER);
+		user.setPhotoUrl(tuser.getProfileImageURL().toExternalForm());
+		user.setCreateDate(new Date());
+		user.setUpdateDate(new Date());
+		user.setAutoTwit(true);
+		user.setTemporal(true);
+		return collectUserInfo(user);
+	}
+
+
+	public UserModel getGoogleUserTmp(String name) {
+		UserModel user = new UserModel();
+		user.setGoogleUser(name);
+		user.setNickname(name.replaceFirst("@.*$", ""));
+		user.setProvider(env.GOOGLE);
+		user.setCreateDate(new Date());
+		user.setUpdateDate(new Date());
+		user.setTemporal(true);
+		return collectUserInfo(user);
 	}
 
 	
