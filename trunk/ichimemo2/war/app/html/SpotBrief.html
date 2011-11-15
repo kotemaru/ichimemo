@@ -28,10 +28,10 @@
 			<div>夜: <span eval-text="(that.data('timeDinnerMin'))"></span>〜<span eval-text="(that.data('timeDinnerMax'))"></span></div>
 			<div>休: <span eval-text="(that.data('closedDays'))"></span></div>
 			<div>備考: <span eval-text="(that.data('openHours'))"></span>
-				<span eval-html="(url2link(that.data('comment')))"></span>
+				<span eval-html="(text2html(that.data('comment')))"></span>
 				<span eval-html="(that.placeUrl())"></span>
 			</div>
-			<div>メモ: <span eval-text="(that.data('myMemo'))"></span></div>
+			<div>メモ: <span eval-html="(text2html(that.data('myMemo')))"></span></div>
 			<div style="height:4px;" ></div>
 			<div>(<font color="red">※</font>未登録項目への<a class="Edit" href="#">記入</a>に御協力下さい。)</div>
 			<div id="(data.placeId)" align="right"><img src='/images/powered-by-google.png' /></div>

@@ -9,6 +9,8 @@ var Top = Page.def(function Top(){}, function(Class){
 	Class.goMain = function(user) {
 		if (user == null) {
 			Class.changePage("#Login");
+		} else if (user.temporal) {
+			Class.changePage("#UserReg");
 		} else {
 			Class.changePage(Map.ID);
 		}

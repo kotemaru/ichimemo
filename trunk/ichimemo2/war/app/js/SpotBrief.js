@@ -1,7 +1,6 @@
 Module.def(window, function SpotBrief(){}, function(Class){
 	var Instance = Class.prototype;
 
-	var URL_PATT = /(https?|ftp)(:\/\/[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)/g;
 
 	Class.TEMPL = $("#spotBrief").html();
 
@@ -34,9 +33,8 @@ Module.def(window, function SpotBrief(){}, function(Class){
 		return Math.floor(val*10)/10
 	}
 
-	function url2link(text) {
-		if (text == null) return "";
-		return text.replace(URL_PATT,"<a target='_blank' href='$1$2'>$1$2</a>");
+	function text2html(text) {
+		return Util.text2html(text);
 	}
 
 	Instance.titleHtml = function() {
@@ -45,7 +43,7 @@ Module.def(window, function SpotBrief(){}, function(Class){
 		if (data.url != null && data.url != "") {
 			return "<a target='_blank' href='"+data.url+"'>"+data.name+"</a>";
 		}
-		return  data.name;
+		return Util.text2html(data.name);
 	}
 
 	Instance.faceMarkImg = function() {

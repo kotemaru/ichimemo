@@ -1,0 +1,40 @@
+<div id="UserReg" data-role="page">
+	<div data-role="header" data-position="fixed">
+		<h1>ユーザ登録</h1>
+	</div>
+	<div data-role="content">
+
+		<div class="Small">
+		本サイトはいずれかのアカウントでご利用になれますが全ての機能をご利用の場合は両方必要となります。
+		</div>
+		
+		<div class="TagHeader"><span>Twitterアカウント</span></div>
+		<div class="FullSizeInput">
+			<input class="twitterUser" type="text" eval-value="(Login.user.twitterUser)"/>
+		</div>
+		<div class="Small">※Twitterへ自動でつぶやく場合は必須です。</div>
+
+		<div class="TagHeader"><span>Googleアカウント</span></div>
+		<div class="FullSizeInput">
+			<input class="googleUser" type="text" eval-value="(Login.user.googleUser)"/>
+		</div>
+		<div class="Small">※画像(Picasa)ご利用の場合に必須です。</div>
+
+		<div class="TagHeader"><span>ニックネーム</span></div>
+		<div class="FullSizeInput">
+			<input class="nickname" type="text" eval-value="(Login.user.nickname)"/>
+		</div>
+
+		<br/>
+		<div>
+			<input class="accede" data-role="checkbox" type="checkbox" value="true">
+			<label><a href="">利用規約</a>に同意する。</label>
+		</div>
+
+		<hr clear="all"/>
+		<a data-role="button" data-icon="submit" data-iconpos="right"
+				href="javascript:UserReg.write()">登録</a>
+		<a data-role="button" data-icon="delete" data-iconpos="right"
+				href="javascript:Login.logout()">ログアウト</a>
+	</div>
+</div>

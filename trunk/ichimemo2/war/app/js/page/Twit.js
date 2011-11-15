@@ -34,7 +34,7 @@ Page.def(function Twit(){}, function closure(Class){
 	
 		var $page = $(Class.PAGE);
 	
-		$page.find(".Comment").text(data.comment);
+		$page.find(".Comment").html(Util.text2html(data.comment));
 	
 		Util.setNavbar(Class.PAGE);
 	}

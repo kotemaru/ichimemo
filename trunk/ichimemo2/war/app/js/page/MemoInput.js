@@ -48,6 +48,7 @@ Page.def(function MemoInput(){}, function(Class){
 
 		var id = Kokorahen.writeMemo(params);
 		alert("memo id="+id);
+		SpotTL.go(Class.spotId);
 	}
 
 });

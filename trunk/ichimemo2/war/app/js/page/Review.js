@@ -73,7 +73,7 @@ Page.def(function Review(){}, function closure(Class){
 		$page.find(".ThumbnailL").attr("src", Util.correctImg(data.photoUrl));
 		$page.find(".FaceMark").attr("src", "/images/face-"+appraise+".png");
 		$page.find(".FaceMarkText").text(faceMarkText[appraise]);
-		$page.find(".Comment").text(data.comment);
+		$page.find(".Comment").html(Util.text2html(data.comment));
 	
 		Util.setNavbar(Class.PAGE);
 	}
@@ -112,16 +112,20 @@ Page.def(function Review(){}, function closure(Class){
 		;
 	
 		html = html.replace(/[$][{]id[}]/g, data.id)
-			.replace(/[$][{]photo[}]/g, photo)
+			.replace(/[$][{]photo[}]/g, esc(photo))
 			.replace(/[$][{]appraise[}]/g, appraise)
 			.replace(/[$][{]faceMark[}]/g, faceMark)
 			.replace(/[$][{]mySpotMark[}]/g, mySpotMark)
-			.replace(/[$][{]nickname[}]/g, data.nickname)
-			.replace(/[$][{]spotname[}]/g, data.spotName)
-			.replace(/[$][{]comment[}]/g, data.comment);
+			.replace(/[$][{]nickname[}]/g, esc(data.nickname))
+			.replace(/[$][{]spotname[}]/g, esc(data.spotName))
+			.replace(/[$][{]comment[}]/g, esc(data.comment));
 		return html;
 	}
-	
+	function esc(text){
+		if (text == null) return "";
+		return text.replace(/[&]/g, "&amp;").replace(/</g, "&lt;");
+	}
+
 	Class.moreUser = function() {
 		UserTL.go(current.review.userId);
 	}

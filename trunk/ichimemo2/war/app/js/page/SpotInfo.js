@@ -190,7 +190,7 @@ try {
 					: "?"
 			);
 try {
-				$page.find(".closed").attr("checked",sd.closed).checkbox("refresh");
+				$page.find(".closed").attr("checked",sd.closed).checkboxradio("refresh");
 
 } catch (e) {
 	
@@ -299,7 +299,8 @@ try {
 		var id = Kokorahen.writeSpot(params);
 		alert("登録しました。("+id+")");
 		Spot.clearCache();
-		List.go();
+		//List.go();
+		SpotTL.go(id);
 	}
 	Class.merge = function(){
 		MergeSpot.go(Class.current);
