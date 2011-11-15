@@ -39,8 +39,6 @@ Page.def(function UserConf(){}, function(Class){
 		}
 		Login.user.photoUrl = photo;
 		
-		var isOK = writeUser();
-
 		function isChangeLogin(name) {
 			if (Login.user.provider=="google") {
 				return (Login.user.googleUser != name);
@@ -49,10 +47,11 @@ Page.def(function UserConf(){}, function(Class){
 			}
 		}
 		if (isChangeLogin(loginName)) {
-			alert("ログイン中のアカウントが変更されました。ログアウトします。");
-			Login.logout();
+			alert("ログイン中のアカウントは変更できません。");
+			Login.refresh();
 			return;
 		}
+		var isOK = writeUser();
 		if (isOK) User.go();
 	}
 	Class.remove = function() {
