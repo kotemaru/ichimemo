@@ -193,6 +193,7 @@ Module.def(window, function Util(){}, function(Class) {
 		});
 		$(base).find("*[eval-value]").each(function(){
 			var $e = $(this);
+			//console.log($e.attr('eval-value')+"="+localEval($e.attr('eval-value')));
 			$e.val(localEval($e.attr('eval-value')));
 		});
 		$(base).find("*[eval-text]").each(function(){
@@ -226,7 +227,13 @@ Module.def(window, function Util(){}, function(Class) {
 	Class.goExt = function (url) {
 		location = url;
 	}
-
+	
+	var URL_PATT = /(https?|ftp)(:\/\/[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)/g;
+	Class.text2html = function(text) {
+		if (text == null) return "";
+		text = text.replace(/[&]/g,"&amp;").replace(/</g,"&lt;");
+		return text.replace(URL_PATT,"<a target='_blank' href='$1$2'>$1$2</a>");
+	}
 
 
 });

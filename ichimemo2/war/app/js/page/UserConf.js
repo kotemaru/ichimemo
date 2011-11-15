@@ -22,6 +22,10 @@ Page.def(function UserConf(){}, function(Class){
 	
 	
 	Class.write = function() {
+		var loginName = (Login.user.provider=="google")
+			? Login.user.googleUser
+			: Login.user.twitterUser;
+
 		var form = document.userConf;
 		Login.user.googleUser = form.googleUser.value;
 		Login.user.twitterUser = form.twitterUser.value;
@@ -35,7 +39,20 @@ Page.def(function UserConf(){}, function(Class){
 		}
 		Login.user.photoUrl = photo;
 		
-		writeUser();
+		var isOK = writeUser();
+
+		function isChangeLogin(name) {
+			if (Login.user.provider=="google") {
+				return (Login.user.googleUser != name);
+			} else {
+				return (Login.user.twitterUser != name);
+			}
+		}
+		if (isChangeLogin(loginName)) {
+			alert("ログイン中のアカウントが変更されました。ログアウトします。");
+			Login.logout();
+		}
+		if (isOK) User.go();
 	}
 	Class.remove = function() {
 		var msg = "ユーザ("
@@ -56,8 +73,10 @@ Page.def(function UserConf(){}, function(Class){
 		var msg = Kokorahen.writeUser(Login.user);
 		if (msg != null) {
 			alert(msg);
+			return false;
 		}
 		Login.refresh();
+		return true;
 	}
 	
 	Class.getThumbnailImg = function () {

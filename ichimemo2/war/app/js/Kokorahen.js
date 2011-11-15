@@ -16,6 +16,12 @@ Kokorahen.checkin = function(spotId,lat,lng){
 Kokorahen.checkinAsync = function(_callback ,spotId,lat,lng){
 	return JSRPC.callAsync(Kokorahen.__URL, "checkin", arguments);
 }
+Kokorahen.createUser = function(){
+	return JSRPC.call(Kokorahen.__URL, "createUser", arguments);
+}
+Kokorahen.createUserAsync = function(_callback ){
+	return JSRPC.callAsync(Kokorahen.__URL, "createUser", arguments);
+}
 Kokorahen.deleteDummyData = function(){
 	return JSRPC.call(Kokorahen.__URL, "deleteDummyData", arguments);
 }
@@ -159,12 +165,6 @@ Kokorahen.login = function(provider,top){
 }
 Kokorahen.loginAsync = function(_callback ,provider,top){
 	return JSRPC.callAsync(Kokorahen.__URL, "login", arguments);
-}
-Kokorahen.loginGoogle = function(url){
-	return JSRPC.call(Kokorahen.__URL, "loginGoogle", arguments);
-}
-Kokorahen.loginGoogleAsync = function(_callback ,url){
-	return JSRPC.callAsync(Kokorahen.__URL, "loginGoogle", arguments);
 }
 Kokorahen.logout = function(provider){
 	return JSRPC.call(Kokorahen.__URL, "logout", arguments);

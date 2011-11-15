@@ -28,4 +28,5 @@ app/html/page/ExistSpot.html
 app/html/page/MapDialog.html
 app/html/page/MergeSpot.html
 app/html/SpotBrief.html
+app/html/page/UserReg.html
 app/html/index-f.html

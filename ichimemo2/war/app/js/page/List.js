@@ -129,15 +129,19 @@ Page.def(function List(){}, function(Class){
 		var star = data.checked ? "/images/star.png" : "/images/flag-16.png";
 		var html = listItem
 		.replace(/[$][{]id[}]/g, data.id)
-		.replace(/[$][{]photo[}]/g, photo)
-		.replace(/[$][{]name[}]/g, data.name)
-		.replace(/[$][{]address[}]/g, data.address)
+		.replace(/[$][{]photo[}]/g, esc(photo))
+		.replace(/[$][{]name[}]/g, esc(data.name))
+		.replace(/[$][{]address[}]/g, esc(data.address))
 		.replace(/[$][{]appraise[}]/g, appraise)
 		.replace(/[$][{]distance[}]/g, Math.floor(spot._distance))
 		.replace(/[$][{]MySpotMark[}]/g, (data.mySpot ? "MySpotMark":"Hide"))
 		.replace(/[$][{]mySpotMark[}]/g, star)
 		;
 		return html;
+	}
+	function esc(text){
+		if (text == null) return "";
+		return text.replace(/[&]/g, "&amp;").replace(/</g, "&lt;");
 	}
 	
 	Class.onItemClick = function(id) {
