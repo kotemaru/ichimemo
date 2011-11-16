@@ -347,6 +347,7 @@ public class ReviewLogic  {
 		// no genre filter
 		q.filter(e.userId.equal(userId));
 		q.filter(e.spotId.equal(spotId));
+		q.filter(e.checked.equal(false));
 		Iterator<ReviewModel> ite = q.asIterator();
 		if (ite.hasNext()) {
 			return ite.next();

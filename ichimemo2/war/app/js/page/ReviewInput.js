@@ -34,7 +34,7 @@ var ReviewInput = Page.def(function ReviewInput(){}, function(Class){
 				current.review = {
 					id: null, spotId: spotId, appraise: 3, comment: "",
 					nickname: Login.user.nickname, isNewReview:true,
-					photoUrl: "/images/noimage.gif"
+					photoUrl: "/images/noimage.png"
 				};
 			} else {
 				current.review = Review.getReview(id);
@@ -49,16 +49,17 @@ var ReviewInput = Page.def(function ReviewInput(){}, function(Class){
 				current.review = {
 					id: null, spotId: spotId, appraise: 3, comment: "",
 					nickname: Login.user.nickname, isNewReview:true,
-					photoUrl: "/images/noimage.gif"
+					photoUrl: "/images/noimage.png"
 				};
 			}
 		}
 		
 		Class.onFaceClick(current.review.appraise);
-		$page.find(".ReviewPhoto")
-			.attr("src", Util.correctImg(current.review.photoUrl));
+		
+		var img = current.review.photoUrl;
+		if (img == null) img = "/images/noimage.png";
+		$page.find(".ReviewPhoto").attr("src", img);
 		$page.find(".Comment").val(current.review.comment);
-				
 		Util.changePage(Class.ID);
 	}
 	
